@@ -1,0 +1,400 @@
+{
+  "meta": {
+    "updated": "2026-09-18",
+    "note": "校准基准库。字段单位：s=秒，s_per_it=采样每步耗时，sample_s=纯采样段耗时，e2e_s=端到端。exclude_from_fit=true 表示只展示不参与回归（数据中心/形状未知/无时间数据）。",
+    "token_formula": "S = ceil(W/32)*ceil(H/32)*((frames-1)//4+1) + 40*round(frames/24) + 400",
+    "flops_formula": "FLOPs/step = 38.5e9*S + 1.434e6*S^2"
+  },
+  "benchmarks": [
+    {
+      "id": "local-5090-1344x768x73-lx2v8-int8-sage",
+      "gpu_id": "rtx-5090-32g",
+      "source": "本机 ComfyUI 日志 comfyui.log 2026-09-09 14:49（作者机器）",
+      "date": "2026-09-09",
+      "shape": { "width": 1344, "height": 768, "frames": 73, "fps": 24 },
+      "config": {
+        "dit": "dit-fl2va-pruned-int8",
+        "te": "te-nvfp4-awq",
+        "lora": "lora-lightx2v-8step-kijai",
+        "steps": 8,
+        "attn": "sage",
+        "flags": ["--fast", "--use-sage-attention"]
+      },
+      "system": { "ram_gb": 64, "ram_type": "DDR5-6000", "comfyui": "0.34.0", "torch": "2.13.0+cu130" },
+      "metrics": {
+        "s_per_it": 5.45,
+        "sample_s": 43.6,
+        "e2e_s": 80.3,
+        "vram_staged_gb": { "te": 14.6, "dit": 19.5, "video_vae": 4.85, "audio_vae": 0.56 },
+        "pinned_ram_gb": 24.6
+      },
+      "pipeline_breakdown_s": {
+        "te_load_and_encode": 11.0,
+        "sampling": 43.6,
+        "vae_decode_and_save": 17.1
+      },
+      "confidence": "high",
+      "notes": "MP4 元数据记录 steps=4（工作流残留），但日志明确 8/8 步 5.45s/it，以日志为准。视频文件 output/video/MiniMax_H3_00001_.mp4"
+    },
+    {
+      "id": "matsuo-5090-1280x704x121-base20",
+      "gpu_id": "rtx-5090-32g",
+      "source": "matsuo-koya/minimax-h3-notes",
+      "date": "2026-09-05",
+      "shape": { "width": 1280, "height": 704, "frames": 121, "fps": 24 },
+      "config": { "dit": "dit-fl2va-int8", "steps": 20, "attn": "plain", "lora": null },
+      "metrics": { "s_per_it": 13.5, "sample_s": 270, "e2e_s": null },
+      "confidence": "medium",
+      "notes": "外推值（原文 ~270s）"
+    },
+    {
+      "id": "matsuo-5090-1280x704x121-turbo8",
+      "gpu_id": "rtx-5090-32g",
+      "source": "matsuo-koya/minimax-h3-notes",
+      "date": "2026-09-05",
+      "shape": { "width": 1280, "height": 704, "frames": 121, "fps": 24 },
+      "config": { "dit": "dit-fl2va-int8", "steps": 8, "attn": "plain", "lora": "lora-lightx2v-8step-v10" },
+      "metrics": { "s_per_it": 15.6, "sample_s": 125, "e2e_s": null },
+      "confidence": "medium",
+      "notes": "注意：8 步档单步耗时高于 20 步档（LoRA patch 开销/调度差异），说明 per-step 时间不能简单按步数外推"
+    },
+    {
+      "id": "matsuo-5090-1280x704x121-turbo8-int8attn",
+      "gpu_id": "rtx-5090-32g",
+      "source": "matsuo-koya/minimax-h3-notes",
+      "date": "2026-09-05",
+      "shape": { "width": 1280, "height": 704, "frames": 121, "fps": 24 },
+      "config": { "dit": "dit-fl2va-int8", "steps": 8, "attn": "ck-attention", "lora": "lora-lightx2v-8step-v10" },
+      "metrics": { "s_per_it": 9.9, "sample_s": 79, "e2e_s": null },
+      "confidence": "medium"
+    },
+    {
+      "id": "matsuo-5090-1280x704x182-turbo8",
+      "gpu_id": "rtx-5090-32g",
+      "source": "matsuo-koya/minimax-h3-notes",
+      "date": "2026-09-05",
+      "shape": { "width": 1280, "height": 704, "frames": 182, "fps": 24 },
+      "config": { "dit": "dit-fl2va-int8", "steps": 8, "attn": "plain", "lora": "lora-lightx2v-8step-v10" },
+      "metrics": { "s_per_it": 28.1, "sample_s": 225, "e2e_s": null },
+      "confidence": "medium"
+    },
+    {
+      "id": "matsuo-5090-1280x704x182-fasth3",
+      "gpu_id": "rtx-5090-32g",
+      "source": "matsuo-koya/minimax-h3-notes",
+      "date": "2026-09-05",
+      "shape": { "width": 1280, "height": 704, "frames": 182, "fps": 24 },
+      "config": { "dit": "dit-fl2va-int8", "steps": 4, "attn": "plain", "lora": "lora-fasth3-4step" },
+      "metrics": { "s_per_it": 29.5, "sample_s": 118, "e2e_s": null },
+      "confidence": "medium",
+      "notes": "相对同形状 turbo8 为 1.87x（118/225）"
+    },
+    {
+      "id": "pepikir-3090-864x480x124-base20-nosage",
+      "gpu_id": "rtx-3090-24g",
+      "source": "pepikir/minimax-h3-speedup",
+      "date": "2026-08-11",
+      "shape": { "width": 864, "height": 480, "frames": 124, "fps": 24 },
+      "config": { "dit": "dit-fl2va-pruned-int8", "steps": 20, "attn": "plain", "lora": null },
+      "metrics": { "s_per_it": 9.0, "sample_s": 180, "e2e_s": null },
+      "confidence": "high"
+    },
+    {
+      "id": "pepikir-3090-864x480x124-base20-sage",
+      "gpu_id": "rtx-3090-24g",
+      "source": "pepikir/minimax-h3-speedup",
+      "date": "2026-08-11",
+      "shape": { "width": 864, "height": 480, "frames": 124, "fps": 24 },
+      "config": { "dit": "dit-fl2va-pruned-int8", "steps": 20, "attn": "sage", "lora": null },
+      "metrics": { "s_per_it": 6.57, "sample_s": 131.4, "e2e_s": null },
+      "confidence": "high",
+      "notes": "sm_86 + sageattention 1.0.6 Triton 内核，无噪声；PSNR 30.3-32 dB"
+    },
+    {
+      "id": "sepiablue-4070-576x832x124-base20",
+      "gpu_id": "rtx-4070-12g",
+      "source": "sepiablue-ai/minimax-h3-turbo-lora-benchmark（转引）",
+      "date": "2026-08-09",
+      "shape": { "width": 576, "height": 832, "frames": 124, "fps": 24 },
+      "config": { "dit": "dit-fl2va-int8", "steps": 20, "attn": "plain", "lora": null },
+      "metrics": { "s_per_it": 13.65, "sample_s": 272.97, "e2e_s": null, "vram_peak_gb": 10.66 },
+      "confidence": "high",
+      "notes": "所有配置峰值显存一致（~10.66GiB），体现 DynamicVRAM 封顶行为"
+    },
+    {
+      "id": "sepiablue-4070-576x832x124-larry8",
+      "gpu_id": "rtx-4070-12g",
+      "source": "sepiablue-ai benchmark（转引）",
+      "date": "2026-08-09",
+      "shape": { "width": 576, "height": 832, "frames": 124, "fps": 24 },
+      "config": { "dit": "dit-fl2va-int8", "steps": 8, "attn": "plain", "lora": "lora-larry-v4" },
+      "metrics": { "s_per_it": 16.29, "sample_s": 130.3, "e2e_s": null, "vram_peak_gb": 10.66 },
+      "confidence": "high"
+    },
+    {
+      "id": "sepiablue-4070-576x832x124-lx2v8",
+      "gpu_id": "rtx-4070-12g",
+      "source": "sepiablue-ai benchmark（转引）",
+      "date": "2026-08-09",
+      "shape": { "width": 576, "height": 832, "frames": 124, "fps": 24 },
+      "config": { "dit": "dit-fl2va-int8", "steps": 8, "attn": "plain", "lora": "lora-lightx2v-8step-v10" },
+      "metrics": { "s_per_it": 16.38, "sample_s": 131.02, "e2e_s": null, "vram_peak_gb": 10.6 },
+      "confidence": "high"
+    },
+    {
+      "id": "sepiablue-4070-576x832x124-lx2v4",
+      "gpu_id": "rtx-4070-12g",
+      "source": "sepiablue-ai benchmark（转引）",
+      "date": "2026-08-09",
+      "shape": { "width": 576, "height": 832, "frames": 124, "fps": 24 },
+      "config": { "dit": "dit-fl2va-int8", "steps": 4, "attn": "plain", "lora": "lora-lightx2v-4step-v11" },
+      "metrics": { "s_per_it": 19.84, "sample_s": 79.36, "e2e_s": null, "vram_peak_gb": 10.66 },
+      "confidence": "high",
+      "notes": "3.44x vs 基线"
+    },
+    {
+      "id": "guide-3060-1280x736x121-base20",
+      "gpu_id": "rtx-3060-12g",
+      "source": "shiqikuangsan31/MiniMax-H3-12GB-ComfyUI-Guide（awesome 列表转引）",
+      "date": "2026-08",
+      "shape": { "width": 1280, "height": 736, "frames": 121, "fps": 24 },
+      "config": { "dit": "dit-fl2va-pruned-int8", "te": "te-nvfp4-awq", "steps": 20, "attn": "plain", "flags": ["--lowvram", "--disable-mmap"] },
+      "system": { "ram_gb": 32 },
+      "metrics": { "s_per_it": 50.3, "sample_s": 1006, "e2e_s": null },
+      "confidence": "medium",
+      "notes": "原文按 5s 段 1006s；32GB 内存下 21GB 权重逐步搬运是瓶颈（64GB 为根治方案）"
+    },
+    {
+      "id": "guide-3060-1280x736x121-turbo4-easycache",
+      "gpu_id": "rtx-3060-12g",
+      "source": "shiqikuangsan31 指南（转引）",
+      "date": "2026-08",
+      "shape": { "width": 1280, "height": 736, "frames": 121, "fps": 24 },
+      "config": { "dit": "dit-fl2va-pruned-int8", "steps": 4, "attn": "plain", "lora": "lora-lightx2v-4step-v11", "cache": "easycache" },
+      "system": { "ram_gb": 32 },
+      "metrics": { "s_per_it": 105, "sample_s": 420, "e2e_s": null },
+      "confidence": "medium",
+      "exclude_from_fit": true,
+      "notes": "easycache + 32GB 内存卸载的病态组合（不在本站默认建模范围内），仅作参考不做系数回归"
+    },
+    {
+      "id": "juejin-8gb-736x416x121-lx4-16gram",
+      "gpu_id": "rtx-4060-8g",
+      "source": "juejin.cn 8GB 显存 6 款 LoRA 横评",
+      "date": "2026-08-09",
+      "shape": { "width": 736, "height": 416, "frames": 121, "fps": 24 },
+      "config": { "dit": "dit-fl2va-int8", "steps": 4, "attn": "sage-kj", "lora": "lora-larry-v1-4step" },
+      "system": { "ram_gb": 16, "pagefile_gb": 46, "storage": "NVMe" },
+      "metrics": { "sample_s": null, "e2e_s": 389 },
+      "confidence": "medium",
+      "notes": "代表性小内存+大页文件案例：显存 8GB、内存 16GB、页文件 46GB，可跑但慢；10s 档 768s；15s 档全方案失败"
+    },
+    {
+      "id": "juejin-8gb-736x416x241-lx4-te-16gram",
+      "gpu_id": "rtx-4060-8g",
+      "source": "juejin.cn 8GB 横评",
+      "date": "2026-08-09",
+      "shape": { "width": 736, "height": 416, "frames": 241, "fps": 24 },
+      "config": { "dit": "dit-fl2va-int8", "steps": 4, "attn": "sage-kj", "lora": "lora-lightx2v-4step-v11", "cache": "te-speed" },
+      "system": { "ram_gb": 16, "pagefile_gb": 46, "storage": "NVMe" },
+      "metrics": { "e2e_s": 768 },
+      "confidence": "medium",
+      "notes": "10s 视频；长度为 5s 的约 2 倍，耗时也接近 2 倍（token 线性区）"
+    },
+    {
+      "id": "tomiigo-5070ti-1344x768x121-vram-profile",
+      "gpu_id": "rtx-5070ti-16g",
+      "source": "HF 讨论 Comfy-Org/MiniMax-H3#6 + Tomiigo/minimax-h3-16gb",
+      "date": "2026-08-06",
+      "shape": { "width": 1344, "height": 768, "frames": 121, "fps": 24 },
+      "config": { "dit": "dit-fl2va-pruned-int8", "te": "te-nvfp4-awq" },
+      "system": { "ram_gb": 125 },
+      "metrics": { "vram_peak_gb": 14.1, "ram_peak_gb_default": 51.0, "ram_peak_gb_fastdisk": 17.7, "page_cache_gb_fastdisk": 41.5 },
+      "confidence": "high",
+      "exclude_from_fit": true,
+      "notes": "DynamicVRAM 将峰值压在 ~14.4GiB；RAM 峰值：默认 51.0GiB / --fast-disk 17.7GiB。ComfyUI 不释放 TE 宿主副本"
+    },
+    {
+      "id": "tomiigo-5070ti-640x480x721-vram-profile",
+      "gpu_id": "rtx-5070ti-16g",
+      "source": "HF 讨论 #6",
+      "date": "2026-08-06",
+      "shape": { "width": 640, "height": 480, "frames": 721, "fps": 24 },
+      "config": { "dit": "dit-fl2va-pruned-int8", "te": "te-nvfp4-awq" },
+      "metrics": { "vram_peak_gb": 13.9 },
+      "confidence": "high",
+      "exclude_from_fit": true,
+      "notes": "30s 视频峰值与 5s 接近 → 显存峰值主要由权重与固定缓冲决定，token 只影响时间"
+    },
+    {
+      "id": "pepikir-24gb-32gram-864x480x124-stage-breakdown",
+      "gpu_id": "rtx-4090-24g",
+      "source": "pepikir/minimax-h3-speedup",
+      "date": "2026-08-11",
+      "shape": { "width": 864, "height": 480, "frames": 124, "fps": 24 },
+      "config": { "dit": "dit-fl2va-pruned-int8", "te": "te-nvfp4-awq", "steps": 20, "flags": ["--cache-none"] },
+      "system": { "ram_gb": 32 },
+      "metrics": {
+        "stage_s": { "te_load": 121, "te_encode": 206, "dit_load": 226, "sampling": 199, "vae_decode": 123, "misc": 75 },
+        "e2e_s": 950
+      },
+      "confidence": "high",
+      "exclude_from_fit": true,
+      "notes": "32GB 内存 + --cache-none 的完整分解；缓存修正后同提示词增量 seed 950s→96s。反证：80% 墙钟不在采样"
+    },
+    {
+      "id": "aimuninn-5090-1344x768x361-config-stack",
+      "gpu_id": "rtx-5090-32g",
+      "source": "ai-muninn.com MiniMax-H3 RTX5090 config stack",
+      "date": "2026-09",
+      "shape": { "width": 1344, "height": 768, "frames": 361, "fps": 24 },
+      "config": { "dit": "dit-fl2va-pruned-int8", "attn": "plain", "cache": "chunking+cu130+nvfp4 kernels" },
+      "metrics": { "e2e_s": 518 },
+      "confidence": "low",
+      "exclude_from_fit": true,
+      "notes": "15s 视频 518s；步数未注明（推测 4 步档）"
+    },
+    {
+      "id": "fastvideo-b300-1344x768x243-fasth3",
+      "gpu_id": null,
+      "source": "vLLM 博客 FastH3（8x B300）",
+      "date": "2026-09-01",
+      "shape": { "width": 1344, "height": 768, "frames": 243, "fps": 24 },
+      "config": { "steps": 4, "lora": "lora-fasth3-4step" },
+      "metrics": { "e2e_s": 8.7 },
+      "confidence": "high",
+      "exclude_from_fit": true,
+      "notes": "数据中心 8 卡实时生成（10.125s 视频 8.7s 出片）；消费级不可比，仅作上限参考"
+    },
+    {
+      "id": "desktop4070-5070ti-736x416x121-larry8",
+      "gpu_id": "rtx-5070ti-16g",
+      "source": "desktop4070/GPU-Benchmark-Data-For-H3（5070 Ti + 64GB DDR5，Kitchen 注意力 + larryv4 8步）",
+      "date": "2026-09",
+      "shape": { "width": 736, "height": 416, "frames": 121, "fps": 24 },
+      "config": { "dit": "dit-fl2va-pruned-int8", "te": "te-int8", "lora": "lora-larry-v4", "steps": 8, "attn": "kitchen" },
+      "system": { "ram_gb": 64, "ram_type": "DDR5-5400", "pagefile_gb": 65536 },
+      "metrics": { "s_per_it": 1.94, "e2e_s": 39 },
+      "confidence": "medium",
+      "notes": "由 e2e 39s 扣除 VAE(≈18.5s)、固定开销约 5s 后 /8 步推得；原矩阵 165 条实测之一"
+    },
+    {
+      "id": "desktop4070-5070ti-960x544x121-larry8",
+      "gpu_id": "rtx-5070ti-16g",
+      "source": "desktop4070 矩阵",
+      "date": "2026-09",
+      "shape": { "width": 960, "height": 544, "frames": 121, "fps": 24 },
+      "config": { "dit": "dit-fl2va-pruned-int8", "te": "te-int8", "lora": "lora-larry-v4", "steps": 8, "attn": "kitchen" },
+      "system": { "ram_gb": 64 },
+      "metrics": { "s_per_it": 4.17, "e2e_s": 70 },
+      "confidence": "medium",
+      "notes": "e2e 70s 扣 VAE ≈31.6s 与开销后推得"
+    },
+    {
+      "id": "desktop4070-5070ti-1344x768x121-larry8",
+      "gpu_id": "rtx-5070ti-16g",
+      "source": "desktop4070 矩阵",
+      "date": "2026-09",
+      "shape": { "width": 1344, "height": 768, "frames": 121, "fps": 24 },
+      "config": { "dit": "dit-fl2va-pruned-int8", "te": "te-int8", "lora": "lora-larry-v4", "steps": 8, "attn": "kitchen" },
+      "system": { "ram_gb": 64 },
+      "metrics": { "s_per_it": 13.6, "e2e_s": 176 },
+      "confidence": "medium"
+    },
+    {
+      "id": "desktop4070-5070ti-1280x736x361-larry8",
+      "gpu_id": "rtx-5070ti-16g",
+      "source": "desktop4070 矩阵",
+      "date": "2026-09",
+      "shape": { "width": 1280, "height": 736, "frames": 361, "fps": 24 },
+      "config": { "dit": "dit-fl2va-pruned-int8", "te": "te-int8", "lora": "lora-larry-v4", "steps": 8, "attn": "kitchen" },
+      "system": { "ram_gb": 64 },
+      "metrics": { "s_per_it": 62.9, "e2e_s": 683 },
+      "confidence": "medium",
+      "notes": "15s 长片段，二次项主导；e2e 683s 扣 VAE ≈170s 后推得"
+    },
+    {
+      "id": "jonike-5080-960x544x124-base20-plain",
+      "gpu_id": "rtx-5080-16g",
+      "source": "jo-nike/h3-turbo-eval（RTX 5080 16G，10 场景均值）",
+      "date": "2026-08-06",
+      "shape": { "width": 960, "height": 544, "frames": 124, "fps": 24 },
+      "config": { "dit": "dit-fl2va-pruned-int8", "steps": 20, "attn": "plain" },
+      "metrics": { "s_per_it": 7.56, "e2e_s": 166, "vram_peak_gb": 10.66 },
+      "confidence": "medium",
+      "notes": "由 base20(166s) 与 lx4(45s) 两条 e2e 联立解得单步 7.56s、固定开销约 14.8s/cfg"
+    },
+    {
+      "id": "jonike-5080-960x544x124-base20-sage",
+      "gpu_id": "rtx-5080-16g",
+      "source": "jo-nike/h3-turbo-eval",
+      "date": "2026-08-06",
+      "shape": { "width": 960, "height": 544, "frames": 124, "fps": 24 },
+      "config": { "dit": "dit-fl2va-pruned-int8", "steps": 20, "attn": "sage" },
+      "metrics": { "s_per_it": 4.16, "e2e_s": 98 },
+      "confidence": "medium",
+      "notes": "Sage 相对 plain 提速 1.8×（250 vs 138 TOPS），Blackwell 架构下限证据之一"
+    },
+    {
+      "id": "tonyd2wild-3090-832x480x362-disable-pinned",
+      "gpu_id": "rtx-3090-24g",
+      "source": "tonyd2wild/minimax-h3-local",
+      "date": "2026-08-04",
+      "shape": { "width": 832, "height": 480, "frames": 362, "fps": 24 },
+      "config": { "dit": "dit-fl2va-pruned-int8", "flags": ["--disable-pinned-memory", "--fp16-intermediates"] },
+      "system": { "ram_gb": 31 },
+      "metrics": { "e2e_s": 1397, "vram_peak_gb": 19.8 },
+      "confidence": "high",
+      "exclude_from_fit": true,
+      "notes": "15s 全片在 24GB 卡 + 31GB 内存上跑通（步数未注明）；默认参数会被 OOM-killer 杀死，--disable-pinned-memory 是关键"
+    },
+    {
+      "id": "bhengen-5090-1344x768x56-kitchen-eq-pytorch",
+      "gpu_id": "rtx-5090-32g",
+      "source": "HF 讨论 Comfy-Org/MiniMax-H3#26",
+      "date": "2026-08-05",
+      "shape": { "width": 1344, "height": 768, "frames": 56, "fps": 24 },
+      "config": { "dit": "dit-fl2va-pruned-int8", "te": "te-nvfp4-awq", "attn": "kitchen" },
+      "metrics": { "e2e_s": 16.17, "note_steps": "4步 turbo / 20步 均给出（16.17s vs 48.33s）" },
+      "confidence": "low",
+      "exclude_from_fit": true,
+      "notes": "该来源称 Kitchen 与 PyTorch 注意力在 H3 上无差异；两种步数的 e2e 无法与其它锚点自洽，仅记录"
+    },
+    {
+      "id": "zhihu-4090-1280x736x361-8min",
+      "gpu_id": "rtx-4090-24g",
+      "source": "知乎本地实测（4090 24G）",
+      "date": "2026-08-11",
+      "shape": { "width": 1280, "height": 736, "frames": 361, "fps": 24 },
+      "config": { "steps": null, "attn": "unknown" },
+      "metrics": { "e2e_s": 510 },
+      "confidence": "low",
+      "exclude_from_fit": true,
+      "notes": "720P 15 秒 8-9 分钟；步数未注明（若为 8 步则有效约 215 TOPS）"
+    },
+    {
+      "id": "instasd-5090-1344x768x241-kitchen-sla-8step",
+      "gpu_id": "rtx-5090-32g",
+      "source": "instasd.com 稀疏注意力实测汇总",
+      "date": "2026-08",
+      "shape": { "width": 1344, "height": 768, "frames": 241, "fps": 24 },
+      "config": { "steps": 8, "attn": "kitchen", "cache": "SLA 稀疏注意力 + 4步 LoRA" },
+      "metrics": { "e2e_s": 240 },
+      "confidence": "low",
+      "exclude_from_fit": true,
+      "notes": "10s 视频约 4 分钟（Kitchen+SLA+4步）→ 有效约 268 TOPS；SLA 属于额外加速方案，未纳入公式"
+    },
+    {
+      "id": "instasd-3060-736x416x61-sparse-stack",
+      "gpu_id": "rtx-3060-12g",
+      "source": "instasd.com（3060 用户自报）",
+      "date": "2026-08",
+      "shape": { "width": 736, "height": 416, "frames": 61, "fps": 24 },
+      "config": { "steps": 4, "attn": "plain", "cache": "SLA + sampling shift" },
+      "metrics": { "e2e_s": 89, "baseline_e2e_s": 367 },
+      "confidence": "low",
+      "exclude_from_fit": true,
+      "notes": "2.5s 片段：原生 6:07 → 全栈 1:29（4×）；稀疏注意力栈未纳入公式"
+    }
+  ]
+}

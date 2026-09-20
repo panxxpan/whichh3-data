@@ -1,0 +1,332 @@
+{
+  "meta": {
+    "updated": "2026-09-18",
+    "note": "所有数据来源（按主题分组）。新增数据时必须附来源与日期。"
+  },
+  "sources": [
+    {
+      "id": "comfyorg-blog",
+      "title": "MiniMax H3 Day-0 Support in ComfyUI (66% 内存压缩、3060 可跑)",
+      "url": "https://blog.comfy.org/p/minimax-h3-day-0-support-in-comfyui",
+      "date": "2026-08-03"
+    },
+    {
+      "id": "comfyorg-minimax",
+      "title": "MiniMax H3 on Comfy — Open-Weight Video Model",
+      "url": "https://comfy.org/minimax-h3",
+      "date": "2026-08"
+    },
+    {
+      "id": "comfyui-wiki-news",
+      "title": "MiniMax H3 开放权重正式发布（文件清单/量化选项）",
+      "url": "https://comfyui-wiki.com/zh/news/2026-08-03-minimax-h3-open-weights-comfyui",
+      "date": "2026-08-03"
+    },
+    {
+      "id": "comfyui-wiki-guide",
+      "title": "MiniMax H3 in ComfyUI: Complete Video Generation Guide",
+      "url": "https://comfyui-wiki.com/en/tutorial/advanced/video/minimax/minimax-h3",
+      "date": "2026-09-13"
+    },
+    {
+      "id": "comfy-docs-h3",
+      "title": "官方文档：MiniMax H3 Workflow Examples（Sage 推荐、turbo_mode）",
+      "url": "https://docs.comfy.org/tutorials/video/minimax/minimax-h3",
+      "date": "2026-08"
+    },
+    {
+      "id": "hf-comfyorg",
+      "title": "Comfy-Org/MiniMax-H3（重打包权重仓库）",
+      "url": "https://huggingface.co/Comfy-Org/MiniMax-H3",
+      "date": "2026-08"
+    },
+    {
+      "id": "hf-discussion-6",
+      "title": "HF 讨论 #6：16GB 卡 RAM/VRAM 实测（默认 51GiB / --fast-disk 17.7GiB）",
+      "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/discussions/6",
+      "date": "2026-08-05"
+    },
+    {
+      "id": "tomiigo-16gb",
+      "title": "Tomiigo/minimax-h3-16gb：sage 噪声 bug 与测量脚本",
+      "url": "https://github.com/Tomiigo/minimax-h3-16gb",
+      "date": "2026-08"
+    },
+    {
+      "id": "matsuo-speedups",
+      "title": "matsuo-koya/minimax-h3-notes：5090 加速实测（Turbo/FastH3/INT8 attention）",
+      "url": "https://github.com/matsuo-koya/minimax-h3-notes",
+      "date": "2026-09-05"
+    },
+    {
+      "id": "pepikir-speedup",
+      "title": "pepikir/minimax-h3-speedup：条件缓存 950s→96s；Sage/EasyCache 实测",
+      "url": "https://github.com/pepikir/minimax-h3-speedup",
+      "date": "2026-08-11"
+    },
+    {
+      "id": "sepiablue-bench",
+      "title": "sepiablue-ai/minimax-h3-turbo-lora-benchmark：4070 12GB 横评",
+      "url": "https://github.com/sepiablue-ai/minimax-h3-turbo-lora-benchmark",
+      "date": "2026-08-09"
+    },
+    {
+      "id": "guide-12gb",
+      "title": "shiqikuangsan31/MiniMax-H3-12GB-ComfyUI-Guide",
+      "url": "https://github.com/shiqikuangsan31/MiniMax-H3-12GB-ComfyUI-Guide",
+      "date": "2026-08"
+    },
+    {
+      "id": "juejin-8gb",
+      "title": "MiniMax H3 加速 LoRA 终极横评（8GB 显存/16GB 内存/46GB 页文件）",
+      "url": "https://juejin.cn/post/7671692631495344163",
+      "date": "2026-08-09"
+    },
+    {
+      "id": "jo-nike-eval",
+      "title": "jo-nike.github.io/h3-turbo-eval：RTX 5080 25 组配置横评",
+      "url": "https://jo-nike.github.io/h3-turbo-eval/",
+      "date": "2026-08-07"
+    },
+    {
+      "id": "aimuninn-5090",
+      "title": "ai-muninn.com：5090 单卡 1344x768 15s 配置栈（518s）",
+      "url": "https://ai-muninn.com/en/blog/minimax-h3-rtx5090-config-stack",
+      "date": "2026-09"
+    },
+    {
+      "id": "vllm-fasth3",
+      "title": "vLLM-Omni × FastH3：8x B300 实时生成",
+      "url": "https://vllm.ai/blog/2026-09-01-minimax-h3-production-serving",
+      "date": "2026-09-01"
+    },
+    {
+      "id": "fastvideo-fasth3",
+      "title": "FastVideo/FastVideo-FastH3-4-step-Preview-v1-LoRA",
+      "url": "https://huggingface.co/FastVideo/FastVideo-FastH3-4-step-Preview-v1-LoRA",
+      "date": "2026-09"
+    },
+    {
+      "id": "lightx2v-turbo",
+      "title": "lightx2v/Minimax-h3-Turbo",
+      "url": "https://huggingface.co/lightx2v/Minimax-h3-Turbo",
+      "date": "2026-08-27"
+    },
+    {
+      "id": "drbaph-turbo",
+      "title": "drbaph/MiniMax-H3-Turbo-Lora-ComfyUI（larry/lightx2v 转换与用量表）",
+      "url": "https://huggingface.co/drbaph/MiniMax-H3-Turbo-Lora-ComfyUI",
+      "date": "2026-08"
+    },
+    {
+      "id": "larry-turbo",
+      "title": "larryvrh/MiniMax-H3-Turbo-Lora",
+      "url": "https://huggingface.co/larryvrh/MiniMax-H3-Turbo-Lora",
+      "date": "2026-08-05"
+    },
+    {
+      "id": "pdd-acc",
+      "title": "Jalen-Brunson/ComfyUI-MiniMax-H3-PDD-Acc",
+      "url": "https://github.com/Jalen-Brunson/ComfyUI-MiniMax-H3-PDD-Acc",
+      "date": "2026-08-26"
+    },
+    {
+      "id": "alibaba-pdd",
+      "title": "alibaba-pai/MiniMax-H3-Acc-LoRAs",
+      "url": "https://huggingface.co/alibaba-pai/MiniMax-H3-Acc-LoRAs",
+      "date": "2026-09"
+    },
+    {
+      "id": "taomate",
+      "title": "TaoLiveAIGC/TaoMate-H3（3 步流式，官方 8xH20）",
+      "url": "https://github.com/TaoLiveAIGC/TaoMate-H3",
+      "date": "2026-09-05"
+    },
+    {
+      "id": "taomate-comfy",
+      "title": "Robert1212star/TaoMate-H3-3Step-ComfyUI（转换版 2.48GB）",
+      "url": "https://huggingface.co/Robert1212star/TaoMate-H3-3Step-ComfyUI",
+      "date": "2026-09"
+    },
+    {
+      "id": "sage-noise-issue",
+      "title": "Comfy-Org/ComfyUI#15263：sm_120 Sage FP8 PV 噪声",
+      "url": "https://github.com/Comfy-Org/ComfyUI/issues/15263",
+      "date": "2026-08-04"
+    },
+    {
+      "id": "sage-upstream",
+      "title": "thu-ml/SageAttention#388：>160k token 噪声",
+      "url": "https://github.com/thu-ml/SageAttention/issues/388",
+      "date": "2026-08"
+    },
+    {
+      "id": "fp8-sage-crash",
+      "title": "Comfy-Org/ComfyUI#15566：fp8_scaled+Sage+DynamicVRAM 崩溃",
+      "url": "https://github.com/Comfy-Org/ComfyUI/issues/15566",
+      "date": "2026-08-13"
+    },
+    {
+      "id": "kitchen-attn",
+      "title": "ComfyUI v0.32.0：内置 comfy-kitchen 注意力",
+      "url": "https://comfyui-wiki.com/en/news/2026-08-11-comfyui-v0-32-0",
+      "date": "2026-08-11"
+    },
+    {
+      "id": "sla-attn-node",
+      "title": "H3 SLA Attention 节点（SLA 稀疏注意力；5090 实测 44→31/25 s/步）",
+      "url": "https://github.com/PlagueKind/ComfyUI-PlagueKind-Nodes",
+      "date": "2026-09"
+    },
+    {
+      "id": "vsa-comfy-node",
+      "title": "barelymining/ComfyUI-MiniMax-H3-FastVideo：H3 接入 FastVideo VSA（与 4 步蒸馏同用）",
+      "url": "https://github.com/barelymining/ComfyUI-MiniMax-H3-FastVideo",
+      "date": "2026-09"
+    },
+    {
+      "id": "sparse-core-node",
+      "title": "ComfyUI 核心 Block Sparse Attention 节点 + Comfy Compiler（comfy-kitchen ≥0.2.33，H3 稀疏后端可切换）",
+      "url": "https://comfyui-wiki.com/en/news/2026-09-08-h3-sparse-attention-compiler",
+      "date": "2026-09-08"
+    },
+    {
+      "id": "endless-sampler",
+      "title": "HR Endless Sampler：16GB 显存任意长度 H3 视频",
+      "url": "https://comfyui-wiki.com/en/news（2026-08-30 条目）",
+      "date": "2026-08-30"
+    },
+    {
+      "id": "wan2gp",
+      "title": "deepbeepmeep/Wan2GP（低显存替代运行时）",
+      "url": "https://github.com/deepbeepmeep/Wan2GP",
+      "date": "2026-09-02"
+    },
+    {
+      "id": "hf-quants",
+      "title": "DmitryDB/MiniMax-H3-ComfyUI-Quants（NVFP4/Lean/Hybrid 量化）",
+      "url": "https://huggingface.co/DmitryDB/MiniMax-H3-ComfyUI-Quants",
+      "date": "2026-08"
+    },
+    {
+      "id": "gguf",
+      "title": "leejet/MiniMax-H3-GGUF + Abiray/MiniMax-H3-Pruned-GGUF",
+      "url": "https://huggingface.co/leejet/MiniMax-H3-GGUF",
+      "date": "2026-08-30"
+    },
+    {
+      "id": "minimax-license",
+      "title": "MiniMax H3 Community License（含地区条款）",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-H3/blob/main/LICENSE",
+      "date": "2026-08"
+    },
+    {
+      "id": "ddr5-whitepaper",
+      "title": "Micron DDR5 white paper（DDR5-4800 有效带宽 ≈ 1.87x DDR4-3200）",
+      "url": "https://assets.micron.com/adobe/assets/urn:aaid:aem:22978eee-ef0c-4c76-8806-64871f23fbc2/renditions/original/as/ddr5-infographic.pdf",
+      "date": "2019"
+    },
+    {
+      "id": "local-log",
+      "title": "本机 ComfyUI 日志（comfyui.log 2026-09-09 14:49，RTX 5090 + 64GB DDR5-6000）",
+      "url": "local://ComfyUI/user/comfyui.log",
+      "date": "2026-09-09"
+    },
+    {
+      "id": "desktop4070-matrix",
+      "title": "desktop4070/GPU-Benchmark-Data-For-H3：5070 Ti+64GB 的 0.1-1.0MP x 1-15s 生成时间矩阵（165 条）",
+      "url": "https://github.com/desktop4070/GPU-Benchmark-Data-For-H3",
+      "date": "2026-09"
+    },
+    {
+      "id": "tonyd2wild-3090",
+      "title": "tonyd2wild/minimax-h3-local：3090 24GB + 31GB 内存跑通 15s（--disable-pinned-memory）",
+      "url": "https://github.com/tonyd2wild/minimax-h3-local",
+      "date": "2026-08-04"
+    },
+    {
+      "id": "instasd-sparse",
+      "title": "instasd.com：稀疏注意力 2.5-4x 与 3060-5090 多卡实测汇总",
+      "url": "https://www.instasd.com/post/minimax-h3-sparse-attention-comfyui-guide",
+      "date": "2026-08"
+    },
+    {
+      "id": "zhihu-4090",
+      "title": "知乎：4090 24G 720P 15秒 8-9 分钟实测",
+      "url": "https://zhuanlan.zhihu.com/p/2070534847647440980",
+      "date": "2026-08-11"
+    },
+    {
+      "id": "hf-discussion-26",
+      "title": "HF 讨论 #26：5090 Kitchen vs PyTorch 注意力对比",
+      "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/discussions/26",
+      "date": "2026-08-05"
+    },
+    {
+      "id": "winnougan-w4a8",
+      "title": "Winnougan/MiniMax-H3-INT4_Convrot_ComfyUI：W4A8 ConvRot 权重与 TE 文件及格式细节",
+      "url": "https://huggingface.co/Winnougan/MiniMax-H3-INT4_Convrot_ComfyUI",
+      "date": "2026-09"
+    },
+    {
+      "id": "kijai-w4a8",
+      "title": "comfyui-wiki：Kijai w4a8 实验权重（12.5GB，relL2 0.073，约 1.09x int8）",
+      "url": "https://comfyui-wiki.com/zh/news/2026-08-05-kijai-minimax-h3-w4a8",
+      "date": "2026-08-05"
+    },
+    {
+      "id": "kijai-experimental",
+      "title": "Kijai/MiniMax-H3-experimental：w4a8 权重、int8 VAE、FastVideo VSA 4步蒸馏、PDD LoRA",
+      "url": "https://huggingface.co/Kijai/MiniMax-H3-experimental",
+      "date": "2026-09"
+    },
+    {
+      "id": "dmitrydb-quants",
+      "title": "DmitryDB/MiniMax-H3-ComfyUI-Quants：INT8 HQ/Lite、NVFP4/NVFP4-HQ 文件清单",
+      "url": "https://huggingface.co/DmitryDB/MiniMax-H3-ComfyUI-Quants",
+      "date": "2026-09"
+    },
+    {
+      "id": "abiray-gguf",
+      "title": "Abiray/MiniMax-H3-Pruned-GGUF：Q3-Q8 各档体积（8.9-21.6GB）",
+      "url": "https://huggingface.co/Abiray/MiniMax-H3-Pruned-GGUF",
+      "date": "2026-09"
+    },
+    {
+      "id": "leejet-gguf",
+      "title": "leejet/MiniMax-H3-GGUF：未剪枝 Q4 / 剪枝 Q2-Q4 + TE GGUF",
+      "url": "https://huggingface.co/leejet/MiniMax-H3-GGUF",
+      "date": "2026-09"
+    },
+    {
+      "id": "hf-comfyorg-tree",
+      "title": "Comfy-Org/MiniMax-H3 文件清单（HF API，全部体积核实）",
+      "url": "https://huggingface.co/Comfy-Org/MiniMax-H3/tree/main",
+      "date": "2026-09-18"
+    },
+    {
+      "id": "fastvideo-vsa-paper",
+      "title": "VSA: Faster Video Diffusion with Trainable Sparse Attention（arXiv:2505.13389，NeurIPS 2025）",
+      "url": "https://arxiv.org/abs/2505.13389",
+      "date": "2025"
+    },
+    {
+      "id": "fastvideo-repo",
+      "title": "hao-ai-lab/FastVideo（VSA / Sparse-Distill / FastH3 框架）",
+      "url": "https://github.com/hao-ai-lab/FastVideo",
+      "date": "2026-09"
+    },
+    {
+      "id": "fasth3-weights",
+      "title": "FastVideo/FastVideo-FastH3-4-step-Preview-v1-VSA-DataFree（35B，4 步，T2AV）",
+      "url": "https://huggingface.co/FastVideo/FastVideo-FastH3-4-step-Preview-v1-VSA-DataFree",
+      "date": "2026-08-27"
+    },
+    {
+      "id": "hf-model-stats",
+      "title": "HuggingFace 模型检索 API（下载量/收藏数统计，2026-09-18 快照）",
+      "url": "https://huggingface.co/api/models?search=MiniMax-H3&sort=downloads&direction=-1",
+      "date": "2026-09-18"
+    }
+  ]
+}

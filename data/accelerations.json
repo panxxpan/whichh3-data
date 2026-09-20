@@ -1,0 +1,370 @@
+{
+  "meta": {
+    "updated": "2026-09-18",
+    "note": "ratio 为相对基线（20 步无加速）的实测采样段加速倍率；标 null 表示暂无可靠实测。Sage/Kitchen/SLA/VSA 为注意力后端，与步数蒸馏正交，可叠加（除冲突表标注项）。SLA/VSA 属稀疏注意力：序列越长收益越大，短片提升有限。"
+  },
+  "accelerations": [
+    {
+      "id": "base-20step",
+      "name": "官方基线（无加速）",
+      "name_en": "Official baseline (no acceleration)",
+      "type": "baseline",
+      "steps": 20,
+      "ratio": 1.0,
+      "quality_cost": "无",
+      "quality_cost_en": "None",
+      "requires": [],
+      "requires_en": [],
+      "conflicts": [],
+      "sources": [
+        "comfy.org/minimax-h3"
+      ]
+    },
+    {
+      "id": "lightx2v-8step",
+      "name": "LightX2V Turbo 8 步 v1.0",
+      "name_en": "LightX2V Turbo 8-step v1.0",
+      "type": "step-distill-lora",
+      "steps": 8,
+      "ratio": 2.08,
+      "measured_on": "RTX 4070 12G, 576x832, 124f",
+      "quality_cost": "低",
+      "quality_cost_en": "Low",
+      "requires": [
+        "LoRA 加载器"
+      ],
+      "requires_en": [
+        "LoRA loader"
+      ],
+      "conflicts": [
+        "pdd-acc"
+      ],
+      "notes": "官方 ComfyUI turbo_mode 内置同款；本机实机使用（8/8 步, 5.45 s/it, 1344x768x73f）",
+      "notes_en": "Same as the official ComfyUI turbo_mode built-in; used on our own machine (8/8 steps, 5.45 s/it, 1344x768x73f)",
+      "sources": [
+        "lightx2v/Minimax-h3-Turbo",
+        "docs.comfy.org/tutorials/video/minimax/minimax-h3"
+      ]
+    },
+    {
+      "id": "lightx2v-4step",
+      "name": "LightX2V Turbo 4 步 v1.1 768p",
+      "name_en": "LightX2V Turbo 4-step v1.1 768p",
+      "type": "step-distill-lora",
+      "steps": 4,
+      "ratio": 3.44,
+      "measured_on": "RTX 4070 12G, 576x832, 124f",
+      "quality_cost": "中（细节略降）",
+      "quality_cost_en": "Medium (slight detail loss)",
+      "requires": [
+        "LoRA 加载器"
+      ],
+      "requires_en": [
+        "LoRA loader"
+      ],
+      "conflicts": [
+        "pdd-acc"
+      ],
+      "sources": [
+        "drbaph/MiniMax-H3-Turbo-Lora-ComfyUI"
+      ]
+    },
+    {
+      "id": "larry-v4-8step",
+      "name": "larryvrh Turbo v4 8 步 (step-600 EMA)",
+      "name_en": "larryvrh Turbo v4 8-step (step-600 EMA)",
+      "type": "step-distill-lora",
+      "steps": 8,
+      "ratio": 2.09,
+      "measured_on": "RTX 4070 12G, 576x832, 124f",
+      "quality_cost": "低",
+      "quality_cost_en": "Low",
+      "requires": [
+        "双时钟采样器（音频双调度）"
+      ],
+      "requires_en": [
+        "Dual-clock sampler (dual audio schedule)"
+      ],
+      "conflicts": [
+        "pdd-acc"
+      ],
+      "notes": "Kijai ComfyUI-MiniMax-H3-Turbo / shuaixn DualClockSampler；切换原生节点前必须重启 ComfyUI",
+      "notes_en": "Kijai ComfyUI-MiniMax-H3-Turbo / shuaixn DualClockSampler; ComfyUI must be restarted before switching back to the native node",
+      "sources": [
+        "larryvrh/MiniMax-H3-Turbo-Lora"
+      ]
+    },
+    {
+      "id": "larry-v1-4step",
+      "name": "larryvrh Turbo v1 4 步 (ckpt500 预览)",
+      "name_en": "larryvrh Turbo v1 4-step (ckpt500 preview)",
+      "type": "step-distill-lora",
+      "steps": 4,
+      "ratio": 3.4,
+      "measured_on": "RTX 4070 12G（8 步档插值）",
+      "quality_cost": "中高（预览版不稳定）",
+      "quality_cost_en": "Medium-high (preview build is unstable)",
+      "requires": [
+        "Turbo 采样器"
+      ],
+      "requires_en": [
+        "Turbo sampler"
+      ],
+      "conflicts": [
+        "pdd-acc"
+      ],
+      "sources": [
+        "comfyui-wiki.com/zh/news/2026-08-06-minimax-h3-turbo-lora"
+      ]
+    },
+    {
+      "id": "fasth3-4step",
+      "name": "FastH3 4 步 DMD2（FastVideo）",
+      "name_en": "FastH3 4-step DMD2 (FastVideo)",
+      "type": "step-distill-lora",
+      "steps": 4,
+      "ratio": 4.1,
+      "ratio_vs": "vs 20 步基线（5090：118s vs turbo8 225s → 相对 turbo8 为 1.87x）",
+      "ratio_vs_en": "vs 20-step baseline (5090: 118s vs turbo8 225s → 1.87x relative to turbo8)",
+      "measured_on": "RTX 5090, 1280x704, ~7.6s 片段",
+      "quality_cost": "中（身份/口型经实测保持）",
+      "quality_cost_en": "Medium (identity/lip-sync preserved in testing)",
+      "requires": [
+        "格式转换后的 LoRA（diffusers→ComfyUI）"
+      ],
+      "requires_en": [
+        "Format-converted LoRA (diffusers→ComfyUI)"
+      ],
+      "conflicts": [
+        "pdd-acc",
+        "converter-mismatch"
+      ],
+      "notes": "vLLM-Omni 官方集成其 dense-datafree adapter；ComfyUI 侧由社区转换",
+      "notes_en": "vLLM-Omni officially integrates its dense-datafree adapter; the ComfyUI side is community-converted",
+      "sources": [
+        "vllm.ai/blog/2026-09-01-minimax-h3-production-serving",
+        "matsuo-koya/minimax-h3-notes"
+      ]
+    },
+    {
+      "id": "taomate-3step",
+      "name": "TaoMate-H3 3 步（阿里 TaoLive）",
+      "name_en": "TaoMate-H3 3-step (Alibaba TaoLive)",
+      "type": "step-distill-lora",
+      "steps": 3,
+      "ratio": null,
+      "quality_cost": "中高（面向流式长视频）",
+      "quality_cost_en": "Medium-high (targets streaming long video)",
+      "requires": [
+        "ComfyUI 转换版 LoRA 2.48GB"
+      ],
+      "requires_en": [
+        "ComfyUI-converted LoRA 2.48GB"
+      ],
+      "conflicts": [
+        "pdd-acc"
+      ],
+      "notes": "官方 runtime 验证环境 8xH20 96GB（分块流式）；社区 ComfyUI 转换版可在消费卡跑，逼真度/运动有损失",
+      "notes_en": "Official runtime validated on 8xH20 96GB (chunked streaming); the community ComfyUI conversion runs on consumer cards with some fidelity/motion loss",
+      "sources": [
+        "TaoLiveAIGC/TaoMate-H3",
+        "Robert1212star/TaoMate-H3-3Step-ComfyUI"
+      ]
+    },
+    {
+      "id": "pdd-acc-8step",
+      "name": "阿里 PAI PDD Acc 8 步（官方蒸馏）",
+      "name_en": "Alibaba PAI PDD Acc 8-step (official distillation)",
+      "type": "step-distill-pdd",
+      "steps": 8,
+      "ratio": 2.1,
+      "ratio_estimate": true,
+      "quality_cost": "低（官方蒸馏）",
+      "quality_cost_en": "Low (official distillation)",
+      "requires": [
+        "ComfyUI>=0.33",
+        "ComfyUI-MiniMax-H3-PDD-Acc 节点",
+        "专用 sigmas"
+      ],
+      "requires_en": [
+        "ComfyUI>=0.33",
+        "ComfyUI-MiniMax-H3-PDD-Acc nodes",
+        "dedicated sigmas"
+      ],
+      "conflicts": [],
+      "notes": "含 Parallel Decoding Distillation head bank，普通 LoRA 加载器会静默丢蒸馏头；CFG=1.0，euler + 节点输出的 sigmas",
+      "notes_en": "Includes a Parallel Decoding Distillation head bank; a regular LoRA loader silently drops the distillation head; CFG=1.0, euler + sigmas output by the node",
+      "sources": [
+        "Jalen-Brunson/ComfyUI-MiniMax-H3-PDD-Acc",
+        "alibaba-pai/MiniMax-H3-Acc-LoRAs"
+      ]
+    },
+    {
+      "id": "sage-attention",
+      "name": "SageAttention（默认推荐开启）",
+      "name_en": "SageAttention (recommended on by default)",
+      "type": "attention-backend",
+      "ratio": 1.37,
+      "ratio_range": [
+        1.3,
+        2.0
+      ],
+      "measured_on": "RTX 3090 864x480（1.37x）；RTX 5090（采样约 2x）",
+      "quality_cost": "极低（PSNR 30.3-32 dB vs 无 Sage）",
+      "quality_cost_en": "Very low (PSNR 30.3-32 dB vs no Sage)",
+      "requires": [
+        "sageattention 包或 KJNodes Patch Sage Attention"
+      ],
+      "requires_en": [
+        "sageattention package or KJNodes Patch Sage Attention"
+      ],
+      "conflicts": [
+        "fp8-scaled-sage-crash",
+        "sm120-long-seq-noise"
+      ],
+      "notes": "官方文档称可约翻倍；sm_120 长序列有静默噪声风险，长片段请用 KJNodes 或 Kitchen 后端并抽检",
+      "notes_en": "Official docs claim roughly 2x; sm_120 has a silent-noise risk on long sequences — for long clips use the KJNodes or Kitchen backend and spot-check",
+      "sources": [
+        "docs.comfy.org/tutorials/video/minimax/minimax-h3",
+        "pepikir/minimax-h3-speedup",
+        "Comfy-Org/ComfyUI#15263"
+      ]
+    },
+    {
+      "id": "ck-attention",
+      "name": "comfy-kitchen 内置注意力（v0.32+）",
+      "name_en": "comfy-kitchen built-in attention (v0.32+)",
+      "type": "attention-backend",
+      "ratio": 1.3,
+      "ratio_range": [
+        1.3,
+        2.0
+      ],
+      "quality_cost": "极低",
+      "quality_cost_en": "Very low",
+      "requires": [
+        "ComfyUI>=0.32",
+        "ModelAttentionBackend 节点"
+      ],
+      "requires_en": [
+        "ComfyUI>=0.32",
+        "ModelAttentionBackend node"
+      ],
+      "conflicts": [],
+      "notes": "免安装、速度与 Sage 同级；不想折腾 Sage 的首选",
+      "notes_en": "No install needed and on par with Sage in speed; first choice if you do not want to bother with Sage",
+      "sources": [
+        "comfyui-wiki.com/en/news/2026-08-11-comfyui-v0-32-0"
+      ]
+    },
+    {
+      "id": "sla-attention",
+      "name": "SLA 稀疏注意力（Sparse Linear Attention）",
+      "name_en": "SLA sparse attention (Sparse Linear Attention)",
+      "type": "attention-backend",
+      "ratio": null,
+      "ratio_vs": "同配置关闭 SLA：1.4-1.75×（5090 768p/15s 实测单步 44→31/25 s，稀疏度 0.85/0.90）",
+      "ratio_vs_en": "Same config with SLA off: 1.4-1.75x (5090 768p/15s measured: per-step 44→31/25 s, sparsity 0.85/0.90)",
+      "measured_on": "RTX 5090, 1344x768, 15s",
+      "quality_cost": "低-中（必须成套使用 SLA 版蒸馏 LoRA；音频 block 保持 64）",
+      "quality_cost_en": "Low-medium (must be used as a set with the SLA-trained distill LoRA; keep audio block at 64)",
+      "requires": [
+        "H3 SLA Attention 节点（PlagueKind/ComfyUI-PlagueKind-Nodes，Triton）",
+        "SLA 训练版 Turbo LoRA（lightx2v SLA 版）"
+      ],
+      "requires_en": [
+        "H3 SLA Attention node (PlagueKind/ComfyUI-PlagueKind-Nodes, Triton)",
+        "SLA-trained Turbo LoRA (lightx2v SLA version)"
+      ],
+      "conflicts": [],
+      "notes": "序列越长收益越大，短片（<5s）提升有限；最新 ComfyUI 核心 Block Sparse Attention 节点（comfy-kitchen ≥0.2.33）可直接切换该模式",
+      "notes_en": "Gains grow with sequence length; limited benefit on short clips (<5s); the latest ComfyUI core Block Sparse Attention node (comfy-kitchen ≥0.2.33) can switch this mode directly",
+      "sources": [
+        "PlagueKind/ComfyUI-PlagueKind-Nodes",
+        "instasd.com/post/minimax-h3-sla-vram-benchmarks"
+      ]
+    },
+    {
+      "id": "vsa-attention",
+      "name": "VSA 稀疏注意力（Video Sparse Attention）",
+      "name_en": "VSA sparse attention (Video Sparse Attention)",
+      "type": "attention-backend",
+      "ratio": null,
+      "ratio_vs": "FastVideo 官方 90% 稀疏训练；社区单卡与 FastH3 4 步蒸馏同用时已达 24GB 分钟级草稿",
+      "ratio_vs_en": "Official FastVideo 90% sparse training; community single-GPU use with the FastH3 4-step distillation already reaches minute-level drafts on 24GB",
+      "quality_cost": "低（与 FastH3 蒸馏路线同源）",
+      "quality_cost_en": "Low (same lineage as the FastH3 distillation route)",
+      "requires": [
+        "FastVideo VSA 节点（barelymining/ComfyUI-MiniMax-H3-FastVideo）或核心 Block Sparse Attention（comfy-kitchen ≥0.2.33）",
+        "建议搭配 FastH3 4 步蒸馏 LoRA"
+      ],
+      "requires_en": [
+        "FastVideo VSA node (barelymining/ComfyUI-MiniMax-H3-FastVideo) or core Block Sparse Attention (comfy-kitchen ≥0.2.33)",
+        "recommended with the FastH3 4-step distill LoRA"
+      ],
+      "conflicts": [],
+      "notes": "arXiv:2505.13389（NeurIPS 2025）；官方验证为多卡 + fastvideo-kernel，消费级单卡建议与 4 步蒸馏同用",
+      "notes_en": "arXiv:2505.13389 (NeurIPS 2025); official validation is multi-GPU + fastvideo-kernel; on consumer single GPUs pair it with the 4-step distillation",
+      "sources": [
+        "barelymining/ComfyUI-MiniMax-H3-FastVideo",
+        "comfyui-wiki.com/en/news/2026-09-08-h3-sparse-attention-compiler"
+      ]
+    },
+    {
+      "id": "easycache",
+      "name": "EasyCache / Spectrum 步缓存",
+      "name_en": "EasyCache / Spectrum step cache",
+      "type": "step-cache",
+      "ratio": 1.25,
+      "ratio_range": [
+        1.15,
+        1.4
+      ],
+      "quality_cost": "有（需 end_percent 修正并抽检）",
+      "quality_cost_en": "Yes (needs end_percent tuning and spot checks)",
+      "requires": [],
+      "requires_en": [],
+      "conflicts": [
+        "pdd-acc"
+      ],
+      "notes": "与蒸馏 LoRA 可叠加；与 PDD 冲突",
+      "notes_en": "Stacks with distill LoRAs; conflicts with PDD",
+      "sources": [
+        "pepikir/minimax-h3-speedup"
+      ]
+    },
+    {
+      "id": "clipcached",
+      "name": "CLIPCached 条件/潜变量磁盘缓存",
+      "name_en": "CLIPCached condition/latent disk cache",
+      "type": "disk-cache",
+      "ratio": null,
+      "quality_cost": "无损（bit-identical）",
+      "quality_cost_en": "Lossless (bit-identical)",
+      "requires": [],
+      "requires_en": [],
+      "notes": "同一提示词多 seed：24GB 卡 950s→96s/条；TE 永远不重复加载",
+      "notes_en": "Same prompt, multiple seeds: on a 24GB card 950s→96s per clip; the TE is never reloaded",
+      "sources": [
+        "pepikir/minimax-h3-speedup",
+        "comfyui-wiki.com（ComfyUI-MiniMaxH3-CLIPCached）"
+      ],
+      "conflicts": []
+    },
+    {
+      "id": "te-speed",
+      "name": "TE-Speed-MiniMaxH3（文本编码器块缓存）",
+      "name_en": "TE-Speed-MiniMaxH3 (text encoder block cache)",
+      "type": "te-cache",
+      "ratio": null,
+      "quality_cost": "无损",
+      "quality_cost_en": "Lossless",
+      "requires": [],
+      "requires_en": [],
+      "sources": [
+        "MiniMax-AI/awesome-minimax-h3-integration"
+      ],
+      "conflicts": []
+    }
+  ]
+}

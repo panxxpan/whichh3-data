@@ -1,0 +1,545 @@
+{
+  "meta": {
+    "updated": "2026-09-18",
+    "note": "精选下载库：只收录【支持 ComfyUI】的模型（Diffusers 原始格式 / MLX / Wan2GP 等其他运行时版本一律不列出）。筛选标准：下载量 / 收藏数 / 社区口碑达标 + 可在 ComfyUI 中直接加载。统计来自 HuggingFace API（2026-09-18）。★ = 编辑推荐。",
+    "stats_source": "https://huggingface.co/api/models?search=MiniMax-H3&sort=downloads&direction=-1",
+    "comfyui_only": true
+  },
+  "categories": [
+    {
+      "id": "official",
+      "label": "官方基础包",
+      "label_en": "Official base pack",
+      "desc": "ComfyUI 官方重打包（本站计算器全部文件来源）",
+      "desc_en": "ComfyUI official repack (source of all files in this site's calculator)"
+    },
+    {
+      "id": "quant",
+      "label": "量化 / 低显存",
+      "label_en": "Quantization / low VRAM",
+      "desc": "GGUF、NVFP4、W4A8、融合权重等 ComfyUI 可加载版本",
+      "desc_en": "ComfyUI-loadable versions: GGUF, NVFP4, W4A8, fused weights, etc."
+    },
+    {
+      "id": "accel",
+      "label": "加速：LoRA 与蒸馏",
+      "label_en": "Acceleration: LoRAs and distillation",
+      "desc": "步数蒸馏 LoRA、FastH3/VSA 蒸馏、PDD 官方加速",
+      "desc_en": "Step-distill LoRAs, FastH3/VSA distillation, official PDD acceleration"
+    },
+    {
+      "id": "finetune",
+      "label": "微调与风格 LoRA",
+      "label_en": "Finetunes and style LoRAs",
+      "desc": "写实、动作、相机、风格类（均经 ComfyUI 加载验证或明确说明）",
+      "desc_en": "Realism, motion, camera, style (all verified or explicitly documented for ComfyUI loading)"
+    },
+    {
+      "id": "aux",
+      "label": "辅助组件",
+      "label_en": "Auxiliary components",
+      "desc": "Text Encoder、ControlNet 等 ComfyUI 组件",
+      "desc_en": "Text Encoder, ControlNet and other ComfyUI components"
+    }
+  ],
+  "items": [
+    {
+      "id": "comfy-org",
+      "category": "official",
+      "star": true,
+      "name": "ComfyUI 官方重打包（Comfy-Org）",
+      "name_en": "ComfyUI official repack (Comfy-Org)",
+      "desc": "本站计算器所有文件均出自这里：bf16 / int8_convrot / pruned / fp8_scaled + TE + VAE + turbo LoRA + ControlNet 打包",
+      "desc_en": "All files used by this site's calculator come from here: bf16 / int8_convrot / pruned / fp8_scaled + TE + VAE + turbo LoRA + ControlNet pack",
+      "repo": "Comfy-Org/MiniMax-H3",
+      "hf": "https://huggingface.co/Comfy-Org/MiniMax-H3",
+      "modelscope": "https://modelscope.cn/models/Comfy-Org/MiniMax-H3",
+      "downloads": 20042055,
+      "likes": 1887,
+      "size": "343GB（全部变体）",
+      "tags": [
+        "官方",
+        "ComfyUI",
+        "必装"
+      ],
+      "tags_en": [
+        "official",
+        "ComfyUI",
+        "must-have"
+      ],
+      "size_en": "343GB (all variants)"
+    },
+    {
+      "id": "abiray-gguf",
+      "category": "quant",
+      "star": true,
+      "name": "GGUF 全量版（Abiray，未剪枝）",
+      "name_en": "GGUF full version (Abiray, unpruned)",
+      "desc": "未剪枝 GGUF，Q2-Q8 多档，ComfyUI-GGUF 节点直接加载；8GB 显存也可尝试",
+      "desc_en": "Unpruned GGUF, Q2-Q8 tiers, loads directly with ComfyUI-GGUF nodes; even 8GB VRAM can give it a try",
+      "repo": "Abiray/MiniMax-H3-GGUF",
+      "hf": "https://huggingface.co/Abiray/MiniMax-H3-GGUF",
+      "modelscope": null,
+      "downloads": 1049585,
+      "likes": 134,
+      "size": "Q2-Q8 多档",
+      "tags": [
+        "GGUF",
+        "ComfyUI"
+      ],
+      "tags_en": [
+        "GGUF",
+        "ComfyUI"
+      ],
+      "size_en": "Q2-Q8 tiers"
+    },
+    {
+      "id": "abiray-pruned-gguf",
+      "category": "quant",
+      "star": true,
+      "name": "Pruned GGUF（Abiray 剪枝版）",
+      "name_en": "Pruned GGUF (Abiray pruned version)",
+      "desc": "剪枝 + GGUF，Q3_K_M 仅 8.9GB（本站“省显存”档的数据来源）",
+      "desc_en": "Pruned + GGUF, Q3_K_M is only 8.9GB (data source for this site's VRAM-saving tier)",
+      "repo": "Abiray/MiniMax-H3-Pruned-GGUF",
+      "hf": "https://huggingface.co/Abiray/MiniMax-H3-Pruned-GGUF",
+      "modelscope": null,
+      "downloads": 143202,
+      "likes": 65,
+      "size": "8.9-21.6GB",
+      "tags": [
+        "GGUF",
+        "剪枝",
+        "ComfyUI"
+      ],
+      "tags_en": [
+        "GGUF",
+        "pruned",
+        "ComfyUI"
+      ]
+    },
+    {
+      "id": "matlowai-fused",
+      "category": "quant",
+      "star": true,
+      "name": "Fused Turbo INT8（MATLOWAI，预融合加速）",
+      "name_en": "Fused Turbo INT8 (MATLOWAI, pre-fused acceleration)",
+      "desc": "把 Turbo LoRA 与 Ref2VA delta 直接融合进 INT8 权重：省一次 LoRA 加载、显存更稳，开箱即 4-8 步",
+      "desc_en": "Turbo LoRA and Ref2VA delta fused straight into INT8 weights: one less LoRA load, more stable VRAM, ready for 4-8 steps out of the box",
+      "repo": "MATLOWAI/minimax-h3-fused-turbo-int8-convrot",
+      "hf": "https://huggingface.co/MATLOWAI/minimax-h3-fused-turbo-int8-convrot",
+      "modelscope": null,
+      "downloads": 512448,
+      "likes": 198,
+      "size": "单文件（融合）",
+      "tags": [
+        "INT8",
+        "融合",
+        "省事",
+        "ComfyUI"
+      ],
+      "tags_en": [
+        "INT8",
+        "fused",
+        "hassle-free",
+        "ComfyUI"
+      ],
+      "size_en": "single file (fused)"
+    },
+    {
+      "id": "abiray-nvfp4",
+      "category": "quant",
+      "name": "NVFP4 / INT4 / INT8 量化集（Abiray）",
+      "name_en": "NVFP4 / INT4 / INT8 quant collection (Abiray)",
+      "desc": "多格式量化合集（NVFP4 需 50 系），适合尝鲜对比",
+      "desc_en": "Multi-format quantization collection (NVFP4 needs 50-series); good for quick comparison",
+      "repo": "Abiray/Minimax-H3-nvfp4-INT4-INT8-Convrot",
+      "hf": "https://huggingface.co/Abiray/Minimax-H3-nvfp4-INT4-INT8-Convrot",
+      "modelscope": null,
+      "downloads": 209828,
+      "likes": 232,
+      "size": "按文件",
+      "tags": [
+        "NVFP4",
+        "INT4",
+        "INT8",
+        "ComfyUI"
+      ],
+      "tags_en": [
+        "NVFP4",
+        "INT4",
+        "INT8",
+        "ComfyUI"
+      ],
+      "size_en": "per file"
+    },
+    {
+      "id": "xmarre-refdelta",
+      "category": "quant",
+      "name": "Ref-Delta 融合（xmarre）：FL2VA+Ref2VA 单文件",
+      "name_en": "Ref-Delta fused (xmarre): FL2VA+Ref2VA single file",
+      "desc": "把 Ref2VA 的增量融合进剪枝 INT8，单文件兼顾两种模式，省磁盘与加载切换",
+      "desc_en": "Ref2VA delta fused into pruned INT8; one file covers both modes and saves disk space and load switching",
+      "repo": "xmarre/MiniMax-H3-Pruned-Ref-Delta-Fused-r1024-ComfyUI",
+      "hf": "https://huggingface.co/xmarre/MiniMax-H3-Pruned-Ref-Delta-Fused-r1024-ComfyUI",
+      "modelscope": null,
+      "downloads": 95201,
+      "likes": 31,
+      "size": "单文件",
+      "tags": [
+        "INT8",
+        "融合",
+        "实验",
+        "ComfyUI"
+      ],
+      "tags_en": [
+        "INT8",
+        "fused",
+        "experimental",
+        "ComfyUI"
+      ],
+      "size_en": "single file"
+    },
+    {
+      "id": "axis-w4a8",
+      "category": "quant",
+      "name": "W4A8 ConvRot（AX1Y2JP）",
+      "name_en": "W4A8 ConvRot (AX1Y2JP)",
+      "desc": "社区 W4A8（4 位权重 + INT8 计算）转换，需要 ComfyUI ≥0.31",
+      "desc_en": "Community W4A8 (4-bit weights + INT8 compute) conversion; requires ComfyUI ≥0.31",
+      "repo": "AX1Y2JP/MiniMax-H3-W4A8-ConvRot",
+      "hf": "https://huggingface.co/AX1Y2JP/MiniMax-H3-W4A8-ConvRot",
+      "modelscope": null,
+      "downloads": 34524,
+      "likes": 27,
+      "size": "≈12GB",
+      "tags": [
+        "W4A8",
+        "ComfyUI"
+      ],
+      "tags_en": [
+        "W4A8",
+        "ComfyUI"
+      ]
+    },
+    {
+      "id": "rockerboo-nvfp4",
+      "category": "quant",
+      "name": "NVFP4 ConvRot（rockerBOO）",
+      "name_en": "NVFP4 ConvRot (rockerBOO)",
+      "desc": "早期 NVFP4 转换（Blackwell），12GB 级",
+      "desc_en": "Early NVFP4 conversion (Blackwell), ~12GB",
+      "repo": "rockerBOO/minimax-h3-nvfp4-convrot",
+      "hf": "https://huggingface.co/rockerBOO/minimax-h3-nvfp4-convrot",
+      "modelscope": null,
+      "downloads": 17810,
+      "likes": 28,
+      "size": "≈12GB",
+      "tags": [
+        "NVFP4",
+        "50 系",
+        "ComfyUI"
+      ],
+      "tags_en": [
+        "NVFP4",
+        "50-series",
+        "ComfyUI"
+      ]
+    },
+    {
+      "id": "larry-turbo",
+      "category": "accel",
+      "star": true,
+      "name": "larryvrh Turbo LoRA（v4，最热社区加速）",
+      "name_en": "larryvrh Turbo LoRA (v4, hottest community accelerator)",
+      "desc": "8 步蒸馏，社区口碑最好的通用加速；配合双时钟采样器使用",
+      "desc_en": "8-step distillation, the community's best-reviewed general accelerator; use with the dual-clock sampler",
+      "repo": "larryvrh/MiniMax-H3-Turbo-Lora",
+      "hf": "https://huggingface.co/larryvrh/MiniMax-H3-Turbo-Lora",
+      "modelscope": null,
+      "downloads": 218242,
+      "likes": 989,
+      "size": "≈1.8GB",
+      "tags": [
+        "8 步",
+        "LoRA",
+        "ComfyUI"
+      ],
+      "tags_en": [
+        "8-step",
+        "LoRA",
+        "ComfyUI"
+      ]
+    },
+    {
+      "id": "drbaph-turbo",
+      "category": "accel",
+      "star": true,
+      "name": "Turbo LoRA ComfyUI 转换 + 低秩压缩（drbaph）",
+      "name_en": "Turbo LoRA ComfyUI conversion + low-rank compression (drbaph)",
+      "desc": "larry/lightx2v 的 ComfyUI 兼容转换，含动态秩压缩版（rank28 仅 0.37GB）",
+      "desc_en": "ComfyUI-compatible conversion of larry/lightx2v, with dynamic-rank compressed variants (rank28 is only 0.37GB)",
+      "repo": "drbaph/MiniMax-H3-Turbo-Lora-ComfyUI",
+      "hf": "https://huggingface.co/drbaph/MiniMax-H3-Turbo-Lora-ComfyUI",
+      "modelscope": null,
+      "downloads": 196692,
+      "likes": 441,
+      "size": "0.37-0.9GB",
+      "tags": [
+        "4/8 步",
+        "LoRA",
+        "ComfyUI"
+      ],
+      "tags_en": [
+        "4/8-step",
+        "LoRA",
+        "ComfyUI"
+      ]
+    },
+    {
+      "id": "kijai-experimental",
+      "category": "accel",
+      "star": true,
+      "name": "Kijai 实验仓库（W4A8 权重 / int8 VAE / VSA 蒸馏 / PDD）",
+      "name_en": "Kijai experimental repo (W4A8 weights / int8 VAE / VSA distillation / PDD)",
+      "desc": "本站 W4A8（12.5GB）、1.5× int8 VAE、FastH3 VSA int8 版、PDD comfy 转换的唯一来源",
+      "desc_en": "The only source for this site's W4A8 (12.5GB), 1.5x int8 VAE, FastH3 VSA int8, and the PDD comfy conversion",
+      "repo": "Kijai/MiniMax-H3-experimental",
+      "hf": "https://huggingface.co/Kijai/MiniMax-H3-experimental",
+      "modelscope": null,
+      "downloads": null,
+      "likes": 408,
+      "size": "按文件",
+      "tags": [
+        "W4A8",
+        "实验",
+        "ComfyUI"
+      ],
+      "tags_en": [
+        "W4A8",
+        "experimental",
+        "ComfyUI"
+      ],
+      "size_en": "per file"
+    },
+    {
+      "id": "alibaba-pdd",
+      "category": "accel",
+      "name": "阿里 PAI PDD 官方加速（8 步 / 4 步）",
+      "name_en": "Alibaba PAI official PDD acceleration (8-step / 4-step)",
+      "desc": "Parallel Decoding Distillation，CFG-free；需 ComfyUI PDD 节点包（节点可直接读取官方原版文件），不能与其他蒸馏叠加",
+      "desc_en": "Parallel Decoding Distillation, CFG-free; requires the ComfyUI PDD node pack (the nodes can read the official files directly) and cannot stack with other distillation",
+      "repo": "alibaba-pai/MiniMax-H3-Acc-LoRAs",
+      "hf": "https://huggingface.co/alibaba-pai/MiniMax-H3-Acc-LoRAs",
+      "modelscope": null,
+      "downloads": 88530,
+      "likes": 235,
+      "size": "1.37GB",
+      "tags": [
+        "8 步",
+        "官方蒸馏",
+        "PDD",
+        "ComfyUI 节点"
+      ],
+      "tags_en": [
+        "8-step",
+        "official distillation",
+        "PDD",
+        "ComfyUI nodes"
+      ]
+    },
+    {
+      "id": "aptech-pdd",
+      "category": "accel",
+      "name": "PDD ComfyUI 转换（aptech0081）",
+      "name_en": "PDD ComfyUI conversion (aptech0081)",
+      "desc": "alibaba-pai PDD 权重的 ComfyUI key 转换（配合 PDD 节点包）",
+      "desc_en": "ComfyUI key conversion of the alibaba-pai PDD weights (for use with the PDD node pack)",
+      "repo": "aptech0081/MiniMax-H3-Acc-LoRAs-ComfyUI",
+      "hf": "https://huggingface.co/aptech0081/MiniMax-H3-Acc-LoRAs-ComfyUI",
+      "modelscope": null,
+      "downloads": 44646,
+      "likes": 71,
+      "size": "1.37GB",
+      "tags": [
+        "PDD",
+        "ComfyUI"
+      ],
+      "tags_en": [
+        "PDD",
+        "ComfyUI"
+      ]
+    },
+    {
+      "id": "barelymining-fasth3",
+      "category": "accel",
+      "name": "FastH3 LoRA + VSA 节点（ComfyUI 可用版）",
+      "name_en": "FastH3 LoRA + VSA nodes (ComfyUI-ready)",
+      "desc": "FastVideo 4 步蒸馏的 ComfyUI 可加载 LoRA，并含把注意力路由到 VSA 稀疏路径的配套节点（与 4 步蒸馏同用，24GB 可分钟级出草稿）",
+      "desc_en": "ComfyUI-loadable LoRA for the FastVideo 4-step distillation, plus companion nodes that route attention to the VSA sparse path (with the 4-step distillation they give minute-level drafts on 24GB)",
+      "repo": "barelymining/ComfyUI-MiniMax-H3-FastVideo",
+      "hf": "https://huggingface.co/barelymining/ComfyUI-MiniMax-H3-FastVideo",
+      "modelscope": null,
+      "downloads": 16704,
+      "likes": 15,
+      "size": "按文件",
+      "tags": [
+        "4 步",
+        "LoRA",
+        "ComfyUI"
+      ],
+      "tags_en": [
+        "4-step",
+        "LoRA",
+        "ComfyUI"
+      ],
+      "size_en": "per file"
+    },
+    {
+      "id": "fal-realism",
+      "category": "finetune",
+      "star": true,
+      "name": "真人写实 LoRA（fal）",
+      "name_en": "Photorealistic people LoRA (fal)",
+      "desc": "人物写实/电影感微调；README 明确支持 ComfyUI（Load LoRA 即用，免转换），触发词 r34l1sm",
+      "desc_en": "Realistic/cinematic people finetune; README explicitly supports ComfyUI (Load LoRA works as-is, no conversion), trigger word r34l1sm",
+      "repo": "fal/MiniMax-H3-Realism-People-LoRA",
+      "hf": "https://huggingface.co/fal/MiniMax-H3-Realism-People-LoRA",
+      "modelscope": null,
+      "downloads": 61328,
+      "likes": 400,
+      "size": "LoRA（rank32）",
+      "tags": [
+        "写实",
+        "人像",
+        "ComfyUI 验证"
+      ],
+      "tags_en": [
+        "realism",
+        "portrait",
+        "ComfyUI-verified"
+      ]
+    },
+    {
+      "id": "singularity",
+      "category": "finetune",
+      "name": "Singularity 微调（HDR / 画质增强）",
+      "name_en": "Singularity finetune (HDR / quality boost)",
+      "desc": "社区高赞全能微调，HDR 与质感倾向；需注意具体用法与许可",
+      "desc_en": "Highly upvoted all-round community finetune with an HDR/texture lean; check its usage terms and license",
+      "repo": "WarmBloodAban/Minimax-h3_Singularity",
+      "hf": "https://huggingface.co/WarmBloodAban/Minimax-h3_Singularity",
+      "modelscope": null,
+      "downloads": 181811,
+      "likes": 484,
+      "size": "按文件",
+      "tags": [
+        "微调",
+        "HDR",
+        "ComfyUI"
+      ],
+      "tags_en": [
+        "finetune",
+        "HDR",
+        "ComfyUI"
+      ],
+      "size_en": "per file"
+    },
+    {
+      "id": "jojocodex-physics",
+      "category": "finetune",
+      "name": "物理增强 LoRA（Jojocodex）",
+      "name_en": "Physics enhancement LoRA (Jojocodex)",
+      "desc": "碰撞/重力/堆叠等物理真实感增强，强度 0.3-0.5 可与 turbo 叠加；基于 Comfy-Org 权重训练，内置加载器即用",
+      "desc_en": "Boosts physical realism — collisions, gravity, stacking — at strength 0.3-0.5 and stacks with turbo; trained on Comfy-Org weights and works with the built-in loader",
+      "repo": "Jojocodex/minimax-h3-spatial-physics-lora",
+      "hf": "https://huggingface.co/Jojocodex/minimax-h3-spatial-physics-lora",
+      "modelscope": null,
+      "downloads": 25421,
+      "likes": 116,
+      "size": "148MB",
+      "tags": [
+        "物理",
+        "可叠加",
+        "ComfyUI"
+      ],
+      "tags_en": [
+        "physics",
+        "stackable",
+        "ComfyUI"
+      ]
+    },
+    {
+      "id": "jojocodex-camera",
+      "category": "finetune",
+      "name": "相机运镜 LoRA（Jojocodex）",
+      "name_en": "Camera motion LoRA (Jojocodex)",
+      "desc": "稳定运镜/推拉摇移控制，适合分镜语言强化；基于 Comfy-Org 权重训练",
+      "desc_en": "Stable camera work and push/pull/pan/tilt control, good for strengthening shot language; trained on Comfy-Org weights",
+      "repo": "Jojocodex/minimax-h3-Camera-Motion-lora",
+      "hf": "https://huggingface.co/Jojocodex/minimax-h3-Camera-Motion-lora",
+      "modelscope": null,
+      "downloads": 17050,
+      "likes": 69,
+      "size": "LoRA",
+      "tags": [
+        "运镜",
+        "ComfyUI"
+      ],
+      "tags_en": [
+        "camera motion",
+        "ComfyUI"
+      ]
+    },
+    {
+      "id": "encoder-gguf",
+      "category": "aux",
+      "star": true,
+      "name": "Text Encoder GGUF（16GB 内存救星）",
+      "name_en": "Text Encoder GGUF (16GB RAM lifesaver)",
+      "desc": "Qwen3-VL-32B 文本编码器的 GGUF 版，ComfyUI-GGUF 加载，缓解小内存机型的编码器驻留问题",
+      "desc_en": "GGUF build of the Qwen3-VL-32B text encoder, loaded with ComfyUI-GGUF, easing encoder residency issues on low-RAM machines",
+      "repo": "joeygambino/MiniMax-H3-encoder-GGUF",
+      "hf": "https://huggingface.co/joeygambino/MiniMax-H3-encoder-GGUF",
+      "modelscope": null,
+      "downloads": 215593,
+      "likes": 12,
+      "size": "13GB 级",
+      "tags": [
+        "TE",
+        "GGUF",
+        "低内存",
+        "ComfyUI"
+      ],
+      "tags_en": [
+        "TE",
+        "GGUF",
+        "low RAM",
+        "ComfyUI"
+      ],
+      "size_en": "~13GB"
+    },
+    {
+      "id": "comfyorg-controlnet",
+      "category": "aux",
+      "name": "Fun ControlNet Union（ComfyUI 打包版）",
+      "name_en": "Fun ControlNet Union (ComfyUI repack)",
+      "desc": "姿态/深度/边缘等控制网（H3-Fun 系列）；Comfy-Org 已打包成 ComfyUI 原生格式（model_patches/），原始 Diffusers 版不在本库",
+      "desc_en": "Pose/depth/edge control nets (H3-Fun series); Comfy-Org has packed them in native ComfyUI format (model_patches/), the original Diffusers version is not listed here",
+      "repo": "Comfy-Org/MiniMax-H3 · model_patches/",
+      "hf": "https://huggingface.co/Comfy-Org/MiniMax-H3/tree/main/model_patches",
+      "modelscope": null,
+      "downloads": null,
+      "likes": null,
+      "size": "2.3-4.2GB",
+      "tags": [
+        "ControlNet",
+        "ComfyUI"
+      ],
+      "tags_en": [
+        "ControlNet",
+        "ComfyUI"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "updated": "2026-09-18",
+    "note": "推荐引擎的候选组合。规则：先满足 VRAM/RAM/磁盘约束，再按 时间→质量→依赖复杂度 打分。",
+    "flags_reference": {
+      "--fast-disk": "权重放页缓存（可回收），RAM 峰值 45.4→12.6GiB；RAM 不足时首选",
+      "--cache-none": "节点输出不缓存；不解决权重驻留",
+      "--lowvram": "低显存模式（旧路径）；新版本优先 DynamicVRAM 自动处理",
+      "--disable-mmap": "Windows 下 >20GB safetensors 用 mmap 会崩，ComfyUI>=0.31 建议加",
+      "--use-sage-attention": "核心 Sage 注意力；sm_120 长序列有噪声风险，见 conflicts.json",
+      "--enable-triton-backend": "可选"
+    }
+  },
+  "sets": [
+    {
+      "id": "starter-8-10gb",
+      "name": "入门档（8-10GB 显存）",
+      "name_en": "Starter tier (8-10GB VRAM)",
+      "target": { "vram_min_gb": 8, "ram_min_gb": 16, "ram_recommend_gb": 32, "pagefile_min_gb": 48, "disk_gb": 60 },
+      "files": ["dit-gguf-q3", "te-nvfp4-awq", "vae-video-fp16", "vae-audio-fp32"],
+      "alt_files": ["dit-gguf-q4"],
+      "flags": ["--fast-disk", "--disable-mmap", "--lowvram"],
+      "acceleration_default": "lightx2v-8step",
+      "expected": "480-540p 5s；4-8 步；单条 3-10 分钟；建议 736x416 起步",
+      "expected_en": "480-540p 5s; 4-8 steps; 3-10 min per clip; start at 736x416",
+      "notes": "16GB 内存下必须配合 ≥48GB 页文件；15s 片段基本不可用",
+      "notes_en": "With 16GB RAM a ≥48GB pagefile is mandatory; 15s clips are basically unusable"
+    },
+    {
+      "id": "balanced-12-16gb",
+      "name": "均衡档（12-16GB 显存）",
+      "name_en": "Balanced tier (12-16GB VRAM)",
+      "target": { "vram_min_gb": 12, "ram_min_gb": 32, "ram_recommend_gb": 64, "pagefile_min_gb": 32, "disk_gb": 60 },
+      "files": ["dit-fl2va-pruned-int8", "te-nvfp4-awq", "vae-video-fp16", "vae-audio-fp32"],
+      "flags": ["--fast-disk"],
+      "acceleration_default": "lightx2v-4step",
+      "expected": "540p-768p 5s；4-8 步；单条 1.5-6 分钟",
+      "expected_en": "540p-768p 5s; 4-8 steps; 1.5-6 min per clip",
+      "notes": "官方推荐的最小组合（42.5GB）；32GB 内存时 TE+DiT 无法同时常驻，建议 --fast-disk",
+      "notes_en": "Official minimum recommended combination (42.5GB); with 32GB RAM the TE+DiT cannot both stay resident, use --fast-disk"
+    },
+    {
+      "id": "quality-24gb",
+      "name": "质量档（24GB 显存）",
+      "name_en": "Quality tier (24GB VRAM)",
+      "target": { "vram_min_gb": 24, "ram_min_gb": 32, "ram_recommend_gb": 64, "pagefile_min_gb": 16, "disk_gb": 80 },
+      "files": ["dit-fl2va-int8", "te-int8", "vae-video-fp16", "vae-audio-fp32"],
+      "alt_files": ["dit-dmitry-int8-hq", "dit-w4a8-fl2va"],
+      "flags": ["--fast-disk"],
+      "acceleration_default": "lightx2v-8step",
+      "expected": "768p-1080p 5-10s；8-20 步；单条 2-10 分钟",
+      "expected_en": "768p-1080p 5-10s; 8-20 steps; 2-10 min per clip",
+      "notes": "24GB 基本无需逐层卸载；INT8 与 bf16 画质差距经实测约 0.9% 量化误差",
+      "notes_en": "24GB needs almost no layer-by-layer offloading; measured INT8 vs bf16 quality gap is about 0.9% quantization error"
+    },
+    {
+      "id": "blackwell-nvfp4",
+      "name": "Blackwell 专用（50 系 16GB+）",
+      "name_en": "Blackwell-specific (50-series 16GB+)",
+      "target": { "vram_min_gb": 16, "ram_min_gb": 32, "ram_recommend_gb": 64, "pagefile_min_gb": 16, "disk_gb": 60 },
+      "files": ["dit-nvfp4-hq", "te-nvfp4-awq", "vae-video-fp16", "vae-audio-fp32"],
+      "flags": ["--fast-disk"],
+      "acceleration_default": "lightx2v-4step",
+      "expected": "768p 5s；4-8 步；单条 1-5 分钟",
+      "expected_en": "768p 5s; 4-8 steps; 1-5 min per clip",
+      "notes": "NVFP4 需 sm_120；SLA / VSA 稀疏注意力可再提速（长片 1.4-1.75×，见第 2 步注意力选项）",
+      "notes_en": "NVFP4 requires sm_120; SLA / VSA sparse attention can speed things up further (1.4-1.75x on long clips, see the attention options in step 2)"
+    },
+    {
+      "id": "flagship-32gb-plus",
+      "name": "旗舰档（32GB+ 显存）",
+      "name_en": "Flagship tier (32GB+ VRAM)",
+      "target": { "vram_min_gb": 32, "ram_min_gb": 48, "ram_recommend_gb": 64, "pagefile_min_gb": 16, "disk_gb": 80 },
+      "files": ["dit-fl2va-pruned-int8", "te-nvfp4-awq", "vae-video-fp16", "vae-audio-fp32"],
+      "alt_files": ["dit-fl2va-int8"],
+      "flags": ["--fast-disk"],
+      "acceleration_default": "lightx2v-8step",
+      "expected": "1344x768 全时长 5-15s；4-8 步；3s 片段端到端约 80s（本机 5090 实测）",
+      "expected_en": "1344x768 full length 5-15s; 4-8 steps; ~80s end-to-end for a 3s clip (measured on our 5090)",
+      "notes": "本机基准：1344x768 73f / 8步 / 5.45 s/it / 整条 80.3s",
+      "notes_en": "Reference machine: 1344x768 73f / 8 steps / 5.45 s/it / 80.3s total"
+    },
+    {
+      "id": "research-bf16",
+      "name": "研究档（96GB+ / 多卡）",
+      "name_en": "Research tier (96GB+ / multi-GPU)",
+      "target": { "vram_min_gb": 96, "ram_min_gb": 128, "disk_gb": 250 },
+      "files": ["dit-fl2va-bf16", "te-bf16", "vae-video-fp16", "vae-audio-fp32"],
+      "flags": [],
+      "acceleration_default": "base-20step",
+      "expected": "研究/训练用途；消费级不推荐",
+      "expected_en": "For research/training; not recommended for consumer use",
+      "notes": "全精度组合 123.6GB；生产/多卡服务见 vLLM 等部署路径",
+      "notes_en": "Full-precision combination is 123.6GB; for production/multi-GPU serving see deployment paths such as vLLM"
+    }
+  ],
+  "reference_uris": {
+    "i2v_workflow": "video_minimax_h3_i2v.json",
+    "t2v_workflow": "video_minimax_h3_t2v.json",
+    "r2v_workflow": "video_minimax_h3_r2v.json"
+  }
+}

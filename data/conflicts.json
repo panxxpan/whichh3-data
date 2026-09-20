@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "updated": "2026-09-19",
+    "note": "计算器在组合这些选项时触发对应提示/禁止。匹配语义：when 数组全部满足 + any 数组（可选）至少一个命中；when 项可以是选项 id，也可以是上下文键（windows / sm_120 / pagefile_used 等）。severity: forbid=禁止组合, warn=高风险, info=注意事项"
+  },
+  "rules": [
+    {
+      "id": "pdd-acc",
+      "severity": "warn",
+      "when": ["pdd-acc-8step"],
+      "message": "PDD 官方蒸馏：不要与其他蒸馏 LoRA 叠加，也不要使用步数缓存节点；采样必须走 PDD 节点输出的 sigmas（euler、CFG=1.0）",
+      "message_en": "Official PDD distillation: do not stack with other distill LoRAs or use step-cache nodes; sampling must use the sigmas output by the PDD node (euler, CFG=1.0)",
+      "source": "Jalen-Brunson/ComfyUI-MiniMax-H3-PDD-Acc README"
+    },
+    {
+      "id": "fp8-scaled-sage-crash",
+      "severity": "forbid",
+      "when": ["dit-ref2va-pruned-fp8", "sage-attention"],
+      "message": "MiniMax H3 fp8_scaled + --use-sage-attention + DynamicVRAM 同开，首个去噪步会原生崩溃。去掉其中任一即可",
+      "message_en": "MiniMax H3 fp8_scaled + --use-sage-attention + DynamicVRAM together crash natively on the first denoise step. Removing any one of them fixes it",
+      "source": "Comfy-Org/ComfyUI#15566"
+    },
+    {
+      "id": "sm120-long-seq-noise",
+      "severity": "warn",
+      "when": ["sage-attention", "sm_120", "seq_gt_160k_tokens"],
+      "message": "sm_120 (50 系) 上序列超过约 16 万 token（约 1920×1088 超过 10 秒，或 1344×768 超过 26 秒）时，核心 Sage 路径会静默输出噪点。长片段建议改用 KJNodes Patch Sage / comfy-kitchen 后端，或 SLA / VSA 稀疏注意力（见第 2 步注意力选项）",
+      "message_en": "On sm_120 (50-series), sequences beyond ~160k tokens (about 1920×1088 over 10 s, or 1344×768 over 26 s) make the core Sage path output silent noise. For long clips switch to the KJNodes Patch Sage / comfy-kitchen backend, or SLA / VSA sparse attention (see the attention options in step 2)",
+      "source": "Comfy-Org/ComfyUI#15263, thu-ml/SageAttention#388"
+    },
+    {
+      "id": "turbo-node-switch-oom",
+      "severity": "info",
+      "when": [],
+      "any": ["larry-v4-8step", "larry-v1-4step", "lightx2v-4step"],
+      "message": "使用 Turbo 采样节点时，切回原生 LoRA 节点前必须重启 ComfyUI，否则旧显存不释放，容易爆显存",
+      "message_en": "When using Turbo sampling nodes, ComfyUI must be restarted before switching back to the native LoRA node; otherwise the old VRAM is not freed and OOM is likely",
+      "source": "juejin 8GB 实测（2026-08-09）"
+    },
+    {
+      "id": "converter-mismatch",
+      "severity": "warn",
+      "when": ["fasth3-4step"],
+      "message": "diffusers 格式的 H3 LoRA 直接放进 ComfyUI 会静默不生效或错位，必须用已验证的转换版（如 matsuo-koya 的 h3_lora_convert.py / drbaph 转换仓库）",
+      "message_en": "Dropping a diffusers-format H3 LoRA straight into ComfyUI silently does nothing or misaligns; use a verified conversion (e.g. matsuo-koya's h3_lora_convert.py / the drbaph conversion repo)",
+      "source": "matsuo-koya/minimax-h3-notes"
+    },
+    {
+      "id": "windows-large-safetensors",
+      "severity": "info",
+      "when": ["windows", "safetensors_gt_20gb"],
+      "message": "Windows 下 >20GB 的 safetensors 用 mmap 读取会崩，建议在启动参数勾选 --disable-mmap",
+      "message_en": "On Windows, mmap-reading safetensors >20GB crashes; enable --disable-mmap in the launch arguments",
+      "source": "shiqikuangsan31/MiniMax-H3-12GB-ComfyUI-Guide"
+    },
+    {
+      "id": "nvfp4-dit-blackwell",
+      "severity": "forbid",
+      "when": ["dit-nvfp4-hq", "non_blackwell"],
+      "message": "NVFP4 扩散模型权重需要 Blackwell (RTX 50 / PRO 6000)；NVFP4 文本编码器走反量化路径则不受限",
+      "message_en": "NVFP4 diffusion-model weights require Blackwell (RTX 50 / PRO 6000); the NVFP4 text encoder goes through a dequant path and is not restricted",
+      "source": "comfyui-wiki.com（MiniMax H3 教程）"
+    },
+    {
+      "id": "pagefile-degradation",
+      "severity": "warn",
+      "when": ["pagefile_used"],
+      "message": "已有组合开始落页文件：每步重新读取 20GB 级权重会把单步时间推到 10 秒级并产生 SSD 写入。32GB 内存机型建议 64GB 或严格 --fast-disk",
+      "message_en": "The current combination is hitting the pagefile: re-reading 20GB-class weights every step pushes per-step time to ~10 s and causes SSD writes. On 32GB RAM machines, go to 64GB or use --fast-disk strictly",
+      "source": "shiqikuangsan31 指南 / Tomiigo 16GB 实测"
+    },
+    {
+      "id": "gguf-memory-node",
+      "severity": "warn",
+      "when": [],
+      "any": ["dit-gguf-q3", "dit-gguf-q4", "dit-gguf-q5"],
+      "message": "GGUF 与部分内存优化节点（如 Zironic H3MemoryOptimization）不兼容；GGUF 下 Sage 收益不稳定",
+      "message_en": "GGUF is incompatible with some memory-optimization nodes (e.g. Zironic H3MemoryOptimization); Sage gains are unstable under GGUF",
+      "source": "matsuo-koya/minimax-h3-notes"
+    },
+    {
+      "id": "sla-pairing",
+      "severity": "warn",
+      "when": ["sla-attention"],
+      "message": "SLA 稀疏必须成套使用：SLA 训练版 Turbo LoRA（lightx2v SLA）+ H3 SLA Attention 节点（PlagueKind）；在非 SLA 权重上开稀疏路由会明显掉画质。语音片段音频块保持 64（128 会让对白发闷）",
+      "message_en": "SLA sparsity must be used as a set: SLA-trained Turbo LoRA (lightx2v SLA) + H3 SLA Attention node (PlagueKind); enabling sparse routing on non-SLA weights visibly degrades quality. Keep the audio block at 64 for speech clips (128 muffles dialogue)",
+      "source": "instasd.com/post/minimax-h3-sla-vram-benchmarks；PlagueKind/ComfyUI-PlagueKind-Nodes"
+    },
+    {
+      "id": "vsa-node-required",
+      "severity": "info",
+      "when": ["vsa-attention"],
+      "message": "VSA 需要 FastVideo VSA 节点（barelymining/ComfyUI-MiniMax-H3-FastVideo）或最新 ComfyUI 核心 Block Sparse Attention 节点（comfy-kitchen ≥0.2.33）；与 FastH3 4 步蒸馏 LoRA 配合收益最大，短片提升有限",
+      "message_en": "VSA requires the FastVideo VSA node (barelymining/ComfyUI-MiniMax-H3-FastVideo) or the latest ComfyUI core Block Sparse Attention node (comfy-kitchen ≥0.2.33); it pays off most with the FastH3 4-step distill LoRA, with limited benefit on short clips",
+      "source": "comfyui-wiki.com（2026-09-08 核心稀疏注意力节点）；barelymining/ComfyUI-MiniMax-H3-FastVideo"
+    }
+  ]
+}

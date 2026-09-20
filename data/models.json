@@ -1,0 +1,703 @@
+{
+  "meta": {
+    "updated": "2026-09-18",
+    "note": "体积为 HF 仓库原始字节换算的 GB（十进制）。quant = 量化族。rel_l2 = 社区/作者公布的权重相对误差（越低越好）。speed_mod = 相对 int8 的单步速度系数（引擎用）。所有条目均经 HF API 文件清单核实（2026-09-18）。",
+    "base_model": "MiniMax H3 (33.1B dense single-stream omni transformer, Qwen3-VL-32B text encoder)",
+    "min_viable_set_gb": 42.5,
+    "quant_families": {
+      "bf16": {
+        "label": "BF16 全精度",
+        "bits": 16,
+        "note": "未量化基线",
+        "speed_mod": 0.55
+      },
+      "fp8": {
+        "label": "FP8 Scaled",
+        "bits": 8,
+        "note": "cu130 int8 内核不可用时的回退方案",
+        "speed_mod": 0.9
+      },
+      "int8": {
+        "label": "INT8 ConvRot",
+        "bits": 8,
+        "note": "官方推荐，需 PyTorch cu130",
+        "speed_mod": 1.0
+      },
+      "w4a8": {
+        "label": "W4A8（4位权重+INT8计算）",
+        "bits": 4,
+        "note": "ConvRot int4 + Lloyd-Max 码本，relL2≈0.073（优于 NVFP4 0.094），比 INT8 快约 9%，无需校准；需 ComfyUI ≥0.31",
+        "speed_mod": 1.09
+      },
+      "nvfp4": {
+        "label": "NVFP4（4位浮点）",
+        "bits": 4,
+        "note": "relL2≈0.094；扩散模型需 Blackwell (50 系)，text encoder 不限",
+        "speed_mod": 1.15
+      },
+      "gguf": {
+        "label": "GGUF（llama.cpp 量化）",
+        "bits": 4,
+        "note": "兼容性最好、体积可到最小，但注意力内核效率较低",
+        "speed_mod": 0.8
+      },
+      "int4": {
+        "label": "INT4 ConvRot",
+        "bits": 4,
+        "note": "4 位权重 ConvRot 打包（simple/实验性），任意 GPU 可用；质量与速度均未充分评估",
+        "speed_mod": 0.95
+      }
+    },
+    "verified_local_files": {
+      "dit": "minimax_h3_fl2va_pruned_int8_convrot.safetensors (实机确认)",
+      "te": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors (实机确认)",
+      "vae_video": "minimax_h3_video_vae_fp16.safetensors (实机确认)",
+      "vae_audio": "minimax_h3_audio_vae_fp32.safetensors (实机确认)"
+    }
+  },
+  "files": [
+    {
+      "id": "dit-fl2va-bf16",
+      "component": "dit",
+      "variant": "fl2va",
+      "name": "minimax_h3_fl2va_bf16.safetensors",
+      "size_gb": 66.28,
+      "quant": "bf16",
+      "pruned": false,
+      "quality_rank": 100,
+      "requires": [
+        "ComfyUI>=0.30"
+      ],
+      "source": "Comfy-Org/MiniMax-H3"
+    },
+    {
+      "id": "dit-fl2va-int8",
+      "component": "dit",
+      "variant": "fl2va",
+      "name": "minimax_h3_fl2va_int8_convrot.safetensors",
+      "size_gb": 34.04,
+      "quant": "int8",
+      "pruned": false,
+      "quality_rank": 95,
+      "requires": [
+        "PyTorch cu130"
+      ],
+      "source": "Comfy-Org/MiniMax-H3"
+    },
+    {
+      "id": "dit-fl2va-pruned-bf16",
+      "component": "dit",
+      "variant": "fl2va",
+      "name": "minimax_h3_fl2va_pruned_bf16.safetensors",
+      "size_gb": 40.23,
+      "quant": "bf16",
+      "pruned": true,
+      "quality_rank": 96,
+      "requires": [
+        "ComfyUI>=0.30"
+      ],
+      "source": "Comfy-Org/MiniMax-H3"
+    },
+    {
+      "id": "dit-fl2va-pruned-int8",
+      "component": "dit",
+      "variant": "fl2va",
+      "name": "minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+      "size_gb": 20.97,
+      "quant": "int8",
+      "pruned": true,
+      "quality_rank": 92,
+      "requires": [
+        "PyTorch cu130"
+      ],
+      "recommended_default": true,
+      "source": "Comfy-Org/MiniMax-H3"
+    },
+    {
+      "id": "dit-fl2va-pruned-fp8",
+      "component": "dit",
+      "variant": "fl2va",
+      "name": "minimax_h3_fl2va_pruned_fp8_scaled.safetensors",
+      "size_gb": 20.96,
+      "quant": "fp8",
+      "pruned": true,
+      "quality_rank": 88,
+      "requires": [
+        "ComfyUI>=0.30"
+      ],
+      "source": "Comfy-Org/MiniMax-H3"
+    },
+    {
+      "id": "dit-ref2va-bf16",
+      "component": "dit",
+      "variant": "ref2va",
+      "name": "minimax_h3_ref2va_bf16.safetensors",
+      "size_gb": 66.28,
+      "quant": "bf16",
+      "pruned": false,
+      "quality_rank": 100,
+      "requires": [
+        "ComfyUI>=0.30"
+      ],
+      "source": "Comfy-Org/MiniMax-H3"
+    },
+    {
+      "id": "dit-ref2va-int8",
+      "component": "dit",
+      "variant": "ref2va",
+      "name": "minimax_h3_ref2va_int8_convrot.safetensors",
+      "size_gb": 34.04,
+      "quant": "int8",
+      "pruned": false,
+      "quality_rank": 95,
+      "requires": [
+        "PyTorch cu130"
+      ],
+      "source": "Comfy-Org/MiniMax-H3"
+    },
+    {
+      "id": "dit-ref2va-pruned-bf16",
+      "component": "dit",
+      "variant": "ref2va",
+      "name": "minimax_h3_ref2va_pruned_bf16.safetensors",
+      "size_gb": 40.23,
+      "quant": "bf16",
+      "pruned": true,
+      "quality_rank": 96,
+      "requires": [
+        "ComfyUI>=0.30"
+      ],
+      "source": "Comfy-Org/MiniMax-H3"
+    },
+    {
+      "id": "dit-ref2va-pruned-int8",
+      "component": "dit",
+      "variant": "ref2va",
+      "name": "minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+      "size_gb": 20.97,
+      "quant": "int8",
+      "pruned": true,
+      "quality_rank": 92,
+      "requires": [
+        "PyTorch cu130"
+      ],
+      "recommended_default_ref": true,
+      "source": "Comfy-Org/MiniMax-H3"
+    },
+    {
+      "id": "dit-ref2va-pruned-fp8",
+      "component": "dit",
+      "variant": "ref2va",
+      "name": "minimax_h3_ref2va_pruned_fp8_scaled.safetensors",
+      "size_gb": 20.96,
+      "quant": "fp8",
+      "pruned": true,
+      "quality_rank": 88,
+      "requires": [
+        "ComfyUI>=0.30"
+      ],
+      "conflict_notes": [
+        "与 --use-sage-attention + DynamicVRAM 同开会在第一步崩溃（ComfyUI #15566）"
+      ],
+      "conflict_notes_en": [
+        "Combining with --use-sage-attention + DynamicVRAM crashes on the first step (ComfyUI #15566)"
+      ],
+      "source": "Comfy-Org/MiniMax-H3"
+    },
+    {
+      "id": "dit-w4a8-fl2va",
+      "component": "dit",
+      "variant": "fl2va",
+      "name": "minimax_h3_fl2va_pruned_w4a8_mixed.safetensors（Kijai / Winnougan 同款格式）",
+      "size_gb": 12.54,
+      "quant": "w4a8",
+      "pruned": true,
+      "rel_l2": 0.073,
+      "quality_rank": 93,
+      "requires": [
+        "ComfyUI>=0.31",
+        "asym_w4a8_int8 内核"
+      ],
+      "notes": "当前体积最小的主流量化之一；实验性格式（作者仍在迭代），速度约 int8 的 1.09×",
+      "notes_en": "One of the smallest mainstream quantizations available; an experimental format (the author is still iterating) running at about 1.09x int8 speed",
+      "source": "Kijai/MiniMax-H3-experimental · Winnougan/MiniMax-H3-INT4_Convrot_ComfyUI",
+      "name_en": "minimax_h3_fl2va_pruned_w4a8_mixed.safetensors (same format as Kijai / Winnougan)"
+    },
+    {
+      "id": "dit-w4a8-ref2va",
+      "component": "dit",
+      "variant": "ref2va",
+      "name": "minimax_h3_ref2va_pruned_w4a8_mixed.safetensors",
+      "size_gb": 11.77,
+      "quant": "w4a8",
+      "pruned": true,
+      "rel_l2": 0.073,
+      "quality_rank": 93,
+      "requires": [
+        "ComfyUI>=0.31",
+        "asym_w4a8_int8 内核"
+      ],
+      "source": "Kijai/MiniMax-H3-experimental"
+    },
+    {
+      "id": "dit-nvfp4",
+      "component": "dit",
+      "variant": "fl2va",
+      "name": "MiniMax-H3_FL2VA-NVFP4.safetensors（DmitryDB）",
+      "size_gb": 11.66,
+      "quant": "nvfp4",
+      "pruned": true,
+      "rel_l2": 0.094,
+      "quality_rank": 90,
+      "requires": [
+        "Blackwell (RTX 50 / PRO 6000)"
+      ],
+      "source": "DmitryDB/MiniMax-H3-ComfyUI-Quants"
+    },
+    {
+      "id": "dit-nvfp4-hq",
+      "component": "dit",
+      "variant": "fl2va",
+      "name": "MiniMax-H3_FL2VA-NVFP4-HQ.safetensors（DmitryDB）",
+      "size_gb": 14.6,
+      "quant": "nvfp4",
+      "pruned": true,
+      "rel_l2": 0.094,
+      "quality_rank": 92,
+      "requires": [
+        "Blackwell (RTX 50 / PRO 6000)"
+      ],
+      "source": "DmitryDB/MiniMax-H3-ComfyUI-Quants"
+    },
+    {
+      "id": "dit-nvfp4-ref2va",
+      "component": "dit",
+      "variant": "ref2va",
+      "name": "MiniMax-H3_Ref2VA-NVFP4.safetensors（DmitryDB）",
+      "size_gb": 11.66,
+      "quant": "nvfp4",
+      "pruned": true,
+      "rel_l2": 0.094,
+      "quality_rank": 90,
+      "requires": [
+        "Blackwell (RTX 50 / PRO 6000)"
+      ],
+      "source": "DmitryDB/MiniMax-H3-ComfyUI-Quants"
+    },
+    {
+      "id": "dit-dmitry-int8-hq",
+      "component": "dit",
+      "variant": "fl2va",
+      "name": "MiniMax-H3_FL2VA-INT8-ConvRot-HQ.safetensors",
+      "size_gb": 23.52,
+      "quant": "int8",
+      "pruned": false,
+      "quality_rank": 94,
+      "requires": [
+        "PyTorch cu130"
+      ],
+      "notes": "社区精选层策略的 INT8 版本，比官方全量 INT8（34GB）更小",
+      "notes_en": "INT8 build using the community's selective-layer strategy; smaller than the official full INT8 (34GB)",
+      "source": "DmitryDB/MiniMax-H3-ComfyUI-Quants"
+    },
+    {
+      "id": "dit-dmitry-int8-lite",
+      "component": "dit",
+      "variant": "fl2va",
+      "name": "MiniMax-H3_FL2VA-INT8-ConvRot-Lite.safetensors",
+      "size_gb": 21.83,
+      "quant": "int8",
+      "pruned": false,
+      "quality_rank": 90,
+      "requires": [
+        "PyTorch cu130"
+      ],
+      "source": "DmitryDB/MiniMax-H3-ComfyUI-Quants"
+    },
+    {
+      "id": "dit-fastvideo-vsa-4step",
+      "component": "dit",
+      "variant": "fl2va",
+      "name": "minimax_h3_fastvideo_vsa_datafree_1300step_4step_int8_convrot.safetensors（Kijai 转 ComfyUI）",
+      "size_gb": 22.9,
+      "quant": "int8",
+      "pruned": false,
+      "group": "distill",
+      "quality_rank": 93,
+      "requires": [
+        "ComfyUI PR #15958",
+        "comfy-kitchen PR #117"
+      ],
+      "notes": "FastVideo FastH3 Preview v1（与 Nuva Lab、NVIDIA FastGen 合作）：data-free DMD2 + VSA（Video Sparse Attention，arXiv:2505.13389）90% 稀疏、tile 64 训练的 4 步蒸馏模型（step-1300，T2AV）。官方验证路线是 4×B200 + fastvideo-kernel；LoRA 形态见 FastVideo-FastH3-4-step-Preview-v1-LoRA。此为 Kijai 转 ComfyUI 的 int8 实验版。",
+      "notes_en": "FastVideo FastH3 Preview v1 (with Nuva Lab and NVIDIA FastGen): a 4-step distilled model (step-1300, T2AV) trained with data-free DMD2 + VSA (Video Sparse Attention, arXiv:2505.13389) at 90% sparsity and tile 64. The officially validated route is 4×B200 + fastvideo-kernel; for the LoRA form see FastVideo-FastH3-4-step-Preview-v1-LoRA. This is Kijai's int8 experimental ComfyUI conversion.",
+      "source": "FastVideo（GitHub hao-ai-lab/FastVideo）· Kijai/MiniMax-H3-experimental",
+      "name_en": "minimax_h3_fastvideo_vsa_datafree_1300step_4step_int8_convrot.safetensors (Kijai ComfyUI conversion)"
+    },
+    {
+      "id": "dit-gguf-q2",
+      "component": "dit",
+      "variant": "ref2va",
+      "name": "minimax_h3_ref2va_pruned-Q2_K_M.gguf",
+      "size_gb": 6.72,
+      "quant": "gguf",
+      "pruned": true,
+      "quality_rank": 65,
+      "requires": [
+        "ComfyUI-GGUF"
+      ],
+      "notes": "体积最小的主模型（6.7GB，仅 Ref2VA 提供 Q2）；质量损失较大，8GB 显存极限配置可用",
+      "notes_en": "The smallest main model (6.7GB; Q2 is only offered for Ref2VA); noticeable quality loss, usable in extreme 8GB VRAM setups",
+      "source": "leejet/MiniMax-H3-GGUF"
+    },
+    {
+      "id": "dit-gguf-q3",
+      "component": "dit",
+      "variant": "fl2va",
+      "name": "MiniMax-H3-FL2VA-Pruned-Q3_K_M.gguf",
+      "size_gb": 8.9,
+      "quant": "gguf",
+      "pruned": true,
+      "quality_rank": 72,
+      "requires": [
+        "ComfyUI-GGUF"
+      ],
+      "notes": "8-10GB 显存档兜底；速度低于 int8 convrot",
+      "notes_en": "Fallback for the 8-10GB VRAM tiers; slower than int8 convrot",
+      "source": "Abiray/MiniMax-H3-Pruned-GGUF"
+    },
+    {
+      "id": "dit-gguf-q4",
+      "component": "dit",
+      "variant": "fl2va",
+      "name": "MiniMax-H3-FL2VA-Pruned-Q4_K_M.gguf",
+      "size_gb": 11.56,
+      "quant": "gguf",
+      "pruned": true,
+      "quality_rank": 80,
+      "requires": [
+        "ComfyUI-GGUF"
+      ],
+      "source": "Abiray/MiniMax-H3-Pruned-GGUF"
+    },
+    {
+      "id": "dit-gguf-q4-full",
+      "component": "dit",
+      "variant": "fl2va",
+      "name": "minimax_h3_fl2va-Q4_K_M.gguf（未剪枝）",
+      "size_gb": 18.78,
+      "quant": "gguf",
+      "pruned": false,
+      "quality_rank": 82,
+      "requires": [
+        "ComfyUI-GGUF"
+      ],
+      "source": "leejet/MiniMax-H3-GGUF",
+      "name_en": "minimax_h3_fl2va-Q4_K_M.gguf (unpruned)"
+    },
+    {
+      "id": "dit-gguf-q5",
+      "component": "dit",
+      "variant": "fl2va",
+      "name": "MiniMax-H3-FL2VA-Pruned-Q5_K_M.gguf",
+      "size_gb": 14.07,
+      "quant": "gguf",
+      "pruned": true,
+      "quality_rank": 85,
+      "requires": [
+        "ComfyUI-GGUF"
+      ],
+      "source": "Abiray/MiniMax-H3-Pruned-GGUF"
+    },
+    {
+      "id": "dit-gguf-q6",
+      "component": "dit",
+      "variant": "fl2va",
+      "name": "MiniMax-H3-FL2VA-Pruned-Q6_K.gguf",
+      "size_gb": 16.73,
+      "quant": "gguf",
+      "pruned": true,
+      "quality_rank": 88,
+      "requires": [
+        "ComfyUI-GGUF"
+      ],
+      "source": "Abiray/MiniMax-H3-Pruned-GGUF"
+    },
+    {
+      "id": "dit-nvfp4-mixed",
+      "component": "dit",
+      "variant": "fl2va",
+      "name": "minimax_h3_fl2va_pruned_nvfp4_fp8.safetensors（rockerBOO 混合量化）",
+      "size_gb": 20.07,
+      "quant": "nvfp4",
+      "pruned": true,
+      "quality_rank": 91,
+      "requires": [
+        "Blackwell (RTX 50 / PRO 6000)",
+        "ComfyUI>=0.30"
+      ],
+      "notes": "NVFP4 与 FP8 逐层混合（985 张量 / 180 层），社区评价为「保真度论证更充分」的 4-bit 方案；ComfyUI 单文件直接加载",
+      "notes_en": "Layer-by-layer NVFP4 and FP8 mix (985 tensors / 180 layers); the community rates it the 4-bit option with the more thoroughly argued fidelity; loads directly as a single file in ComfyUI",
+      "source": "rockerBOO/minimax-h3-nvfp4",
+      "name_en": "minimax_h3_fl2va_pruned_nvfp4_fp8.safetensors (rockerBOO mixed quant)"
+    },
+    {
+      "id": "dit-int4-convrot",
+      "component": "dit",
+      "variant": "fl2va",
+      "name": "minimax_h3_fl2va_pruned_int4_convrot_simple.safetensors",
+      "size_gb": 17.0,
+      "quant": "int4",
+      "pruned": true,
+      "quality_rank": 84,
+      "requires": [
+        "ComfyUI>=0.30"
+      ],
+      "notes": "INT4 ConvRot 实验性版本（任意 GPU 可用，非 Blackwell 也可）；作者标注质量未评估，建议先小样测试",
+      "notes_en": "Experimental INT4 ConvRot build (works on any GPU, Blackwell not required); the author marks quality as unevaluated — test on small samples first",
+      "source": "rockerBOO（ModelScope 镜像）"
+    },
+    {
+      "id": "te-gguf-q2-mini",
+      "component": "te",
+      "variant": "any",
+      "name": "qwen3vl-32B-MiniMax-H3-Q2_K.gguf",
+      "size_gb": 8.49,
+      "quant": "gguf",
+      "quality_rank": 68,
+      "requires": [
+        "ComfyUI-GGUF"
+      ],
+      "notes": "体积最小的文本编码器（8.5GB），16GB 内存机型的救星",
+      "notes_en": "The smallest text encoder (8.5GB); a lifesaver for 16GB RAM machines",
+      "source": "realrebelai/MiniMax-H3_GGUFs"
+    },
+    {
+      "id": "dit-gguf-q8",
+      "component": "dit",
+      "variant": "fl2va",
+      "name": "MiniMax-H3-FL2VA-Pruned-Q8_0.gguf",
+      "size_gb": 21.58,
+      "quant": "gguf",
+      "pruned": true,
+      "quality_rank": 91,
+      "requires": [
+        "ComfyUI-GGUF"
+      ],
+      "notes": "GGUF 中质量最高档，体积已接近 int8 convrot",
+      "notes_en": "Highest-quality GGUF tier; size is already close to int8 convrot",
+      "source": "Abiray/MiniMax-H3-Pruned-GGUF"
+    },
+    {
+      "id": "te-bf16",
+      "component": "te",
+      "variant": "any",
+      "name": "qwen3vl_32b_minimax_h3_bf16.safetensors",
+      "size_gb": 51.51,
+      "quant": "bf16",
+      "quality_rank": 100,
+      "requires": [
+        "RAM>=64GB 建议"
+      ],
+      "source": "Comfy-Org/MiniMax-H3"
+    },
+    {
+      "id": "te-int8",
+      "component": "te",
+      "variant": "any",
+      "name": "qwen3vl_32b_minimax_h3_int8_convrot.safetensors",
+      "size_gb": 27.14,
+      "quant": "int8",
+      "quality_rank": 96,
+      "requires": [
+        "PyTorch cu130"
+      ],
+      "source": "Comfy-Org/MiniMax-H3"
+    },
+    {
+      "id": "te-nvfp4-awq",
+      "component": "te",
+      "variant": "any",
+      "name": "qwen3vl_32b_minimax_h3_nvfp4_awq.safetensors",
+      "size_gb": 15.69,
+      "quant": "nvfp4",
+      "quality_rank": 93,
+      "recommended_default": true,
+      "notes": "AWQ 反量化路径，任意 NVIDIA GPU 可用，不限 Blackwell",
+      "notes_en": "AWQ dequantization path; works on any NVIDIA GPU, not limited to Blackwell",
+      "source": "Comfy-Org/MiniMax-H3"
+    },
+    {
+      "id": "te-w4a8",
+      "component": "te",
+      "variant": "any",
+      "name": "qwen3vl_32b_minimax_h3-w4a8_convrot.safetensors",
+      "size_gb": 15.7,
+      "quant": "w4a8",
+      "quality_rank": 92,
+      "requires": [
+        "ComfyUI>=0.31"
+      ],
+      "notes": "视觉塔保持未量化，仅语言部分 W4A8",
+      "notes_en": "The vision tower stays unquantized; only the language part is W4A8",
+      "source": "Winnougan/MiniMax-H3-INT4_Convrot_ComfyUI"
+    },
+    {
+      "id": "te-gguf-q2",
+      "component": "te",
+      "variant": "any",
+      "name": "qwen3vl_32b_minimax_h3-Q2_K_M.gguf",
+      "size_gb": 13.1,
+      "quant": "gguf",
+      "quality_rank": 70,
+      "requires": [
+        "ComfyUI-GGUF"
+      ],
+      "notes": "16GB 内存机型的文本编码器兜底",
+      "notes_en": "Text encoder fallback for 16GB RAM machines",
+      "source": "leejet/MiniMax-H3-GGUF"
+    },
+    {
+      "id": "te-gguf-q4",
+      "component": "te",
+      "variant": "any",
+      "name": "qwen3vl_32b_minimax_h3-Q4_K_M.gguf",
+      "size_gb": 18.22,
+      "quant": "gguf",
+      "quality_rank": 82,
+      "requires": [
+        "ComfyUI-GGUF"
+      ],
+      "source": "leejet/MiniMax-H3-GGUF"
+    },
+    {
+      "id": "vae-video-fp16",
+      "component": "vae",
+      "variant": "any",
+      "name": "minimax_h3_video_vae_fp16.safetensors",
+      "size_gb": 5.21,
+      "quant": "bf16",
+      "quality_rank": 100,
+      "required": true,
+      "source": "Comfy-Org/MiniMax-H3"
+    },
+    {
+      "id": "vae-video-int8",
+      "component": "vae",
+      "variant": "any",
+      "name": "minimax_h3_video_vae_int8_convrot.safetensors",
+      "size_gb": 2.81,
+      "quant": "int8",
+      "quality_rank": 98,
+      "requires": [
+        "ComfyUI>=0.31"
+      ],
+      "notes": "解码提速约 1.5×，体积减半；int8 内核缺失时会黑屏，需 cu130",
+      "notes_en": "About 1.5x faster decoding at half the size; without the int8 kernel it gives a black screen, needs cu130",
+      "source": "Comfy-Org/MiniMax-H3 / Kijai"
+    },
+    {
+      "id": "vae-audio-fp32",
+      "component": "vae",
+      "variant": "any",
+      "name": "minimax_h3_audio_vae_fp32.safetensors",
+      "size_gb": 0.61,
+      "quant": "bf16",
+      "quality_rank": 100,
+      "required": true,
+      "source": "Comfy-Org/MiniMax-H3"
+    }
+  ],
+  "lora_files": [
+    {
+      "id": "lora-lightx2v-8step-kijai",
+      "name": "Lightx2v_kijai_minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16.safetensors",
+      "size_gb": 1.82,
+      "variant": "fl2v",
+      "steps": 8,
+      "size_verified_local": true
+    },
+    {
+      "id": "lora-lightx2v-4step-v11",
+      "name": "minimax_h3_fl2v_turbo_4step_v1.1_768p (comfyui, rank64/rank28 可选)",
+      "size_gb": 0.87,
+      "variant": "fl2v",
+      "steps": 4,
+      "notes": "rank28 低秩版约 0.37GB",
+      "notes_en": "The rank28 low-rank version is about 0.37GB"
+    },
+    {
+      "id": "lora-lightx2v-8step-v10",
+      "name": "minimax_h3_fl2v_turbo_8step_v1.0_comfyui_bf16（官方仓库版 1.96GB）",
+      "size_gb": 1.96,
+      "variant": "fl2v",
+      "steps": 8,
+      "source": "Comfy-Org/MiniMax-H3"
+    },
+    {
+      "id": "lora-lightx2v-4step-v10",
+      "name": "minimax_h3_fl2v_turbo_4step_v1.0_768p_comfyui_bf16（官方仓库版 1.96GB）",
+      "size_gb": 1.96,
+      "variant": "fl2v",
+      "steps": 4,
+      "source": "Comfy-Org/MiniMax-H3"
+    },
+    {
+      "id": "lora-larry-v4",
+      "name": "larryvrh Turbo v4 (step-600 EMA) — drbaph ComfyUI 转换",
+      "size_gb": 1.8,
+      "variant": "fl2v/ref2v",
+      "steps": 8,
+      "notes": "音频双调度，需要双时钟采样器",
+      "notes_en": "Dual audio scheduling; requires the dual-clock sampler"
+    },
+    {
+      "id": "lora-larry-v1-4step",
+      "name": "larryvrh Turbo v1 (ckpt500) 4步预览版",
+      "size_gb": 0.75,
+      "variant": "fl2v",
+      "steps": 4,
+      "notes": "早期预览，质量不稳定",
+      "notes_en": "Early preview, unstable quality"
+    },
+    {
+      "id": "lora-fasth3-4step",
+      "name": "FastVideo FastH3 4-step DMD2（LoRA 转换版；模型级版本见 dit-fastvideo-vsa-4step）",
+      "size_gb": 1.8,
+      "variant": "fl2v",
+      "steps": 4
+    },
+    {
+      "id": "lora-taomate-3step",
+      "name": "taomate_h3_3step_comfy.safetensors",
+      "size_gb": 2.48,
+      "variant": "t2av",
+      "steps": 3,
+      "source": "Robert1212star/TaoMate-H3-3Step-ComfyUI"
+    },
+    {
+      "id": "lora-pdd-8step",
+      "name": "MiniMax-H3-FL2VA-Acc-8Step_comfy.safetensors（Kijai ComfyUI 转换，1.72GB）",
+      "size_gb": 1.72,
+      "variant": "fl2va",
+      "steps": 8,
+      "source": "Kijai/MiniMax-H3-experimental（原始 alibaba-pai 1.37GB）"
+    },
+    {
+      "id": "lora-pdd-ref2va-8step",
+      "name": "MiniMax-H3-Ref2VA-Acc-8Step_comfy.safetensors",
+      "size_gb": 1.72,
+      "variant": "ref2va",
+      "steps": 8,
+      "source": "Kijai/MiniMax-H3-experimental"
+    },
+    {
+      "id": "lora-spatial-physics",
+      "name": "wushu_spatial_physics_clean_3000_pruned.safetensors",
+      "size_gb": 0.148,
+      "variant": "t2v",
+      "steps": null,
+      "notes": "物理/碰撞质量增强，可与 turbo 叠加（强度 0.3-0.5）",
+      "notes_en": "Enhances physics/collision quality; stacks with turbo (strength 0.3-0.5)"
+    }
+  ]
+}

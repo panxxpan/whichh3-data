@@ -1,0 +1,527 @@
+{
+  "generated": "2026-09-18",
+  "constants": {
+    "A_linear": 38500000000.0,
+    "B_quad": 1434000.0,
+    "text_tokens": 400.0,
+    "latent_temporal_divisor": 4,
+    "patch_px": 32,
+    "audio_tokens_per_s": 40
+  },
+  "k_bw_tops_per_gbps": 0.1233,
+  "k_bw_tops_per_gbps_sage": 0.1233,
+  "k_bw_tops_per_gbps_plain": 0.1107,
+  "k_bw_n_anchors": 4,
+  "k_bw_n_anchors_sage": 4,
+  "k_bw_n_anchors_plain": 15,
+  "modifiers": {
+    "attn_plain_vs_sage": 0.898,
+    "sage_measured_pair": 0.729,
+    "dtype_bf16": 0.55,
+    "gguf": 0.8,
+    "lora_offload_patch_penalty": 1.08,
+    "measured_overhead_step_s": 0.4
+  },
+  "offload_model": {
+    "pcie_eff_ratio": 0.76,
+    "ddr4_eff_ratio": 0.7,
+    "ddr5_eff_ratio": 0.74,
+    "ssd_eff_ratio": 0.75,
+    "note": "非驻留权重每步流式传输：step_time >= bytes_not_resident / min(pcie_bw, src_tier_bw)"
+  },
+  "arch_floors_tops": {
+    "120": 235,
+    "89": 140,
+    "note": "Sage/Kitchen 类注意力在现代架构上的绝对效率下限（TOPS，int8 基准）。Blackwell 三条独立实测（5080/5070Ti/5090）均落在 235-270 TOPS，与显存带宽不成比例；Ampere 无下限（带宽规律成立）。sm_89 为保守估计，证据较弱。"
+  },
+  "load_model": {
+    "te_encode_floor_s": 8.0,
+    "weight_read_overhead_mult": 1.5,
+    "vae_decode_s_per_mp_frame": 0.25,
+    "sources": [
+      "local-log",
+      "pepikir-speedup",
+      "hf-discussion-6"
+    ]
+  },
+  "per_gpu": {
+    "rtx-5090-32g": {
+      "anchors": [
+        "local-5090-1344x768x73-lx2v8-int8-sage",
+        "matsuo-5090-1280x704x121-base20",
+        "matsuo-5090-1280x704x121-turbo8",
+        "matsuo-5090-1280x704x121-turbo8-int8attn",
+        "matsuo-5090-1280x704x182-turbo8",
+        "matsuo-5090-1280x704x182-fasth3"
+      ],
+      "eff_tops_median": 152.6,
+      "ratio_median": 0.0851,
+      "ratio_sage_median": 0.1288,
+      "ratio_plain_median": 0.079
+    },
+    "rtx-3090-24g": {
+      "anchors": [
+        "pepikir-3090-864x480x124-base20-nosage",
+        "pepikir-3090-864x480x124-base20-sage"
+      ],
+      "eff_tops_median": 99.3,
+      "ratio_median": 0.1061,
+      "ratio_sage_median": 0.1227,
+      "ratio_plain_median": 0.0896
+    },
+    "rtx-4070-12g": {
+      "anchors": [
+        "sepiablue-4070-576x832x124-base20",
+        "sepiablue-4070-576x832x124-larry8",
+        "sepiablue-4070-576x832x124-lx2v8",
+        "sepiablue-4070-576x832x124-lx2v4"
+      ],
+      "eff_tops_median": 55.6,
+      "ratio_median": 0.1104,
+      "ratio_sage_median": null,
+      "ratio_plain_median": 0.1104
+    },
+    "rtx-3060-12g": {
+      "anchors": [
+        "guide-3060-1280x736x121-base20"
+      ],
+      "eff_tops_median": 46.5,
+      "ratio_median": 0.1291,
+      "ratio_sage_median": null,
+      "ratio_plain_median": 0.1291
+    },
+    "rtx-5070ti-16g": {
+      "anchors": [
+        "desktop4070-5070ti-736x416x121-larry8",
+        "desktop4070-5070ti-960x544x121-larry8",
+        "desktop4070-5070ti-1344x768x121-larry8",
+        "desktop4070-5070ti-1280x736x361-larry8"
+      ],
+      "eff_tops_median": 229.8,
+      "ratio_median": 0.2564,
+      "ratio_sage_median": null,
+      "ratio_plain_median": 0.2564
+    },
+    "rtx-5080-16g": {
+      "anchors": [
+        "jonike-5080-960x544x124-base20-plain",
+        "jonike-5080-960x544x124-base20-sage"
+      ],
+      "eff_tops_median": 189.6,
+      "ratio_median": 0.1976,
+      "ratio_sage_median": 0.2549,
+      "ratio_plain_median": 0.1403
+    }
+  },
+  "anchors_used": [
+    {
+      "id": "local-5090-1344x768x73-lx2v8-int8-sage",
+      "gpu_id": "rtx-5090-32g",
+      "s_per_it": 5.45,
+      "tokens": 19672,
+      "flops_step_tflops": 1312.3,
+      "eff_tops": 240.8,
+      "bw_gbps": 1792,
+      "ratio": 0.1344,
+      "attn": "sage",
+      "steps": 8,
+      "lora": "lora-lightx2v-8step-kijai",
+      "confidence": "high"
+    },
+    {
+      "id": "matsuo-5090-1280x704x121-base20",
+      "gpu_id": "rtx-5090-32g",
+      "s_per_it": 13.5,
+      "tokens": 27880,
+      "flops_step_tflops": 2188.0,
+      "eff_tops": 162.1,
+      "bw_gbps": 1792,
+      "ratio": 0.0904,
+      "attn": "plain",
+      "steps": 20,
+      "lora": null,
+      "confidence": "medium"
+    },
+    {
+      "id": "matsuo-5090-1280x704x121-turbo8",
+      "gpu_id": "rtx-5090-32g",
+      "s_per_it": 15.6,
+      "tokens": 27880,
+      "flops_step_tflops": 2188.0,
+      "eff_tops": 140.3,
+      "bw_gbps": 1792,
+      "ratio": 0.0783,
+      "attn": "plain",
+      "steps": 8,
+      "lora": "lora-lightx2v-8step-v10",
+      "confidence": "medium"
+    },
+    {
+      "id": "matsuo-5090-1280x704x121-turbo8-int8attn",
+      "gpu_id": "rtx-5090-32g",
+      "s_per_it": 9.9,
+      "tokens": 27880,
+      "flops_step_tflops": 2188.0,
+      "eff_tops": 221.0,
+      "bw_gbps": 1792,
+      "ratio": 0.1233,
+      "attn": "ck-attention",
+      "steps": 8,
+      "lora": "lora-lightx2v-8step-v10",
+      "confidence": "medium"
+    },
+    {
+      "id": "matsuo-5090-1280x704x182-turbo8",
+      "gpu_id": "rtx-5090-32g",
+      "s_per_it": 28.1,
+      "tokens": 41200,
+      "flops_step_tflops": 4020.3,
+      "eff_tops": 143.1,
+      "bw_gbps": 1792,
+      "ratio": 0.0798,
+      "attn": "plain",
+      "steps": 8,
+      "lora": "lora-lightx2v-8step-v10",
+      "confidence": "medium"
+    },
+    {
+      "id": "matsuo-5090-1280x704x182-fasth3",
+      "gpu_id": "rtx-5090-32g",
+      "s_per_it": 29.5,
+      "tokens": 41200,
+      "flops_step_tflops": 4020.3,
+      "eff_tops": 136.3,
+      "bw_gbps": 1792,
+      "ratio": 0.0761,
+      "attn": "plain",
+      "steps": 4,
+      "lora": "lora-fasth3-4step",
+      "confidence": "medium"
+    },
+    {
+      "id": "pepikir-3090-864x480x124-base20-nosage",
+      "gpu_id": "rtx-3090-24g",
+      "s_per_it": 9.0,
+      "tokens": 13155,
+      "flops_step_tflops": 754.6,
+      "eff_tops": 83.8,
+      "bw_gbps": 936,
+      "ratio": 0.0896,
+      "attn": "plain",
+      "steps": 20,
+      "lora": null,
+      "confidence": "high"
+    },
+    {
+      "id": "pepikir-3090-864x480x124-base20-sage",
+      "gpu_id": "rtx-3090-24g",
+      "s_per_it": 6.57,
+      "tokens": 13155,
+      "flops_step_tflops": 754.6,
+      "eff_tops": 114.9,
+      "bw_gbps": 936,
+      "ratio": 0.1227,
+      "attn": "sage",
+      "steps": 20,
+      "lora": null,
+      "confidence": "high"
+    },
+    {
+      "id": "sepiablue-4070-576x832x124-base20",
+      "gpu_id": "rtx-4070-12g",
+      "s_per_it": 13.65,
+      "tokens": 15108,
+      "flops_step_tflops": 909.0,
+      "eff_tops": 66.6,
+      "bw_gbps": 504,
+      "ratio": 0.1321,
+      "attn": "plain",
+      "steps": 20,
+      "lora": null,
+      "confidence": "high"
+    },
+    {
+      "id": "sepiablue-4070-576x832x124-larry8",
+      "gpu_id": "rtx-4070-12g",
+      "s_per_it": 16.29,
+      "tokens": 15108,
+      "flops_step_tflops": 909.0,
+      "eff_tops": 55.8,
+      "bw_gbps": 504,
+      "ratio": 0.1107,
+      "attn": "plain",
+      "steps": 8,
+      "lora": "lora-larry-v4",
+      "confidence": "high"
+    },
+    {
+      "id": "sepiablue-4070-576x832x124-lx2v8",
+      "gpu_id": "rtx-4070-12g",
+      "s_per_it": 16.38,
+      "tokens": 15108,
+      "flops_step_tflops": 909.0,
+      "eff_tops": 55.5,
+      "bw_gbps": 504,
+      "ratio": 0.1101,
+      "attn": "plain",
+      "steps": 8,
+      "lora": "lora-lightx2v-8step-v10",
+      "confidence": "high"
+    },
+    {
+      "id": "sepiablue-4070-576x832x124-lx2v4",
+      "gpu_id": "rtx-4070-12g",
+      "s_per_it": 19.84,
+      "tokens": 15108,
+      "flops_step_tflops": 909.0,
+      "eff_tops": 45.8,
+      "bw_gbps": 504,
+      "ratio": 0.0909,
+      "attn": "plain",
+      "steps": 4,
+      "lora": "lora-lightx2v-4step-v11",
+      "confidence": "high"
+    },
+    {
+      "id": "guide-3060-1280x736x121-base20",
+      "gpu_id": "rtx-3060-12g",
+      "s_per_it": 50.3,
+      "tokens": 29120,
+      "flops_step_tflops": 2337.1,
+      "eff_tops": 46.5,
+      "bw_gbps": 360,
+      "ratio": 0.1291,
+      "attn": "plain",
+      "steps": 20,
+      "lora": null,
+      "confidence": "medium"
+    },
+    {
+      "id": "desktop4070-5070ti-736x416x121-larry8",
+      "gpu_id": "rtx-5070ti-16g",
+      "s_per_it": 1.94,
+      "tokens": 9869,
+      "flops_step_tflops": 519.6,
+      "eff_tops": 267.8,
+      "bw_gbps": 896,
+      "ratio": 0.2989,
+      "attn": "kitchen",
+      "steps": 8,
+      "lora": "lora-larry-v4",
+      "confidence": "medium"
+    },
+    {
+      "id": "desktop4070-5070ti-960x544x121-larry8",
+      "gpu_id": "rtx-5070ti-16g",
+      "s_per_it": 4.17,
+      "tokens": 16410,
+      "flops_step_tflops": 1017.9,
+      "eff_tops": 244.1,
+      "bw_gbps": 896,
+      "ratio": 0.2724,
+      "attn": "kitchen",
+      "steps": 8,
+      "lora": "lora-larry-v4",
+      "confidence": "medium"
+    },
+    {
+      "id": "desktop4070-5070ti-1344x768x121-larry8",
+      "gpu_id": "rtx-5070ti-16g",
+      "s_per_it": 13.6,
+      "tokens": 31848,
+      "flops_step_tflops": 2680.6,
+      "eff_tops": 197.1,
+      "bw_gbps": 896,
+      "ratio": 0.22,
+      "attn": "kitchen",
+      "steps": 8,
+      "lora": "lora-larry-v4",
+      "confidence": "medium"
+    },
+    {
+      "id": "desktop4070-5070ti-1280x736x361-larry8",
+      "gpu_id": "rtx-5070ti-16g",
+      "s_per_it": 62.9,
+      "tokens": 84720,
+      "flops_step_tflops": 13554.2,
+      "eff_tops": 215.5,
+      "bw_gbps": 896,
+      "ratio": 0.2405,
+      "attn": "kitchen",
+      "steps": 8,
+      "lora": "lora-larry-v4",
+      "confidence": "medium"
+    },
+    {
+      "id": "jonike-5080-960x544x124-base20-plain",
+      "gpu_id": "rtx-5080-16g",
+      "s_per_it": 7.56,
+      "tokens": 16410,
+      "flops_step_tflops": 1017.9,
+      "eff_tops": 134.6,
+      "bw_gbps": 960,
+      "ratio": 0.1403,
+      "attn": "plain",
+      "steps": 20,
+      "lora": null,
+      "confidence": "medium"
+    },
+    {
+      "id": "jonike-5080-960x544x124-base20-sage",
+      "gpu_id": "rtx-5080-16g",
+      "s_per_it": 4.16,
+      "tokens": 16410,
+      "flops_step_tflops": 1017.9,
+      "eff_tops": 244.7,
+      "bw_gbps": 960,
+      "ratio": 0.2549,
+      "attn": "sage",
+      "steps": 20,
+      "lora": null,
+      "confidence": "medium"
+    }
+  ],
+  "residuals": [
+    {
+      "id": "local-5090-1344x768x73-lx2v8-int8-sage",
+      "attn_class": "sage",
+      "measured_eff_tops": 240.8,
+      "predicted_eff_tops": 221.0,
+      "err_pct": -8.2
+    },
+    {
+      "id": "matsuo-5090-1280x704x121-base20",
+      "attn_class": "plain",
+      "measured_eff_tops": 162.1,
+      "predicted_eff_tops": 198.4,
+      "err_pct": 22.4
+    },
+    {
+      "id": "matsuo-5090-1280x704x121-turbo8",
+      "attn_class": "plain",
+      "measured_eff_tops": 140.3,
+      "predicted_eff_tops": 198.4,
+      "err_pct": 41.4
+    },
+    {
+      "id": "matsuo-5090-1280x704x121-turbo8-int8attn",
+      "attn_class": "sage",
+      "measured_eff_tops": 221.0,
+      "predicted_eff_tops": 221.0,
+      "err_pct": -0.0
+    },
+    {
+      "id": "matsuo-5090-1280x704x182-turbo8",
+      "attn_class": "plain",
+      "measured_eff_tops": 143.1,
+      "predicted_eff_tops": 198.4,
+      "err_pct": 38.6
+    },
+    {
+      "id": "matsuo-5090-1280x704x182-fasth3",
+      "attn_class": "plain",
+      "measured_eff_tops": 136.3,
+      "predicted_eff_tops": 198.4,
+      "err_pct": 45.5
+    },
+    {
+      "id": "pepikir-3090-864x480x124-base20-nosage",
+      "attn_class": "plain",
+      "measured_eff_tops": 83.8,
+      "predicted_eff_tops": 103.6,
+      "err_pct": 23.6
+    },
+    {
+      "id": "pepikir-3090-864x480x124-base20-sage",
+      "attn_class": "sage",
+      "measured_eff_tops": 114.9,
+      "predicted_eff_tops": 115.4,
+      "err_pct": 0.4
+    },
+    {
+      "id": "sepiablue-4070-576x832x124-base20",
+      "attn_class": "plain",
+      "measured_eff_tops": 66.6,
+      "predicted_eff_tops": 55.8,
+      "err_pct": -16.2
+    },
+    {
+      "id": "sepiablue-4070-576x832x124-larry8",
+      "attn_class": "plain",
+      "measured_eff_tops": 55.8,
+      "predicted_eff_tops": 55.8,
+      "err_pct": -0.0
+    },
+    {
+      "id": "sepiablue-4070-576x832x124-lx2v8",
+      "attn_class": "plain",
+      "measured_eff_tops": 55.5,
+      "predicted_eff_tops": 55.8,
+      "err_pct": 0.5
+    },
+    {
+      "id": "sepiablue-4070-576x832x124-lx2v4",
+      "attn_class": "plain",
+      "measured_eff_tops": 45.8,
+      "predicted_eff_tops": 55.8,
+      "err_pct": 21.8
+    },
+    {
+      "id": "guide-3060-1280x736x121-base20",
+      "attn_class": "plain",
+      "measured_eff_tops": 46.5,
+      "predicted_eff_tops": 39.9,
+      "err_pct": -14.3
+    },
+    {
+      "id": "desktop4070-5070ti-736x416x121-larry8",
+      "attn_class": "plain",
+      "measured_eff_tops": 267.8,
+      "predicted_eff_tops": 99.2,
+      "err_pct": -63.0
+    },
+    {
+      "id": "desktop4070-5070ti-960x544x121-larry8",
+      "attn_class": "plain",
+      "measured_eff_tops": 244.1,
+      "predicted_eff_tops": 99.2,
+      "err_pct": -59.4
+    },
+    {
+      "id": "desktop4070-5070ti-1344x768x121-larry8",
+      "attn_class": "plain",
+      "measured_eff_tops": 197.1,
+      "predicted_eff_tops": 99.2,
+      "err_pct": -49.7
+    },
+    {
+      "id": "desktop4070-5070ti-1280x736x361-larry8",
+      "attn_class": "plain",
+      "measured_eff_tops": 215.5,
+      "predicted_eff_tops": 99.2,
+      "err_pct": -54.0
+    },
+    {
+      "id": "jonike-5080-960x544x124-base20-plain",
+      "attn_class": "plain",
+      "measured_eff_tops": 134.6,
+      "predicted_eff_tops": 106.3,
+      "err_pct": -21.0
+    },
+    {
+      "id": "jonike-5080-960x544x124-base20-sage",
+      "attn_class": "sage",
+      "measured_eff_tops": 244.7,
+      "predicted_eff_tops": 118.4,
+      "err_pct": -51.6
+    }
+  ],
+  "notes": [
+    "k_bw 按注意力后端分组：sage/kitchen 类用 k_bw_tops_per_gbps_sage，plain 用 k_bw_tops_per_gbps_plain。两组比值≈0.73，与 3090 配对实测一致。",
+    "网站应对单个 GPU 优先用 per_gpu.eff_tops_median（仅 sage 类锚点），无实测时回退到 k*显存带宽。",
+    "二次注意力项在大 token 数（>3 万）不可忽略；15s 高分辨率时长偏差最大来源。",
+    "benchmark 间的 per-step 效率差异可达 ±25%（LoRA patch/卸载/调度），UI 必须显示区间而非单值。",
+    "modifiers.dtype_bf16 / gguf 无直接实测锚点，为编辑估计值，后续用投稿数据替换。",
+    "低显存+量化+LoRA 场景存在每步重打补丁的额外开销（aptech 文档明确），当前以区间形式呈现，待专项实测后加入公式。"
+  ]
+}

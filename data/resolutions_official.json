@@ -1,0 +1,406 @@
+{
+  "meta": {
+    "updated": "2026-09-18",
+    "source": "ComfyUI comfy_extras/nodes_resolution.py ResolutionSelector (v0.34); H3 official workflows use multiple=32",
+    "native_canvas": "短边 768px / 长边上限 1344px",
+    "mp_range": [
+      0.4,
+      2.0
+    ],
+    "formula": "scale = sqrt(mp*1024*1024/(w_ratio*h_ratio)); width = round(w_ratio*scale/multiple)*multiple"
+  },
+  "aspects": [
+    {
+      "id": "16:9",
+      "label": "16:9 横屏",
+      "ratio": [
+        16,
+        9
+      ],
+      "sizes": [
+        {
+          "mp": 0.1,
+          "width": 416,
+          "height": 256,
+          "native": true,
+          "note": "易闪帧",
+          "note_en": "flicker-prone"
+        },
+        {
+          "mp": 0.4,
+          "width": 864,
+          "height": 480,
+          "native": true
+        },
+        {
+          "mp": 0.5,
+          "width": 960,
+          "height": 544,
+          "native": true
+        },
+        {
+          "mp": 0.7,
+          "width": 1152,
+          "height": 640,
+          "native": true
+        },
+        {
+          "mp": 1.0,
+          "width": 1376,
+          "height": 768,
+          "native": false
+        },
+        {
+          "mp": 2.0,
+          "width": 1920,
+          "height": 1088,
+          "native": false
+        }
+      ],
+      "label_en": "16:9 Landscape"
+    },
+    {
+      "id": "3:2",
+      "label": "3:2 照片横",
+      "ratio": [
+        3,
+        2
+      ],
+      "sizes": [
+        {
+          "mp": 0.1,
+          "width": 384,
+          "height": 256,
+          "native": true,
+          "note": "易闪帧",
+          "note_en": "flicker-prone"
+        },
+        {
+          "mp": 0.4,
+          "width": 800,
+          "height": 544,
+          "native": true
+        },
+        {
+          "mp": 0.5,
+          "width": 896,
+          "height": 576,
+          "native": true
+        },
+        {
+          "mp": 0.7,
+          "width": 1056,
+          "height": 704,
+          "native": true
+        },
+        {
+          "mp": 1.0,
+          "width": 1248,
+          "height": 832,
+          "native": false
+        },
+        {
+          "mp": 2.0,
+          "width": 1760,
+          "height": 1184,
+          "native": false
+        }
+      ],
+      "label_en": "3:2 Photo landscape"
+    },
+    {
+      "id": "4:3",
+      "label": "4:3 标准",
+      "ratio": [
+        4,
+        3
+      ],
+      "sizes": [
+        {
+          "mp": 0.1,
+          "width": 384,
+          "height": 288,
+          "native": true,
+          "note": "易闪帧",
+          "note_en": "flicker-prone"
+        },
+        {
+          "mp": 0.4,
+          "width": 736,
+          "height": 576,
+          "native": true
+        },
+        {
+          "mp": 0.5,
+          "width": 832,
+          "height": 640,
+          "native": true
+        },
+        {
+          "mp": 0.7,
+          "width": 992,
+          "height": 736,
+          "native": true
+        },
+        {
+          "mp": 1.0,
+          "width": 1184,
+          "height": 896,
+          "native": false
+        },
+        {
+          "mp": 2.0,
+          "width": 1664,
+          "height": 1248,
+          "native": false
+        }
+      ],
+      "label_en": "4:3 Standard"
+    },
+    {
+      "id": "1:1",
+      "label": "1:1 方形",
+      "ratio": [
+        1,
+        1
+      ],
+      "sizes": [
+        {
+          "mp": 0.1,
+          "width": 320,
+          "height": 320,
+          "native": true,
+          "note": "易闪帧",
+          "note_en": "flicker-prone"
+        },
+        {
+          "mp": 0.4,
+          "width": 640,
+          "height": 640,
+          "native": true
+        },
+        {
+          "mp": 0.5,
+          "width": 736,
+          "height": 736,
+          "native": true
+        },
+        {
+          "mp": 0.7,
+          "width": 864,
+          "height": 864,
+          "native": false
+        },
+        {
+          "mp": 1.0,
+          "width": 1024,
+          "height": 1024,
+          "native": false
+        },
+        {
+          "mp": 2.0,
+          "width": 1440,
+          "height": 1440,
+          "native": false
+        }
+      ],
+      "label_en": "1:1 Square"
+    },
+    {
+      "id": "3:4",
+      "label": "3:4 竖版",
+      "ratio": [
+        3,
+        4
+      ],
+      "sizes": [
+        {
+          "mp": 0.1,
+          "width": 288,
+          "height": 384,
+          "native": true,
+          "note": "易闪帧",
+          "note_en": "flicker-prone"
+        },
+        {
+          "mp": 0.4,
+          "width": 576,
+          "height": 736,
+          "native": true
+        },
+        {
+          "mp": 0.5,
+          "width": 640,
+          "height": 832,
+          "native": true
+        },
+        {
+          "mp": 0.7,
+          "width": 736,
+          "height": 992,
+          "native": true
+        },
+        {
+          "mp": 1.0,
+          "width": 896,
+          "height": 1184,
+          "native": false
+        },
+        {
+          "mp": 2.0,
+          "width": 1248,
+          "height": 1664,
+          "native": false
+        }
+      ],
+      "label_en": "3:4 Portrait"
+    },
+    {
+      "id": "2:3",
+      "label": "2:3 照片竖",
+      "ratio": [
+        2,
+        3
+      ],
+      "sizes": [
+        {
+          "mp": 0.1,
+          "width": 256,
+          "height": 384,
+          "native": true,
+          "note": "易闪帧",
+          "note_en": "flicker-prone"
+        },
+        {
+          "mp": 0.4,
+          "width": 544,
+          "height": 800,
+          "native": true
+        },
+        {
+          "mp": 0.5,
+          "width": 576,
+          "height": 896,
+          "native": true
+        },
+        {
+          "mp": 0.7,
+          "width": 704,
+          "height": 1056,
+          "native": true
+        },
+        {
+          "mp": 1.0,
+          "width": 832,
+          "height": 1248,
+          "native": false
+        },
+        {
+          "mp": 2.0,
+          "width": 1184,
+          "height": 1760,
+          "native": false
+        }
+      ],
+      "label_en": "2:3 Photo portrait"
+    },
+    {
+      "id": "9:16",
+      "label": "9:16 竖屏",
+      "ratio": [
+        9,
+        16
+      ],
+      "sizes": [
+        {
+          "mp": 0.1,
+          "width": 256,
+          "height": 416,
+          "native": true,
+          "note": "易闪帧",
+          "note_en": "flicker-prone"
+        },
+        {
+          "mp": 0.4,
+          "width": 480,
+          "height": 864,
+          "native": true
+        },
+        {
+          "mp": 0.5,
+          "width": 544,
+          "height": 960,
+          "native": true
+        },
+        {
+          "mp": 0.7,
+          "width": 640,
+          "height": 1152,
+          "native": true
+        },
+        {
+          "mp": 1.0,
+          "width": 768,
+          "height": 1376,
+          "native": false
+        },
+        {
+          "mp": 2.0,
+          "width": 1088,
+          "height": 1920,
+          "native": false
+        }
+      ],
+      "label_en": "9:16 Vertical"
+    },
+    {
+      "id": "21:9",
+      "label": "21:9 宽幅",
+      "ratio": [
+        21,
+        9
+      ],
+      "sizes": [
+        {
+          "mp": 0.1,
+          "width": 480,
+          "height": 224,
+          "native": true,
+          "note": "易闪帧",
+          "note_en": "flicker-prone"
+        },
+        {
+          "mp": 0.4,
+          "width": 992,
+          "height": 416,
+          "native": true
+        },
+        {
+          "mp": 0.5,
+          "width": 1120,
+          "height": 480,
+          "native": true
+        },
+        {
+          "mp": 0.7,
+          "width": 1312,
+          "height": 576,
+          "native": true
+        },
+        {
+          "mp": 1.0,
+          "width": 1568,
+          "height": 672,
+          "native": false
+        },
+        {
+          "mp": 2.0,
+          "width": 2208,
+          "height": 960,
+          "native": false
+        }
+      ],
+      "label_en": "21:9 Ultrawide"
+    }
+  ]
+}
