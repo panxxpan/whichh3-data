@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-09-18",
+    "updated": "2026-09-20",
     "note": "精选下载库：只收录【支持 ComfyUI】的模型（Diffusers 原始格式 / MLX / Wan2GP 等其他运行时版本一律不列出）。筛选标准：下载量 / 收藏数 / 社区口碑达标 + 可在 ComfyUI 中直接加载。统计来自 HuggingFace API（2026-09-18）。★ = 编辑推荐。",
     "stats_source": "https://huggingface.co/api/models?search=MiniMax-H3&sort=downloads&direction=-1",
     "comfyui_only": true

@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-09-18",
+    "updated": "2026-09-20",
     "note": "effective 值为大块顺序传输下的现实可达带宽（含控制器/协议开销）。估算器优先使用 effective 值。",
     "sources": [
       "Micron DDR5 white paper (1.36x @ DDR5-3200 vs DDR4-3200, 1.87x @ DDR5-4800)",
@@ -8,34 +8,226 @@
     ]
   },
   "ddr": [
-    { "id": "ddr4-2400-dual", "name_en": "DDR4-2400 dual-channel", "gen": "DDR4", "mtps": 2400, "channels": 2, "theoretical_gbps": 38.4, "effective_gbps": 26.9 },
-    { "id": "ddr4-2666-dual", "name_en": "DDR4-2666 dual-channel", "gen": "DDR4", "mtps": 2666, "channels": 2, "theoretical_gbps": 42.7, "effective_gbps": 29.9 },
-    { "id": "ddr4-3000-dual", "name_en": "DDR4-3000 dual-channel", "gen": "DDR4", "mtps": 3000, "channels": 2, "theoretical_gbps": 48.0, "effective_gbps": 33.6 },
-    { "id": "ddr4-3200-dual", "name_en": "DDR4-3200 dual-channel", "gen": "DDR4", "mtps": 3200, "channels": 2, "theoretical_gbps": 51.2, "effective_gbps": 35.8 },
-    { "id": "ddr4-3600-dual", "name_en": "DDR4-3600 dual-channel", "gen": "DDR4", "mtps": 3600, "channels": 2, "theoretical_gbps": 57.6, "effective_gbps": 40.3 },
-    { "id": "ddr4-3200-single", "name_en": "DDR4-3200 single-channel", "gen": "DDR4", "mtps": 3200, "channels": 1, "theoretical_gbps": 25.6, "effective_gbps": 17.9, "warning": "单通道会让卸载模式时间接近翻倍", "warning_en": "Single-channel nearly doubles offload-mode times" },
-    { "id": "ddr5-4800-dual", "name_en": "DDR5-4800 dual-channel", "gen": "DDR5", "mtps": 4800, "channels": 2, "theoretical_gbps": 76.8, "effective_gbps": 56.8 },
-    { "id": "ddr5-5200-dual", "name_en": "DDR5-5200 dual-channel", "gen": "DDR5", "mtps": 5200, "channels": 2, "theoretical_gbps": 83.2, "effective_gbps": 61.6 },
-    { "id": "ddr5-5600-dual", "name_en": "DDR5-5600 dual-channel", "gen": "DDR5", "mtps": 5600, "channels": 2, "theoretical_gbps": 89.6, "effective_gbps": 66.3 },
-    { "id": "ddr5-6000-dual", "name_en": "DDR5-6000 dual-channel", "gen": "DDR5", "mtps": 6000, "channels": 2, "theoretical_gbps": 96.0, "effective_gbps": 71.0 },
-    { "id": "ddr5-6400-dual", "name_en": "DDR5-6400 dual-channel", "gen": "DDR5", "mtps": 6400, "channels": 2, "theoretical_gbps": 102.4, "effective_gbps": 75.8 },
-    { "id": "ddr5-7200-dual", "name_en": "DDR5-7200 dual-channel", "gen": "DDR5", "mtps": 7200, "channels": 2, "theoretical_gbps": 115.2, "effective_gbps": 85.2 },
-    { "id": "ddr5-6000-single", "name_en": "DDR5-6000 single-channel", "gen": "DDR5", "mtps": 6000, "channels": 1, "theoretical_gbps": 48.0, "effective_gbps": 35.5, "warning": "单通道会让卸载模式时间接近翻倍", "warning_en": "Single-channel nearly doubles offload-mode times" }
+    {
+      "id": "ddr4-2400-dual",
+      "name_en": "DDR4-2400 dual-channel",
+      "gen": "DDR4",
+      "mtps": 2400,
+      "channels": 2,
+      "theoretical_gbps": 38.4,
+      "effective_gbps": 26.9
+    },
+    {
+      "id": "ddr4-2666-dual",
+      "name_en": "DDR4-2666 dual-channel",
+      "gen": "DDR4",
+      "mtps": 2666,
+      "channels": 2,
+      "theoretical_gbps": 42.7,
+      "effective_gbps": 29.9
+    },
+    {
+      "id": "ddr4-3000-dual",
+      "name_en": "DDR4-3000 dual-channel",
+      "gen": "DDR4",
+      "mtps": 3000,
+      "channels": 2,
+      "theoretical_gbps": 48.0,
+      "effective_gbps": 33.6
+    },
+    {
+      "id": "ddr4-3200-dual",
+      "name_en": "DDR4-3200 dual-channel",
+      "gen": "DDR4",
+      "mtps": 3200,
+      "channels": 2,
+      "theoretical_gbps": 51.2,
+      "effective_gbps": 35.8
+    },
+    {
+      "id": "ddr4-3600-dual",
+      "name_en": "DDR4-3600 dual-channel",
+      "gen": "DDR4",
+      "mtps": 3600,
+      "channels": 2,
+      "theoretical_gbps": 57.6,
+      "effective_gbps": 40.3
+    },
+    {
+      "id": "ddr4-3200-single",
+      "name_en": "DDR4-3200 single-channel",
+      "gen": "DDR4",
+      "mtps": 3200,
+      "channels": 1,
+      "theoretical_gbps": 25.6,
+      "effective_gbps": 17.9,
+      "warning": "单通道会让卸载模式时间接近翻倍",
+      "warning_en": "Single-channel nearly doubles offload-mode times"
+    },
+    {
+      "id": "ddr5-4800-dual",
+      "name_en": "DDR5-4800 dual-channel",
+      "gen": "DDR5",
+      "mtps": 4800,
+      "channels": 2,
+      "theoretical_gbps": 76.8,
+      "effective_gbps": 56.8
+    },
+    {
+      "id": "ddr5-5200-dual",
+      "name_en": "DDR5-5200 dual-channel",
+      "gen": "DDR5",
+      "mtps": 5200,
+      "channels": 2,
+      "theoretical_gbps": 83.2,
+      "effective_gbps": 61.6
+    },
+    {
+      "id": "ddr5-5600-dual",
+      "name_en": "DDR5-5600 dual-channel",
+      "gen": "DDR5",
+      "mtps": 5600,
+      "channels": 2,
+      "theoretical_gbps": 89.6,
+      "effective_gbps": 66.3
+    },
+    {
+      "id": "ddr5-6000-dual",
+      "name_en": "DDR5-6000 dual-channel",
+      "gen": "DDR5",
+      "mtps": 6000,
+      "channels": 2,
+      "theoretical_gbps": 96.0,
+      "effective_gbps": 71.0
+    },
+    {
+      "id": "ddr5-6400-dual",
+      "name_en": "DDR5-6400 dual-channel",
+      "gen": "DDR5",
+      "mtps": 6400,
+      "channels": 2,
+      "theoretical_gbps": 102.4,
+      "effective_gbps": 75.8
+    },
+    {
+      "id": "ddr5-7200-dual",
+      "name_en": "DDR5-7200 dual-channel",
+      "gen": "DDR5",
+      "mtps": 7200,
+      "channels": 2,
+      "theoretical_gbps": 115.2,
+      "effective_gbps": 85.2
+    },
+    {
+      "id": "ddr5-6000-single",
+      "name_en": "DDR5-6000 single-channel",
+      "gen": "DDR5",
+      "mtps": 6000,
+      "channels": 1,
+      "theoretical_gbps": 48.0,
+      "effective_gbps": 35.5,
+      "warning": "单通道会让卸载模式时间接近翻倍",
+      "warning_en": "Single-channel nearly doubles offload-mode times"
+    }
   ],
   "pcie": [
-    { "id": "pcie3-x16", "gen": 3, "lanes": 16, "theoretical_gbps": 15.75, "effective_gbps": 11.8 },
-    { "id": "pcie4-x16", "gen": 4, "lanes": 16, "theoretical_gbps": 31.5, "effective_gbps": 24.0 },
-    { "id": "pcie4-x8", "gen": 4, "lanes": 8, "theoretical_gbps": 15.75, "effective_gbps": 12.0 },
-    { "id": "pcie5-x16", "gen": 5, "lanes": 16, "theoretical_gbps": 63.0, "effective_gbps": 48.0 },
-    { "id": "pcie5-x8", "gen": 5, "lanes": 8, "theoretical_gbps": 31.5, "effective_gbps": 24.0 }
+    {
+      "id": "pcie3-x16",
+      "gen": 3,
+      "lanes": 16,
+      "theoretical_gbps": 15.75,
+      "effective_gbps": 11.8
+    },
+    {
+      "id": "pcie4-x16",
+      "gen": 4,
+      "lanes": 16,
+      "theoretical_gbps": 31.5,
+      "effective_gbps": 24.0
+    },
+    {
+      "id": "pcie4-x8",
+      "gen": 4,
+      "lanes": 8,
+      "theoretical_gbps": 15.75,
+      "effective_gbps": 12.0
+    },
+    {
+      "id": "pcie5-x16",
+      "gen": 5,
+      "lanes": 16,
+      "theoretical_gbps": 63.0,
+      "effective_gbps": 48.0
+    },
+    {
+      "id": "pcie5-x8",
+      "gen": 5,
+      "lanes": 8,
+      "theoretical_gbps": 31.5,
+      "effective_gbps": 24.0
+    }
   ],
   "storage": [
-    { "id": "hdd", "name": "机械硬盘 HDD", "name_en": "HDD (mechanical hard drive)", "read_gbps": 0.2, "effective_gbps": 0.16, "tbw_per_tb": null, "verdict": "不建议：模型加载会到小时级", "verdict_en": "Not recommended: model loading takes hours" },
-    { "id": "sata-ssd", "name": "SATA SSD", "name_en": "SATA SSD", "read_gbps": 0.55, "effective_gbps": 0.45, "tbw_per_tb": 400, "verdict": "可用但慢", "verdict_en": "Usable but slow" },
-    { "id": "nvme-gen3", "name": "NVMe Gen3", "name_en": "NVMe Gen3", "read_gbps": 3.5, "effective_gbps": 2.6, "tbw_per_tb": 600, "verdict": "页文件可用", "verdict_en": "Usable for the pagefile" },
-    { "id": "nvme-gen4-tlc", "name": "NVMe Gen4 TLC", "name_en": "NVMe Gen4 TLC", "read_gbps": 7.0, "effective_gbps": 5.2, "tbw_per_tb": 600, "verdict": "推荐", "verdict_en": "Recommended" },
-    { "id": "nvme-gen4-qlc", "name": "NVMe Gen4 QLC", "name_en": "NVMe Gen4 QLC", "read_gbps": 5.0, "effective_gbps": 3.6, "tbw_per_tb": 300, "verdict": "速度可以但寿命余量小", "verdict_en": "Decent speed but little endurance headroom" },
-    { "id": "nvme-gen5-tlc", "name": "NVMe Gen5 TLC", "name_en": "NVMe Gen5 TLC", "read_gbps": 12.0, "effective_gbps": 8.0, "tbw_per_tb": 1200, "verdict": "最佳（缓存溢出后仍受限）", "verdict_en": "Best (still limited once the cache overflows)" }
+    {
+      "id": "hdd",
+      "name": "机械硬盘 HDD",
+      "name_en": "HDD (mechanical hard drive)",
+      "read_gbps": 0.2,
+      "effective_gbps": 0.16,
+      "tbw_per_tb": null,
+      "verdict": "不建议：模型加载会到小时级",
+      "verdict_en": "Not recommended: model loading takes hours"
+    },
+    {
+      "id": "sata-ssd",
+      "name": "SATA SSD",
+      "name_en": "SATA SSD",
+      "read_gbps": 0.55,
+      "effective_gbps": 0.45,
+      "tbw_per_tb": 400,
+      "verdict": "可用但慢",
+      "verdict_en": "Usable but slow"
+    },
+    {
+      "id": "nvme-gen3",
+      "name": "NVMe Gen3",
+      "name_en": "NVMe Gen3",
+      "read_gbps": 3.5,
+      "effective_gbps": 2.6,
+      "tbw_per_tb": 600,
+      "verdict": "页文件可用",
+      "verdict_en": "Usable for the pagefile"
+    },
+    {
+      "id": "nvme-gen4-tlc",
+      "name": "NVMe Gen4 TLC",
+      "name_en": "NVMe Gen4 TLC",
+      "read_gbps": 7.0,
+      "effective_gbps": 5.2,
+      "tbw_per_tb": 600,
+      "verdict": "推荐",
+      "verdict_en": "Recommended"
+    },
+    {
+      "id": "nvme-gen4-qlc",
+      "name": "NVMe Gen4 QLC",
+      "name_en": "NVMe Gen4 QLC",
+      "read_gbps": 5.0,
+      "effective_gbps": 3.6,
+      "tbw_per_tb": 300,
+      "verdict": "速度可以但寿命余量小",
+      "verdict_en": "Decent speed but little endurance headroom"
+    },
+    {
+      "id": "nvme-gen5-tlc",
+      "name": "NVMe Gen5 TLC",
+      "name_en": "NVMe Gen5 TLC",
+      "read_gbps": 12.0,
+      "effective_gbps": 8.0,
+      "tbw_per_tb": 1200,
+      "verdict": "最佳（缓存溢出后仍受限）",
+      "verdict_en": "Best (still limited once the cache overflows)"
+    }
   ],
   "further_notes": [
     "Windows 页文件读取效率按 storage.effective_gbps 估算；写入按 read 的 0.8 估（含写放大 1.0-1.5 由用户磁盘型号决定，可在高级选项调整）。",

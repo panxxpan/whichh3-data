@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-09-18",
+    "updated": "2026-09-20",
     "note": "ratio 为相对基线（20 步无加速）的实测采样段加速倍率；标 null 表示暂无可靠实测。Sage/Kitchen/SLA/VSA 为注意力后端，与步数蒸馏正交，可叠加（除冲突表标注项）。SLA/VSA 属稀疏注意力：序列越长收益越大，短片提升有限。"
   },
   "accelerations": [

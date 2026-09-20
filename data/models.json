@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-09-18",
+    "updated": "2026-09-20",
     "note": "体积为 HF 仓库原始字节换算的 GB（十进制）。quant = 量化族。rel_l2 = 社区/作者公布的权重相对误差（越低越好）。speed_mod = 相对 int8 的单步速度系数（引擎用）。所有条目均经 HF API 文件清单核实（2026-09-18）。",
     "base_model": "MiniMax H3 (33.1B dense single-stream omni transformer, Qwen3-VL-32B text encoder)",
     "min_viable_set_gb": 42.5,

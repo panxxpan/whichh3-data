@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-09-19",
+    "updated": "2026-09-20",
     "note": "mem_bw_gbps 为显存理论带宽（TechPowerUp/NVIDIA 官网核实）。估算不直接使用峰值算力，而是用校准回归的有效系数；无实测锚点的卡走「带宽 × 全局系数」并附架构修正。speed_factor 用于无 Tensor Core / 弱 int8 内核的旧架构（保守估计，无实测锚点）。",
     "sage_risk": "sm_120 (Blackwell) 用核心 --use-sage-attention + 超长序列(约 >16 万 token)会静默出噪点；短片段可用，长片段建议 KJNodes Patch Sage 或 comfy-kitchen 注意力后端。",
     "modded_cards": "魔改卡（非官方改装）单独标注：显存扩容但位宽/带宽不变，估算按同芯片算力 + 扩容后显存计算；购买/保修风险自负。"

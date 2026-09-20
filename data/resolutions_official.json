@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updated": "2026-09-18",
+    "updated": "2026-09-20",
     "source": "ComfyUI comfy_extras/nodes_resolution.py ResolutionSelector (v0.34); H3 official workflows use multiple=32",
     "native_canvas": "短边 768px / 长边上限 1344px",
     "mp_range": [
