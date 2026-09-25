@@ -1,7 +1,7 @@
 {
   "meta": {
     "updated": "2026-09-20",
-    "note": "ratio 为相对基线（20 步无加速）的实测采样段加速倍率；标 null 表示暂无可靠实测。Sage/Kitchen/SLA/VSA 为注意力后端，与步数蒸馏正交，可叠加（除冲突表标注项）。SLA/VSA 属稀疏注意力：序列越长收益越大，短片提升有限。"
+    "note": "ratio 为相对基线（20 步无加速）的实测采样段加速倍率；标 null 表示暂无可靠实测。Sage/Kitchen/SLA/VSA 为注意力后端，与步数蒸馏正交，可叠加（除冲突表标注项）。SLA/VSA 属稀疏注意力：序列越长收益越大，短片提升有限。 带 arena 字段的方案附 H3 Acceleration Arena（HF Space, multimodalart）盲测名次，来源见该字段与 acceleration_arena.json。"
   },
   "accelerations": [
     {
@@ -44,7 +44,32 @@
       "sources": [
         "lightx2v/Minimax-h3-Turbo",
         "docs.comfy.org/tutorials/video/minimax/minimax-h3"
-      ]
+      ],
+      "arena": {
+        "slice_variant": "LightX2V Minimax-h3-Turbo 8-step v1.0 768p",
+        "source": "https://huggingface.co/spaces/multimodalart/h3-acceleration-arena",
+        "fetched": "2026-09-20",
+        "i2v": {
+          "rank": 10,
+          "elo": 996.7,
+          "ci": [
+            943.1,
+            1058.6
+          ],
+          "votes": 3688,
+          "win_rate": 0.38
+        },
+        "t2v": {
+          "rank": 16,
+          "elo": 932.5,
+          "ci": [
+            912.1,
+            1043.3
+          ],
+          "votes": 3034,
+          "win_rate": 0.375
+        }
+      }
     },
     {
       "id": "lightx2v-4step",
@@ -67,7 +92,32 @@
       ],
       "sources": [
         "drbaph/MiniMax-H3-Turbo-Lora-ComfyUI"
-      ]
+      ],
+      "arena": {
+        "slice_variant": "LightX2V Minimax-h3-Turbo 4-step v1.1 768p",
+        "source": "https://huggingface.co/spaces/multimodalart/h3-acceleration-arena",
+        "fetched": "2026-09-20",
+        "i2v": {
+          "rank": 16,
+          "elo": 919.9,
+          "ci": [
+            846.7,
+            960.8
+          ],
+          "votes": 406,
+          "win_rate": 0.3
+        },
+        "t2v": {
+          "rank": 20,
+          "elo": 908.3,
+          "ci": [
+            829.9,
+            964.6
+          ],
+          "votes": 382,
+          "win_rate": 0.359
+        }
+      }
     },
     {
       "id": "larry-v4-8step",
@@ -92,7 +142,32 @@
       "notes_en": "Kijai ComfyUI-MiniMax-H3-Turbo / shuaixn DualClockSampler; ComfyUI must be restarted before switching back to the native node",
       "sources": [
         "larryvrh/MiniMax-H3-Turbo-Lora"
-      ]
+      ],
+      "arena": {
+        "slice_variant": "larryvrh MiniMax-H3-Turbo v4 · step 600 EMA",
+        "source": "https://huggingface.co/spaces/multimodalart/h3-acceleration-arena",
+        "fetched": "2026-09-20",
+        "i2v": {
+          "rank": 4,
+          "elo": 1045.8,
+          "ci": [
+            991.3,
+            1114.1
+          ],
+          "votes": 3778,
+          "win_rate": 0.448
+        },
+        "t2v": {
+          "rank": 3,
+          "elo": 1064.2,
+          "ci": [
+            977.7,
+            1123.2
+          ],
+          "votes": 3256,
+          "win_rate": 0.491
+        }
+      }
     },
     {
       "id": "larry-v1-4step",
@@ -115,7 +190,32 @@
       ],
       "sources": [
         "comfyui-wiki.com/zh/news/2026-08-06-minimax-h3-turbo-lora"
-      ]
+      ],
+      "arena": {
+        "slice_variant": "larryvrh MiniMax-H3-Turbo · 4-step EMA ckpt 850",
+        "source": "https://huggingface.co/spaces/multimodalart/h3-acceleration-arena",
+        "fetched": "2026-09-20",
+        "i2v": {
+          "rank": 22,
+          "elo": 867.7,
+          "ci": [
+            771.1,
+            892.2
+          ],
+          "votes": 453,
+          "win_rate": 0.258
+        },
+        "t2v": {
+          "rank": 17,
+          "elo": 925.0,
+          "ci": [
+            896.9,
+            1025.2
+          ],
+          "votes": 2331,
+          "win_rate": 0.42
+        }
+      }
     },
     {
       "id": "fasth3-4step",
@@ -144,7 +244,32 @@
       "sources": [
         "vllm.ai/blog/2026-09-01-minimax-h3-production-serving",
         "matsuo-koya/minimax-h3-notes"
-      ]
+      ],
+      "arena": {
+        "slice_variant": "FastVideo FastH3 v1 VSA-DataFree · 6 steps, community config",
+        "source": "https://huggingface.co/spaces/multimodalart/h3-acceleration-arena",
+        "fetched": "2026-09-20",
+        "i2v": {
+          "rank": 13,
+          "elo": 987.1,
+          "ci": [
+            898.2,
+            1017.3
+          ],
+          "votes": 1939,
+          "win_rate": 0.331
+        },
+        "t2v": {
+          "rank": 13,
+          "elo": 986.3,
+          "ci": [
+            916.2,
+            1054.2
+          ],
+          "votes": 4087,
+          "win_rate": 0.397
+        }
+      }
     },
     {
       "id": "taomate-3step",
@@ -169,7 +294,126 @@
       "sources": [
         "TaoLiveAIGC/TaoMate-H3",
         "Robert1212star/TaoMate-H3-3Step-ComfyUI"
-      ]
+      ],
+      "arena": {
+        "slice_variant": "TaoMate-H3 3-step",
+        "source": "https://huggingface.co/spaces/multimodalart/h3-acceleration-arena",
+        "fetched": "2026-09-20",
+        "i2v": {
+          "rank": 19,
+          "elo": 906.5,
+          "ci": [
+            845.7,
+            976.9
+          ],
+          "votes": 950,
+          "win_rate": 0.308
+        },
+        "t2v": {
+          "rank": 21,
+          "elo": 901.1,
+          "ci": [
+            833.0,
+            978.3
+          ],
+          "votes": 528,
+          "win_rate": 0.324
+        }
+      }
+    },
+    {
+      "id": "parasyte-6step",
+      "name": "Plaguekind Parasyte Turbo（6 NFE）",
+      "name_en": "Plaguekind Parasyte Turbo (6 NFE)",
+      "type": "step-distill-lora",
+      "steps": 6,
+      "ratio": 4.09,
+      "ratio_vs": "vs Arena 28 步基线计时：68.5s / 280.3s 每条（RTX PRO 6000 96GB）",
+      "measured_on": "Arena 计时参考：RTX PRO 6000 Blackwell 96GB",
+      "quality_cost": "社区盲测 i2v 第 1（Elo 1083）/ t2v 第 4（Elo 1056）",
+      "requires": [
+        "LoRA 加载器（按 Plaguekind/H3-Lora 仓库说明）"
+      ],
+      "conflicts": [
+        "pdd-acc"
+      ],
+      "notes": "H3 Acceleration Arena 盲测 i2v 第一名；本站未实机验证，使用前先读仓库说明与许可",
+      "sources": [
+        "https://huggingface.co/spaces/multimodalart/h3-acceleration-arena",
+        "huggingface.co/Plaguekind/H3-Lora"
+      ],
+      "arena": {
+        "slice_variant": "Plaguekind Parasyte Turbo",
+        "source": "https://huggingface.co/spaces/multimodalart/h3-acceleration-arena",
+        "fetched": "2026-09-20",
+        "i2v": {
+          "rank": 1,
+          "elo": 1083.0,
+          "ci": [
+            997.8,
+            1122.9
+          ],
+          "votes": 4050,
+          "win_rate": 0.462
+        },
+        "t2v": {
+          "rank": 4,
+          "elo": 1055.5,
+          "ci": [
+            974.9,
+            1114.3
+          ],
+          "votes": 3091,
+          "win_rate": 0.49
+        }
+      }
+    },
+    {
+      "id": "silveroxides-dareties-6step",
+      "name": "silveroxides DARE-TIES 合并（6 NFE）",
+      "name_en": "silveroxides DARE-TIES merge (6 NFE)",
+      "type": "step-distill-lora",
+      "steps": 6,
+      "ratio": 4.12,
+      "ratio_vs": "vs Arena 28 步基线计时：68.0s / 280.3s 每条（RTX PRO 6000 96GB）",
+      "measured_on": "Arena 计时参考：RTX PRO 6000 Blackwell 96GB",
+      "quality_cost": "社区盲测 t2v 第 1（Elo 1132）/ i2v 第 7（Elo 1021）",
+      "requires": [
+        "LoRA 加载器（按 silveroxides/MiniMax-H3_tests 仓库说明）"
+      ],
+      "conflicts": [
+        "pdd-acc"
+      ],
+      "notes": "多 LoRA 合并（DARE-TIES）；t2v 盲测第一，测试与脚本见仓库",
+      "sources": [
+        "https://huggingface.co/spaces/multimodalart/h3-acceleration-arena",
+        "huggingface.co/silveroxides/MiniMax-H3_tests"
+      ],
+      "arena": {
+        "slice_variant": "silveroxides DARE-TIES merge",
+        "source": "https://huggingface.co/spaces/multimodalart/h3-acceleration-arena",
+        "fetched": "2026-09-20",
+        "i2v": {
+          "rank": 7,
+          "elo": 1020.8,
+          "ci": [
+            986.8,
+            1112.7
+          ],
+          "votes": 4020,
+          "win_rate": 0.444
+        },
+        "t2v": {
+          "rank": 1,
+          "elo": 1132.1,
+          "ci": [
+            979.1,
+            1108.4
+          ],
+          "votes": 3117,
+          "win_rate": 0.467
+        }
+      }
     },
     {
       "id": "pdd-acc-8step",
@@ -197,7 +441,32 @@
       "sources": [
         "Jalen-Brunson/ComfyUI-MiniMax-H3-PDD-Acc",
         "alibaba-pai/MiniMax-H3-Acc-LoRAs"
-      ]
+      ],
+      "arena": {
+        "slice_variant": "alibaba-pai MiniMax-H3-Acc · FL2VA 8-step",
+        "source": "https://huggingface.co/spaces/multimodalart/h3-acceleration-arena",
+        "fetched": "2026-09-20",
+        "i2v": {
+          "rank": 3,
+          "elo": 1048.6,
+          "ci": [
+            927.2,
+            1051.6
+          ],
+          "votes": 3853,
+          "win_rate": 0.379
+        },
+        "t2v": {
+          "rank": 5,
+          "elo": 1051.2,
+          "ci": [
+            958.3,
+            1093.3
+          ],
+          "votes": 3043,
+          "win_rate": 0.455
+        }
+      }
     },
     {
       "id": "sage-attention",

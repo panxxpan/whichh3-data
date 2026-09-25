@@ -1,0 +1,987 @@
+{
+  "meta": {
+    "source": "https://huggingface.co/spaces/multimodalart/h3-acceleration-arena",
+    "source_api": "https://multimodalart-h3-acceleration-arena.hf.space/api/leaderboard",
+    "author": "multimodalart (Hugging Face)",
+    "fetched": "2026-09-20",
+    "method": "盲测 A/B：对预生成片段做两两对比投票，Elo 积分 + 置信区间，按 i2v / t2v 切片输出。",
+    "method_en": "Blind A/B: humans vote on pre-generated clip pairs; Elo ratings with confidence intervals, split into i2v and t2v slices.",
+    "corpus": "约 200 条提示词 / ~26 个加速变体（含基线、LoRA、全量 checkpoint 与 API 方案）",
+    "timing_reference": "RTX PRO 6000 Blackwell 96GB, bf16, no CPU offload; transformer forward only, median of 6 (multimodalart/perf-test-rtx)",
+    "note": "榜单为社区投票结果，版权与解释权归原作者（multimodalart）；本站引用并注明来源，未做二次计算。",
+    "note_en": "Community voting result, owned by multimodalart. Reproduced here with attribution; no re-computation.",
+    "total_votes": {
+      "i2v": 25905,
+      "t2v": 26883
+    },
+    "variants_ranked": 23
+  },
+  "i2v": [
+    {
+      "variant": "plaguekind_parasyte_turbo",
+      "display_name": "Plaguekind Parasyte Turbo",
+      "family": "Plaguekind H3-Lora",
+      "kind": "lora",
+      "nfe": 6,
+      "elo": 1083.0,
+      "elo_ci": [
+        997.8,
+        1122.9
+      ],
+      "votes": 4050,
+      "win_rate": 0.462,
+      "speedup_vs_baseline": 4.09,
+      "repo": "Plaguekind/H3-Lora",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 1
+    },
+    {
+      "variant": "fal_h3_max",
+      "display_name": "MiniMax H3-Max — hosted via fal",
+      "family": "MiniMax H3-Max (fal)",
+      "kind": "api",
+      "nfe": 0,
+      "elo": 1071.2,
+      "elo_ci": [
+        954.3,
+        1085.1
+      ],
+      "votes": 3932,
+      "win_rate": 0.435,
+      "speedup_vs_baseline": null,
+      "repo": null,
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 2
+    },
+    {
+      "variant": "alibaba_fl2va_acc_8step",
+      "display_name": "alibaba-pai MiniMax-H3-Acc · FL2VA 8-step",
+      "family": "alibaba-pai Acc (PDD)",
+      "kind": "pdd_lora",
+      "nfe": 8,
+      "elo": 1048.6,
+      "elo_ci": [
+        927.2,
+        1051.6
+      ],
+      "votes": 3853,
+      "win_rate": 0.379,
+      "speedup_vs_baseline": 3.09,
+      "repo": "alibaba-pai/MiniMax-H3-Acc-LoRAs",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 3
+    },
+    {
+      "variant": "larryvrh_v4_step600_ema",
+      "display_name": "larryvrh MiniMax-H3-Turbo v4 · step 600 EMA",
+      "family": "larryvrh",
+      "kind": "lora",
+      "nfe": 6,
+      "elo": 1045.8,
+      "elo_ci": [
+        991.3,
+        1114.1
+      ],
+      "votes": 3778,
+      "win_rate": 0.448,
+      "speedup_vs_baseline": 4.12,
+      "repo": "larryvrh/MiniMax-H3-Turbo-Lora",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 4
+    },
+    {
+      "variant": "silveroxides_4to8_dareties_v2",
+      "display_name": "silveroxides 4-to-8-step DARE merge",
+      "family": "silveroxides merges",
+      "kind": "lora",
+      "nfe": 6,
+      "elo": 1024.8,
+      "elo_ci": [
+        992.8,
+        1116.7
+      ],
+      "votes": 4079,
+      "win_rate": 0.429,
+      "speedup_vs_baseline": 4.09,
+      "repo": "silveroxides/MiniMax-H3_tests",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 5
+    },
+    {
+      "variant": "openvdn_vdn_h3_8nfe",
+      "display_name": "VDN-H3 8-step · 8 steps",
+      "family": "OpenVDN",
+      "kind": "full_checkpoint",
+      "nfe": 8,
+      "elo": 1022.7,
+      "elo_ci": [
+        935.1,
+        1055.0
+      ],
+      "votes": 726,
+      "win_rate": 0.387,
+      "speedup_vs_baseline": 3.17,
+      "repo": "OpenVDN/vdn-minimax-h3",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 6
+    },
+    {
+      "variant": "silveroxides_dareties_fro099_v2",
+      "display_name": "silveroxides DARE-TIES merge",
+      "family": "silveroxides merges",
+      "kind": "lora",
+      "nfe": 6,
+      "elo": 1020.8,
+      "elo_ci": [
+        986.8,
+        1112.7
+      ],
+      "votes": 4020,
+      "win_rate": 0.444,
+      "speedup_vs_baseline": 4.12,
+      "repo": "silveroxides/MiniMax-H3_tests",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 7
+    },
+    {
+      "variant": "lightx2v_fl2v_4step_v01",
+      "display_name": "LightX2V Minimax-h3-Turbo 4-step v0.1",
+      "family": "lightx2v Turbo",
+      "kind": "lora",
+      "nfe": 4,
+      "elo": 1004.5,
+      "elo_ci": [
+        896.9,
+        1022.4
+      ],
+      "votes": 2994,
+      "win_rate": 0.317,
+      "speedup_vs_baseline": 6.18,
+      "repo": "lightx2v/Minimax-h3-Turbo",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 8
+    },
+    {
+      "variant": "fastvideo_full_v02_vsaon",
+      "display_name": "FastVideo FastH3 Preview v0.2",
+      "family": "FastVideo",
+      "kind": null,
+      "nfe": 4,
+      "elo": 998.6,
+      "elo_ci": [
+        925.3,
+        1051.3
+      ],
+      "votes": 1444,
+      "win_rate": 0.365,
+      "speedup_vs_baseline": null,
+      "repo": "FastVideo/FastVideo-Minimax-FastH3-Preview-v0.2",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 9
+    },
+    {
+      "variant": "lightx2v_fl2v_8step_v10_768p",
+      "display_name": "LightX2V Minimax-h3-Turbo 8-step v1.0 768p",
+      "family": "lightx2v Turbo",
+      "kind": "lora",
+      "nfe": 8,
+      "elo": 996.7,
+      "elo_ci": [
+        943.1,
+        1058.6
+      ],
+      "votes": 3688,
+      "win_rate": 0.38,
+      "speedup_vs_baseline": 3.07,
+      "repo": "lightx2v/Minimax-h3-Turbo",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 10
+    },
+    {
+      "variant": "lightx2v_fl2v_8step_v10_native",
+      "display_name": "LightX2V Minimax-h3-Turbo 8-step v1.0 · native resolution",
+      "family": "lightx2v Turbo",
+      "kind": "lora",
+      "nfe": 8,
+      "elo": 991.0,
+      "elo_ci": [
+        978.7,
+        1099.3
+      ],
+      "votes": 4015,
+      "win_rate": 0.416,
+      "speedup_vs_baseline": 3.07,
+      "repo": "lightx2v/Minimax-h3-Turbo",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 11
+    },
+    {
+      "variant": "silveroxides_v01_fro_v4",
+      "display_name": "silveroxides LightX2V v0.1 resize",
+      "family": "silveroxides merges",
+      "kind": "lora",
+      "nfe": 4,
+      "elo": 987.8,
+      "elo_ci": [
+        900.8,
+        1018.8
+      ],
+      "votes": 1966,
+      "win_rate": 0.303,
+      "speedup_vs_baseline": 6.18,
+      "repo": "silveroxides/MiniMax-H3_tests",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 12
+    },
+    {
+      "variant": "fastvideo_full_v1_vsa_datafree_vsaon_6nfe",
+      "display_name": "FastVideo FastH3 v1 VSA-DataFree · 6 steps, community config",
+      "family": "FastVideo",
+      "kind": "full_checkpoint",
+      "nfe": 6,
+      "elo": 987.1,
+      "elo_ci": [
+        898.2,
+        1017.3
+      ],
+      "votes": 1939,
+      "win_rate": 0.331,
+      "speedup_vs_baseline": 10.34,
+      "repo": "FastVideo/FastVideo-FastH3-4-step-Preview-v1-VSA-DataFree",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 13
+    },
+    {
+      "variant": "baseline_28step",
+      "display_name": "MiniMax-H3 · 28 steps",
+      "family": "baseline",
+      "kind": "none",
+      "nfe": 27,
+      "elo": 986.2,
+      "elo_ci": [
+        933.8,
+        1057.2
+      ],
+      "votes": 3993,
+      "win_rate": 0.389,
+      "speedup_vs_baseline": 1.0,
+      "repo": null,
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 14
+    },
+    {
+      "variant": "flashgen_4step_v10_768p",
+      "display_name": "Beidouqixing FlashGen 4-step v1.0 768p",
+      "family": "Beidouqixing FlashGen",
+      "kind": "lora",
+      "nfe": 4,
+      "elo": 947.8,
+      "elo_ci": [
+        801.9,
+        936.3
+      ],
+      "votes": 319,
+      "win_rate": 0.288,
+      "speedup_vs_baseline": 6.18,
+      "repo": "Beidouqixing/minimax-h3-4step-lora-flashgen",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 15
+    },
+    {
+      "variant": "lightx2v_fl2v_4step_v11_768p",
+      "display_name": "LightX2V Minimax-h3-Turbo 4-step v1.1 768p",
+      "family": "lightx2v Turbo",
+      "kind": "lora",
+      "nfe": 4,
+      "elo": 919.9,
+      "elo_ci": [
+        846.7,
+        960.8
+      ],
+      "votes": 406,
+      "win_rate": 0.3,
+      "speedup_vs_baseline": 6.14,
+      "repo": "lightx2v/Minimax-h3-Turbo",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 16
+    },
+    {
+      "variant": "tutu_20to8nfe_step100",
+      "display_name": "Tutu AudioVideo 20→8 steps · checkpoint 100",
+      "family": "Tutu",
+      "kind": "lora",
+      "nfe": 8,
+      "elo": 919.5,
+      "elo_ci": [
+        807.0,
+        928.4
+      ],
+      "votes": 477,
+      "win_rate": 0.268,
+      "speedup_vs_baseline": 3.09,
+      "repo": "tutututututu/Tutu-MiniMax-H3-AudioVideo-20to8-NFE-LoRA",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 17
+    },
+    {
+      "variant": "lightx2v_fl2v_4step_v10_768p",
+      "display_name": "LightX2V Minimax-h3-Turbo 4-step v1.0 768p",
+      "family": "lightx2v Turbo",
+      "kind": "lora",
+      "nfe": 4,
+      "elo": 914.5,
+      "elo_ci": [
+        913.2,
+        1037.3
+      ],
+      "votes": 2905,
+      "win_rate": 0.337,
+      "speedup_vs_baseline": 6.14,
+      "repo": "lightx2v/Minimax-h3-Turbo",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 18
+    },
+    {
+      "variant": "taomate_h3_3step",
+      "display_name": "TaoMate-H3 3-step",
+      "family": "TaoMate",
+      "kind": "lora",
+      "nfe": 3,
+      "elo": 906.5,
+      "elo_ci": [
+        845.7,
+        976.9
+      ],
+      "votes": 950,
+      "win_rate": 0.308,
+      "speedup_vs_baseline": 6.47,
+      "repo": "multimodalart/TaoMate-H3-comfyui-layout",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 19
+    },
+    {
+      "variant": "lightx2v_fl2v_4step_v12_768p",
+      "display_name": "LightX2V Minimax-h3-Turbo 4-step v1.2 768p",
+      "family": "lightx2v Turbo",
+      "kind": "lora",
+      "nfe": 4,
+      "elo": 890.1,
+      "elo_ci": [
+        858.1,
+        981.1
+      ],
+      "votes": 854,
+      "win_rate": 0.28,
+      "speedup_vs_baseline": 6.14,
+      "repo": "lightx2v/Minimax-h3-Turbo",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 20
+    },
+    {
+      "variant": "tutu_20to8nfe_step300",
+      "display_name": "Tutu AudioVideo 20→8 steps · checkpoint 300",
+      "family": "Tutu",
+      "kind": "lora",
+      "nfe": 8,
+      "elo": 882.8,
+      "elo_ci": [
+        790.7,
+        930.5
+      ],
+      "votes": 404,
+      "win_rate": 0.282,
+      "speedup_vs_baseline": 3.09,
+      "repo": "tutututututu/Tutu-MiniMax-H3-AudioVideo-20to8-NFE-LoRA",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 21
+    },
+    {
+      "variant": "larryvrh_4step_ema_ckpt850",
+      "display_name": "larryvrh MiniMax-H3-Turbo · 4-step EMA ckpt 850",
+      "family": "larryvrh",
+      "kind": "lora",
+      "nfe": 4,
+      "elo": 867.7,
+      "elo_ci": [
+        771.1,
+        892.2
+      ],
+      "votes": 453,
+      "win_rate": 0.258,
+      "speedup_vs_baseline": 6.18,
+      "repo": "larryvrh/MiniMax-H3-Turbo-Lora",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 22
+    },
+    {
+      "variant": "joyfox_fl2va_4step",
+      "display_name": "joyfox MiniMax-H3-Turbo · FL2VA 4-step",
+      "family": "joyfox",
+      "kind": "lora",
+      "nfe": 4,
+      "elo": 821.9,
+      "elo_ci": [
+        735.8,
+        872.7
+      ],
+      "votes": 333,
+      "win_rate": 0.186,
+      "speedup_vs_baseline": 6.18,
+      "repo": "joyfox/MiniMax-H3-Turbo",
+      "out_of_contract": true,
+      "withdrawn": false,
+      "rank": 23
+    }
+  ],
+  "t2v": [
+    {
+      "variant": "silveroxides_dareties_fro099_v2",
+      "display_name": "silveroxides DARE-TIES merge",
+      "family": "silveroxides merges",
+      "kind": "lora",
+      "nfe": 6,
+      "elo": 1132.1,
+      "elo_ci": [
+        979.1,
+        1108.4
+      ],
+      "votes": 3117,
+      "win_rate": 0.467,
+      "speedup_vs_baseline": 4.12,
+      "repo": "silveroxides/MiniMax-H3_tests",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 1
+    },
+    {
+      "variant": "baseline_28step",
+      "display_name": "MiniMax-H3 · 28 steps",
+      "family": "baseline",
+      "kind": "none",
+      "nfe": 27,
+      "elo": 1096.3,
+      "elo_ci": [
+        955.1,
+        1103.0
+      ],
+      "votes": 3480,
+      "win_rate": 0.465,
+      "speedup_vs_baseline": 1.0,
+      "repo": null,
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 2
+    },
+    {
+      "variant": "larryvrh_v4_step600_ema",
+      "display_name": "larryvrh MiniMax-H3-Turbo v4 · step 600 EMA",
+      "family": "larryvrh",
+      "kind": "lora",
+      "nfe": 6,
+      "elo": 1064.2,
+      "elo_ci": [
+        977.7,
+        1123.2
+      ],
+      "votes": 3256,
+      "win_rate": 0.491,
+      "speedup_vs_baseline": 4.12,
+      "repo": "larryvrh/MiniMax-H3-Turbo-Lora",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 3
+    },
+    {
+      "variant": "plaguekind_parasyte_turbo",
+      "display_name": "Plaguekind Parasyte Turbo",
+      "family": "Plaguekind H3-Lora",
+      "kind": "lora",
+      "nfe": 6,
+      "elo": 1055.5,
+      "elo_ci": [
+        974.9,
+        1114.3
+      ],
+      "votes": 3091,
+      "win_rate": 0.49,
+      "speedup_vs_baseline": 4.09,
+      "repo": "Plaguekind/H3-Lora",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 4
+    },
+    {
+      "variant": "alibaba_fl2va_acc_8step",
+      "display_name": "alibaba-pai MiniMax-H3-Acc · FL2VA 8-step",
+      "family": "alibaba-pai Acc (PDD)",
+      "kind": "pdd_lora",
+      "nfe": 8,
+      "elo": 1051.2,
+      "elo_ci": [
+        958.3,
+        1093.3
+      ],
+      "votes": 3043,
+      "win_rate": 0.455,
+      "speedup_vs_baseline": 3.09,
+      "repo": "alibaba-pai/MiniMax-H3-Acc-LoRAs",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 5
+    },
+    {
+      "variant": "lightx2v_fl2v_8step_v10_native",
+      "display_name": "LightX2V Minimax-h3-Turbo 8-step v1.0 · native resolution",
+      "family": "lightx2v Turbo",
+      "kind": "lora",
+      "nfe": 8,
+      "elo": 1045.0,
+      "elo_ci": [
+        969.4,
+        1090.9
+      ],
+      "votes": 3160,
+      "win_rate": 0.434,
+      "speedup_vs_baseline": 3.07,
+      "repo": "lightx2v/Minimax-h3-Turbo",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 6
+    },
+    {
+      "variant": "tutu_20to8nfe_step100",
+      "display_name": "Tutu AudioVideo 20→8 steps · checkpoint 100",
+      "family": "Tutu",
+      "kind": "lora",
+      "nfe": 8,
+      "elo": 1042.3,
+      "elo_ci": [
+        880.1,
+        1007.4
+      ],
+      "votes": 2018,
+      "win_rate": 0.385,
+      "speedup_vs_baseline": 3.09,
+      "repo": "tutututututu/Tutu-MiniMax-H3-AudioVideo-20to8-NFE-LoRA",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 7
+    },
+    {
+      "variant": "openvdn_vdn_h3_8nfe",
+      "display_name": "VDN-H3 8-step · 8 steps",
+      "family": "OpenVDN",
+      "kind": "full_checkpoint",
+      "nfe": 8,
+      "elo": 1035.6,
+      "elo_ci": [
+        939.5,
+        1055.2
+      ],
+      "votes": 980,
+      "win_rate": 0.441,
+      "speedup_vs_baseline": 3.17,
+      "repo": "OpenVDN/vdn-minimax-h3",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 8
+    },
+    {
+      "variant": "fastvideo_fasth3_8step_v2_8nfe",
+      "display_name": "FastH3 8-Step V2 · 8 steps",
+      "family": "FastVideo",
+      "kind": "full_checkpoint",
+      "nfe": 8,
+      "elo": 1011.2,
+      "elo_ci": [
+        941.7,
+        1080.8
+      ],
+      "votes": 900,
+      "win_rate": 0.451,
+      "speedup_vs_baseline": 5.74,
+      "repo": "FastVideo/FastVideo-FastH3-8-Step-V2",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 9
+    },
+    {
+      "variant": "silveroxides_4to8_dareties_v2",
+      "display_name": "silveroxides 4-to-8-step DARE merge",
+      "family": "silveroxides merges",
+      "kind": "lora",
+      "nfe": 6,
+      "elo": 1008.0,
+      "elo_ci": [
+        956.7,
+        1084.9
+      ],
+      "votes": 3212,
+      "win_rate": 0.426,
+      "speedup_vs_baseline": 4.09,
+      "repo": "silveroxides/MiniMax-H3_tests",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 10
+    },
+    {
+      "variant": "fal_h3_max",
+      "display_name": "MiniMax H3-Max — hosted via fal",
+      "family": "MiniMax H3-Max (fal)",
+      "kind": "api",
+      "nfe": 0,
+      "elo": 1004.6,
+      "elo_ci": [
+        936.4,
+        1057.8
+      ],
+      "votes": 3170,
+      "win_rate": 0.408,
+      "speedup_vs_baseline": null,
+      "repo": null,
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 11
+    },
+    {
+      "variant": "silveroxides_v01_fro_v4",
+      "display_name": "silveroxides LightX2V v0.1 resize",
+      "family": "silveroxides merges",
+      "kind": "lora",
+      "nfe": 4,
+      "elo": 994.4,
+      "elo_ci": [
+        908.0,
+        1033.9
+      ],
+      "votes": 2190,
+      "win_rate": 0.404,
+      "speedup_vs_baseline": 6.18,
+      "repo": "silveroxides/MiniMax-H3_tests",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 12
+    },
+    {
+      "variant": "fastvideo_full_v1_vsa_datafree_vsaon_6nfe",
+      "display_name": "FastVideo FastH3 v1 VSA-DataFree · 6 steps, community config",
+      "family": "FastVideo",
+      "kind": "full_checkpoint",
+      "nfe": 6,
+      "elo": 986.3,
+      "elo_ci": [
+        916.2,
+        1054.2
+      ],
+      "votes": 4087,
+      "win_rate": 0.397,
+      "speedup_vs_baseline": 10.34,
+      "repo": "FastVideo/FastVideo-FastH3-4-step-Preview-v1-VSA-DataFree",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 13
+    },
+    {
+      "variant": "lightx2v_fl2v_4step_v01",
+      "display_name": "LightX2V Minimax-h3-Turbo 4-step v0.1",
+      "family": "lightx2v Turbo",
+      "kind": "lora",
+      "nfe": 4,
+      "elo": 972.9,
+      "elo_ci": [
+        904.6,
+        1037.9
+      ],
+      "votes": 2446,
+      "win_rate": 0.386,
+      "speedup_vs_baseline": 6.18,
+      "repo": "lightx2v/Minimax-h3-Turbo",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 14
+    },
+    {
+      "variant": "fastvideo_full_v1_vsa_datafree_vsaon_4nfe",
+      "display_name": "FastVideo FastH3 v1 VSA-DataFree · 4 steps, official config",
+      "family": "FastVideo",
+      "kind": "full_checkpoint",
+      "nfe": 4,
+      "elo": 965.2,
+      "elo_ci": [
+        874.5,
+        1010.2
+      ],
+      "votes": 2815,
+      "win_rate": 0.362,
+      "speedup_vs_baseline": 15.68,
+      "repo": "FastVideo/FastVideo-FastH3-4-step-Preview-v1-VSA-DataFree",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 15
+    },
+    {
+      "variant": "lightx2v_fl2v_8step_v10_768p",
+      "display_name": "LightX2V Minimax-h3-Turbo 8-step v1.0 768p",
+      "family": "lightx2v Turbo",
+      "kind": "lora",
+      "nfe": 8,
+      "elo": 932.5,
+      "elo_ci": [
+        912.1,
+        1043.3
+      ],
+      "votes": 3034,
+      "win_rate": 0.375,
+      "speedup_vs_baseline": 3.07,
+      "repo": "lightx2v/Minimax-h3-Turbo",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 16
+    },
+    {
+      "variant": "larryvrh_4step_ema_ckpt850",
+      "display_name": "larryvrh MiniMax-H3-Turbo · 4-step EMA ckpt 850",
+      "family": "larryvrh",
+      "kind": "lora",
+      "nfe": 4,
+      "elo": 925.0,
+      "elo_ci": [
+        896.9,
+        1025.2
+      ],
+      "votes": 2331,
+      "win_rate": 0.42,
+      "speedup_vs_baseline": 6.18,
+      "repo": "larryvrh/MiniMax-H3-Turbo-Lora",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 17
+    },
+    {
+      "variant": "lightx2v_fl2v_4step_v12_768p",
+      "display_name": "LightX2V Minimax-h3-Turbo 4-step v1.2 768p",
+      "family": "lightx2v Turbo",
+      "kind": "lora",
+      "nfe": 4,
+      "elo": 923.9,
+      "elo_ci": [
+        774.8,
+        903.1
+      ],
+      "votes": 518,
+      "win_rate": 0.228,
+      "speedup_vs_baseline": 6.14,
+      "repo": "lightx2v/Minimax-h3-Turbo",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 18
+    },
+    {
+      "variant": "tutu_20to8nfe_step300",
+      "display_name": "Tutu AudioVideo 20→8 steps · checkpoint 300",
+      "family": "Tutu",
+      "kind": "lora",
+      "nfe": 8,
+      "elo": 908.5,
+      "elo_ci": [
+        825.5,
+        949.5
+      ],
+      "votes": 356,
+      "win_rate": 0.329,
+      "speedup_vs_baseline": 3.09,
+      "repo": "tutututututu/Tutu-MiniMax-H3-AudioVideo-20to8-NFE-LoRA",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 19
+    },
+    {
+      "variant": "lightx2v_fl2v_4step_v11_768p",
+      "display_name": "LightX2V Minimax-h3-Turbo 4-step v1.1 768p",
+      "family": "lightx2v Turbo",
+      "kind": "lora",
+      "nfe": 4,
+      "elo": 908.3,
+      "elo_ci": [
+        829.9,
+        964.6
+      ],
+      "votes": 382,
+      "win_rate": 0.359,
+      "speedup_vs_baseline": 6.14,
+      "repo": "lightx2v/Minimax-h3-Turbo",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 20
+    },
+    {
+      "variant": "taomate_h3_3step",
+      "display_name": "TaoMate-H3 3-step",
+      "family": "TaoMate",
+      "kind": "lora",
+      "nfe": 3,
+      "elo": 901.1,
+      "elo_ci": [
+        833.0,
+        978.3
+      ],
+      "votes": 528,
+      "win_rate": 0.324,
+      "speedup_vs_baseline": 6.47,
+      "repo": "multimodalart/TaoMate-H3-comfyui-layout",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 21
+    },
+    {
+      "variant": "fastvideo_full_v02_vsaon",
+      "display_name": "FastVideo FastH3 Preview v0.2",
+      "family": "FastVideo",
+      "kind": null,
+      "nfe": 4,
+      "elo": 894.3,
+      "elo_ci": [
+        901.9,
+        1025.8
+      ],
+      "votes": 3263,
+      "win_rate": 0.382,
+      "speedup_vs_baseline": null,
+      "repo": "FastVideo/FastVideo-Minimax-FastH3-Preview-v0.2",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 22
+    },
+    {
+      "variant": "flashgen_4step_v10_768p",
+      "display_name": "Beidouqixing FlashGen 4-step v1.0 768p",
+      "family": "Beidouqixing FlashGen",
+      "kind": "lora",
+      "nfe": 4,
+      "elo": 893.6,
+      "elo_ci": [
+        761.2,
+        894.0
+      ],
+      "votes": 358,
+      "win_rate": 0.279,
+      "speedup_vs_baseline": 6.18,
+      "repo": "Beidouqixing/minimax-h3-4step-lora-flashgen",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 23
+    },
+    {
+      "variant": "fastvideo_vsa_datafree_lora_vsaon",
+      "display_name": "FastVideo FastH3 v1 · VSA-DataFree LoRA",
+      "family": "FastVideo",
+      "kind": null,
+      "nfe": 4,
+      "elo": 893.0,
+      "elo_ci": [
+        862.0,
+        990.6
+      ],
+      "votes": 667,
+      "win_rate": 0.361,
+      "speedup_vs_baseline": null,
+      "repo": "FastVideo/FastVideo-FastH3-4-step-Preview-v1-LoRA",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 24
+    },
+    {
+      "variant": "lightx2v_fl2v_4step_v10_768p",
+      "display_name": "LightX2V Minimax-h3-Turbo 4-step v1.0 768p",
+      "family": "lightx2v Turbo",
+      "kind": "lora",
+      "nfe": 4,
+      "elo": 882.3,
+      "elo_ci": [
+        854.9,
+        999.8
+      ],
+      "votes": 413,
+      "win_rate": 0.407,
+      "speedup_vs_baseline": 6.14,
+      "repo": "lightx2v/Minimax-h3-Turbo",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 25
+    },
+    {
+      "variant": "joyfox_fl2va_4step",
+      "display_name": "joyfox MiniMax-H3-Turbo · FL2VA 4-step",
+      "family": "joyfox",
+      "kind": "lora",
+      "nfe": 4,
+      "elo": 850.0,
+      "elo_ci": [
+        813.8,
+        937.0
+      ],
+      "votes": 296,
+      "win_rate": 0.372,
+      "speedup_vs_baseline": 6.18,
+      "repo": "joyfox/MiniMax-H3-Turbo",
+      "out_of_contract": true,
+      "withdrawn": false,
+      "rank": 26
+    },
+    {
+      "variant": "raven_streaming_4nfe",
+      "display_name": "mvp-lab RAVEN Streaming Preview · 4 steps",
+      "family": "mvp-lab RAVEN",
+      "kind": "lora",
+      "nfe": 4,
+      "elo": 786.8,
+      "elo_ci": [
+        723.0,
+        849.7
+      ],
+      "votes": 550,
+      "win_rate": 0.209,
+      "speedup_vs_baseline": 6.18,
+      "repo": "mvp-lab/MiniMax-H3-RAVEN-Streaming-LoRA",
+      "out_of_contract": false,
+      "withdrawn": false,
+      "rank": 27
+    }
+  ],
+  "reading": [
+    "Elo 是相对分，不同切片（i2v / t2v）不可直接比较；置信区间重叠时名次差异不显著（来源：Arena results 页）。",
+    "NFe = 模型实际前向次数 = num_inference_steps − 1（终点的 sigma=0 不计算）；6 NFE 即 7 步（来源：Arena conventions）。",
+    "同名方案的不同版本（v1.0/v1.1/v0.2…）是不同参赛条目，不能合并看待（来源：Arena variants.json）。",
+    "计时基准为 RTX PRO 6000 Blackwell 96GB、bf16、无 CPU 卸载；换算出的倍率只对同基准有意义（来源：Arena timing_reference）。",
+    "榜单反映的是“人眼偏好投票 + 固定计时”，不等于在你的卡上、你的工作流里的表现（来源：本站估算方法说明）。"
+  ],
+  "reading_en": [
+    "Elo is relative and slice-specific (i2v vs t2v are not comparable); overlapping CIs mean the rank gap is not significant (source: Arena results page).",
+    "NFE = actual model forwards = num_inference_steps − 1 (terminal sigma=0 is not evaluated); 6 NFE means 7 steps (source: Arena conventions).",
+    "Different versions of the same family (v1.0/v1.1/v0.2…) are separate entries (source: Arena variants.json).",
+    "Timing reference: RTX PRO 6000 Blackwell 96GB, bf16, no CPU offload; speedups are only meaningful on that baseline (source: Arena timing_reference).",
+    "The arena measures human preference on pre-generated clips plus fixed timing — not your card, your workflow (source: WhichH3 data notes)."
+  ]
+}
